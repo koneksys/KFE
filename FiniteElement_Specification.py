@@ -4,9 +4,17 @@ Created on Wed Jan 20 00:22:35 2016
 
 @author: User
 """
+#https://jszarazi@bitbucket.org/jszarazi/kfe.git
 #
 #Specification = {'Quantity_type':'vector','Topology':{'Polytope':'Simplex','Dim':2 },;
 #'1Face': {'FD':1,'PE':1,'NC':1},'0Face': {'FD':1,'PE':1,'NC':1}}
+
+#Space dimension is the number of parameters needed to specify the position
+#of a particular point. Space has n dimenson when n coordinates are required.
+
+#Dimension of a polytope is defined to be a convex hull in some Euclidean space m
+# of a set of n+1 points called vertices provided these points are independent
+#in the sense that they are not collinear.
 
 
 class FE_Specification:
@@ -17,19 +25,29 @@ class FE_Specification:
     
     def __init__(self):
         self.Polytope=None
-        self.Dimension=None
+        self.DimPolytope=None
+        self.DimSpace=None
         self.FunctionSpaceType=None
         self.FunctionReq_0Face=None
         self.FunctionReq_1Face=None
         self.FunctionReq_2Face=None
         self.FuncType= None
         
-    def set_Polytope(self,Polytope,Dimension):
-        if (1<=Dimension<=3) & (Polytope in self.PolytopeAvail):  
+    def set_Polytope(self,Polytope,DimPolytope):
+        if (1<=DimPolytope<=3) & (Polytope in self.PolytopeAvail):  
             self.Polytope = Polytope
-            self.Dimension= Dimension
+            self.DimPolytope= DimPolytope
         else:
             print 'only Simplex and Cube available or check dim = 1 or 2 or 3'
+            
+            
+    def set_DimSpace(self,DimSpace):
+        if (1<=DimSpace<=3):
+            self.DimSpace=DimSpace
+        else:
+            print 'Support only for 1D, 2D, 3D, please give a number between 1 and 3'
+            self.DimSpace=None
+            
   #One implementation set_FaceReq is probably possible          
     def set_FaceReq_0Face(self,ReqFace0):
         if not len(ReqFace0)==len(self.ListReq_0Face):
@@ -58,8 +76,15 @@ class FE_Specification:
             self.FuncType=FuncType
         else:
             print 'Following list is provided'+''.join(self.FuncTypeList)
-        
+ 
+   
+ 
+       
 class Finite_Element:
-    pass
+    
+    def __init__(self, FE_Specification):
+        self.FE_Specification= FE_Specification
+    
+    
 
     

@@ -38,6 +38,7 @@ class FunctionSpace_Factory:
             return Vector_Subspace()
             
 class Scalar_Subspace:
+    _x,_y,_z=symbols('x y z')
     __BasisFactory=[]
     __Basis=[]
     __BasisAsList=[]  
@@ -53,7 +54,7 @@ class Scalar_Subspace:
         self.Basis = None
         self.Derivative=None
                         
-    def get(self,BasisType, NbVariable,Degree):
+    def getFunction(self,BasisType, NbVariable,Degree):
         #set entry values to atrributes        
         self.BasisType=BasisType
         self.NbVariable=NbVariable
@@ -73,38 +74,45 @@ class Scalar_Subspace:
         self.Function=__FuncMat[0]
         self.Derivative=None
         
-    def Find_Derivative(self):
+    def getDerivative(self):
         if self.Function==None:
             print 'No function to derive, apply get method first'
         elif self.NbVariable==1:
-            self.Derivative=diff(self.Function,x,1)
+            self.Derivative=diff(self.Function,self._x,1)
             return self.Derivative
             print 'Derivate has been calculated'
         else:
             print 'Nothing happened'
     #the method eval_var calculate the basis for a specific coordinate
     #the vector component, polynomial coefficient are still unknown
-    def eval_var(self,value):
+    def evalFunc(self,value):
         if self.Function==None:
             print 'No function to evaluate, apply get method first'
         if len(value)==1:
             __Func=self.Function            
-            return __Func.subs(x,value[0])
+            return __Func.subs(self._x,value[0])
         else:
             print 'multivariate not supported for evaluation'
+            
+    def evalDerivative(self,value):
+        if self.Derivative==None:
+            print 'No derivative to evaluate, apply get method first'
+        if len(value)==1:
+            return self.Derivative.subs(self._x,value[0])
+        else:
+            print 'multivariate not supported for evaluation'
+            
             
 #Test: 
 # FunFac=FunctionSpace_Factory()
 # ScaSub=FunFac.get(1)
-# ScaSub.get('Monomial',1,2)
-# ScaSub.__dict__        
+# ScaSub.getFunction('Monomial',1,2)
+# ScaSub.__dict__       
+# ScaSub.getDerivative    
    
   
-class Vector_Subspace:
-    pass
-            
-class Scalar_Function:
-    pass
+
+
 
 #For now we only consider 1 to 3 dimensional monomial basis
 class BasisFunc_Factory:
