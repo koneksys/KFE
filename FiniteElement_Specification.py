@@ -9,82 +9,120 @@ Created on Wed Jan 20 00:22:35 2016
 #Specification = {'Quantity_type':'vector','Topology':{'Polytope':'Simplex','Dim':2 },;
 #'1Face': {'FD':1,'PE':1,'NC':1},'0Face': {'FD':1,'PE':1,'NC':1}}
 
-#Space dimension is the number of parameters needed to specify the position
-#of a particular point. Space has n dimenson when n coordinates are required.
+#Space dimension (DimSpace) is the number of parameters needed to specify the position
+#of a particular point/Vertice. Space has n dimenson when n coordinates are required.
 
-#Dimension of a polytope is defined to be a convex hull in some Euclidean space m
+#Dimension of a polytope (DimPolytope) is defined to be a convex hull in some Euclidean space m
 # of a set of n+1 points called vertices provided these points are independent
 #in the sense that they are not collinear.
 
 
+
+from Polytope_V4 import *
+
+
+def get_valid_input(input_string, valid_options):
+    input_string += " ({}) ".format((", ".join(valid_options)))
+    response = input(input_string)
+    while response.lower() not in valid_options:
+        response = input(input_string)
+    return response
+
 class FE_Specification:
-    PolytopeAvail=['Simplex','Cube']
-    ListReq_0Face=['PE','FD']
-    ListReq_1Face= ListReq_0Face
-    FuncTypeList=['Scalar','Vector','PseudoScalar','PseudoVector']
+    Valid_Polytope=("simplex","cube")
+    Valid_DimPolytope=("0","1","2","3")
+    Valid_DimSpace=("1","2","3")    
+    Valid_ListReq_0Face=("pe","fd")
+    Valid_ListReq_0FaceComb=("0","1")
+    Valid_ListReq_1Face=("pe","fd")
+    Valid_ListReq_1FaceComb=("0","1","2","3","4")
+    Valid_FuncTypeList=("scalar","vector")
     
     def __init__(self):
+                
         self.Polytope=None
         self.DimPolytope=None
         self.DimSpace=None
         self.FunctionSpaceType=None
-        self.FunctionReq_0Face=None
-        self.FunctionReq_1Face=None
-        self.FunctionReq_2Face=None
+        self.FunctionReq_0Face=[]
+        self.FunctionReq_1Face=[]
+        self.FunctionReq_2Face=[]
         self.FuncType= None
+        self.NbDOF= None
         
-    def set_Polytope(self,Polytope,DimPolytope):
-        if (1<=DimPolytope<=3) & (Polytope in self.PolytopeAvail):  
-            self.Polytope = Polytope
-            self.DimPolytope= DimPolytope
-        else:
-            print 'only Simplex and Cube available or check dim = 1 or 2 or 3'
-            
-            
-    def set_DimSpace(self,DimSpace):
-        if (1<=DimSpace<=3):
-            self.DimSpace=DimSpace
-        else:
-            print 'Support only for 1D, 2D, 3D, please give a number between 1 and 3'
-            self.DimSpace=None
-            
-  #One implementation set_FaceReq is probably possible          
-    def set_FaceReq_0Face(self,ReqFace0):
-        if not len(ReqFace0)==len(self.ListReq_0Face):
-            print 'give list of 2 arg - Arg1: PE (Point Evaluation) - Arg2: FD (First derivative)'
-        elif (max(ReqFace0)<=1) & (min(ReqFace0)>=0):
-            if ReqFace0[0]==0 and ReqFace0[1]==0:
-                self.FunctionReq_0Face= None
-            else:
-                self.FunctionReq_0Face= [self.ListReq_0Face,ReqFace0]            
-        else:
-            print 'only 0 or 1 is accepted'
-    
-    def set_FaceReq_1Face(self,ReqFace1):
-        if not len(ReqFace1)==len(self.ListReq_1Face):
-            print 'give list of 4 arg - Arg1: PE (Point Evaluation) Arg2: FD (First derivative)'
-        elif ReqFace1[0]==ReqFace1[1]:
-            if ReqFace1[0]==0 and ReqFace1[1]==0:
-                self.FunctionReq_1Face=None
-            else:
-                self.FunctionReq_1Face = [self.ListReq_1Face,ReqFace1]
-        else:
-            print 'PE=FD number of point evaluation has to be equal to number of derivative.'
-
-    def set_FuncType(self,FuncType):
-        if FuncType in self.FuncTypeList:
-            self.FuncType=FuncType
-        else:
-            print 'Following list is provided'+''.join(self.FuncTypeList)
- 
    
- 
-       
+    def prompt_init(self):
+      
+        self.Polytope = get_valid_input(
+                'Enter the Polytope Type',
+                self.Valid_Polytope)
+                
+        self.DimPolytope = get_valid_input(
+                "Enter Dimension of Polytope",
+                self.Valid_DimPolytope)
+                
+        self.DimSpace = get_valid_input(
+                "Enter Space Dimension",
+                self.Valid_DimSpace)
+                
+        if self.DimPolytope>self.DimSpace:
+            print "Space Dimension should be greater or equal to Polytope dimension"
+            self.DimSpace = get_valid_input(
+                "Enter Valid Space Dimension",
+                self.Valid_DimSpace)
+                        
+        self.FuncType = get_valid_input(
+                "Enter Space Dimension",
+                self.Valid_FuncTypeList) 
+             
+        for i in range (0,len(self.Valid_ListReq_0Face)):
+            self.FunctionReq_0Face.extend([self.Valid_ListReq_0Face[i], get_valid_input(
+                "evaluation on 0-Face of type  "+self.Valid_ListReq_0Face[i],
+                self.Valid_ListReq_0FaceComb)])       
+        
+        for i in range (0,len(self.Valid_ListReq_1Face)):
+            self.FunctionReq_1Face.extend([self.Valid_ListReq_1Face[i], get_valid_input(
+                "evaluation on 0-Face of type  "+self.Valid_ListReq_1Face[i],
+                self.Valid_ListReq_1FaceComb)]) 
+         
+         
+         
 class Finite_Element:
-    
+  
     def __init__(self, FE_Specification):
         self.FE_Specification= FE_Specification
-    
-    
+        
+
+
+ 
+def GenerateFE(FE_Specification):
+           
+           PolyFac = Polytope_Factory()
+           PolytopeFE = PolyFac.getPolytope(FE_Specification.Polytope, FE_Specification.DimSpace)
+           FunFac=FunctionSpace_Factory()
+           
+           if FE_Specification.FuncType == 'Scalar':
+               ScaSub=FunFac.get(1)
+               #Calculate 
+               ScaSub.getFunction('Monomial',1,2)
+               ScaSub.getDerivative
+           
+           # from FiniteElement_Specification import *
+           # testSpec1=FE_Specification()
+           # testSpec1.set_Polytope('Simplex',1)
+           # testSpec1.set_DimSpace(2)
+           # testSpec1.__dict__
+            #  from Polytope_V4 import *
+           # A=GenerateFE(testSpec1)
+        
+#   def getShapeFunction(self):
+ #       Polytope = PolyFac.getPolytope(self.FE_Specification.Polytope, self.FE_Specification.DimPolytope)
+        
+
+#to calculate the shape function we need to read the specification which means that
+# we have first to calculate the number of degrees of freedom based upon the 
+#type of DOF and the topological element. Based on this we can define what function 
+# we need to choose to represent these degrees of freedoms. We then represent
+#symbolicallty its values and its derivatives. 
 
     
