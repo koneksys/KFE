@@ -28,6 +28,9 @@ def get_valid_input(input_string, valid_options):
         response = input(input_string)
     return response
 
+def DOF_calculator(Face)
+
+
 class FE_Specification:
     Valid_Polytope=("simplex","cube")
     Valid_DimPolytope=("0","1","2","3")
@@ -57,50 +60,67 @@ class FE_Specification:
                 'Enter the Polytope Type',
                 self.Valid_Polytope)
                 
-        self.DimPolytope = get_valid_input(
+        self.DimPolytope = int(get_valid_input(
                 "Enter Dimension of Polytope",
-                self.Valid_DimPolytope)
+                self.Valid_DimPolytope))
                 
-        self.DimSpace = get_valid_input(
+        self.DimSpace = int(get_valid_input(
                 "Enter Space Dimension",
-                self.Valid_DimSpace)
+                self.Valid_DimSpace))
                 
         if self.DimPolytope>self.DimSpace:
             print "Space Dimension should be greater or equal to Polytope dimension"
-            self.DimSpace = get_valid_input(
+            self.DimSpace = int(get_valid_input(
                 "Enter Valid Space Dimension",
-                self.Valid_DimSpace)
+                self.Valid_DimSpace))
                         
         self.FuncType = get_valid_input(
                 "Enter Space Dimension",
                 self.Valid_FuncTypeList) 
              
         for i in range (0,len(self.Valid_ListReq_0Face)):
-            self.FunctionReq_0Face.extend([self.Valid_ListReq_0Face[i], get_valid_input(
+            self.FunctionReq_0Face.extend([self.Valid_ListReq_0Face[i], 
+                                           int(get_valid_input(
                 "evaluation on 0-Face of type  "+self.Valid_ListReq_0Face[i],
-                self.Valid_ListReq_0FaceComb)])       
+                self.Valid_ListReq_0FaceComb))])       
         
         for i in range (0,len(self.Valid_ListReq_1Face)):
-            self.FunctionReq_1Face.extend([self.Valid_ListReq_1Face[i], get_valid_input(
+            self.FunctionReq_1Face.extend([self.Valid_ListReq_1Face[i], 
+                                           int(get_valid_input(
                 "evaluation on 0-Face of type  "+self.Valid_ListReq_1Face[i],
-                self.Valid_ListReq_1FaceComb)]) 
-         
+                self.Valid_ListReq_1FaceComb))]) 
+         #Calculate the number of Degree of Freedom
+        
          
          
 class Finite_Element:
+    pass
   
     def __init__(self, FE_Specification):
         self.FE_Specification= FE_Specification
         
 
-
+import Polytope
  
 def GenerateFE(FE_Specification):
-           
-           PolyFac = Polytope_Factory()
-           PolytopeFE = PolyFac.getPolytope(FE_Specification.Polytope, FE_Specification.DimSpace)
-           FunFac=FunctionSpace_Factory()
-           
+    #generate the polytope
+        PolyFac = Polytope_Factory()
+        PolytopeFE = PolyFac.getPolytope(FE_Specification.Polytope, 
+                                         FE_Specification.DimPolytope)
+    #generate the functional space
+    #calculate the number of degree of freedom
+    #it depend also whether we have scalar or vector
+        
+A=[]        
+for i in range(0,2):
+    A.append(FEM.FunctionReq_0Face[2*i+1])
+    B=sum(A)
+                
+        
+        
+        FunFac=FunctionSpace_Factory()
+                   
+          
            if FE_Specification.FuncType == 'Scalar':
                ScaSub=FunFac.get(1)
                #Calculate 

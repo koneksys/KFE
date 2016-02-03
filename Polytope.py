@@ -7,20 +7,18 @@ Created on Mon Jan 18 19:29:48 2016
 
 from scipy.special import comb
 
-class Polytope:
-    pass
-
-
-class Polytope_Factory: 
-    def getPolytope(self, Category, DimPolytope): 
-        if Category == 'Simplex': 
-            return Simplex(DimPolytope) 
-        if Category == 'Cube': 
-            return Cube(DimPolytope)
 
 #Test the class
 #the term parametric describes any system of equations that gives one set o equations
 #explicitly in terms of a second set of independent variables (the parameters)
+class Polytope_Factory: 
+    def getPolytope(self, Category, DimPolytope): 
+        if Category == 'simplex': 
+            return Simplex(DimPolytope) 
+        if Category == 'cube': 
+            return Cube(DimPolytope)
+
+
 
 class Simplex:
     """
@@ -86,7 +84,5 @@ class Cube:
 
 
         
-
-
  
  
