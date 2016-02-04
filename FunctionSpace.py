@@ -53,7 +53,7 @@ class Scalar_Subspace:
         self.BasisType = None
         self.Basis = None
         self.Derivative=None
-                        
+                       
     def getFunction(self,BasisType, NbVariable,Degree):
         #set entry values to atrributes        
         self.BasisType=BasisType

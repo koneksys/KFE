@@ -94,6 +94,8 @@ class FE_Specification:
          
          
 class Finite_Element:
+    self.Polytope=Simplex(2)
+    
     pass
   
     def __init__(self, FE_Specification):
