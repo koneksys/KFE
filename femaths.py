@@ -6,8 +6,17 @@ Created on Thu Feb 04 09:41:13 2016
 """
 from scipy.special import comb
 
-class FEM_Math:
-    def __init__(self,polytopetype,dimpolytope,functionspacetype):
+
+if __name__ == '__main__':
+
+    def main(polytopeType, polytopeDim):
+        polytope = Polytope(polytopeType,polytopeDim)
+        lagrangeFEM_Math = femaths(polytope)
+    
+
+class femaths:
+    def __init__(self,polytope):
+        
         
         self.polytope = Polytope(polytopetype,dimpolytope)
         self.polytope.get_topo()
@@ -73,7 +82,7 @@ class Polytope:
             cubename=['point','line','square','cube']
             self.name = cubename[self.dimpolytope]
 
-
+        
 
 class FunctionalSpace:
     pass

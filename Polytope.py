@@ -12,7 +12,7 @@ from scipy.special import comb
 #the term parametric describes any system of equations that gives one set o equations
 #explicitly in terms of a second set of independent variables (the parameters)
 class Polytope_Factory: 
-    def getPolytope(self, Category, DimPolytope): 
+    def getpolytope(self, Category, DimPolytope):
         if Category == 'simplex': 
             return Simplex(DimPolytope) 
         if Category == 'cube': 
