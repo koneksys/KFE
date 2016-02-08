@@ -100,10 +100,8 @@ class Finite_Element:
   
     def __init__(self, FE_Specification):
         self.FE_Specification= FE_Specification
-        
 
-import Polytope
- 
+
 def GenerateFE(FE_Specification):
     #generate the polytope
         PolyFac = Polytope_Factory()

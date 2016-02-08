@@ -58,9 +58,9 @@ class FunctionalRequirement:
     
     
 class Polytope:
-    def __init__(self,polytopetype,dimpolytope):
-        self.dimpolytope = dimpolytope
-        self.polytopetype = polytopetype
+    def __init__(self, polytopeType, polytopeDim):
+        self.dimpolytope = polytopeDim
+        self.polytopetype = polytopeType
         self.name = None
         self.numvertice = None
         self.numedge = None
