@@ -21,7 +21,7 @@ class Polytope:
             self.name = simplexname[self.polytopedim]
             listnumface = []
 
-            for i in range(0, self.polytopedim):
+            for i in range(0, self.polytopedim+1):
                 listnumface.extend([comb(self.polytopedim + 1, i + 1)])
 
             self.listnumface = listnumface
@@ -32,7 +32,7 @@ class Polytope:
             self.name = cubename[self.polytopedim]
             listnumface = []
 
-            for i in range(0, self.polytopedim):
+            for i in range(0, self.polytopedim+1):
                 listnumface.extend([pow(factorial(i)*factorial(self.polytopedim-i),-1)*
                                          factorial(self.polytopedim)*pow(2,self.polytopedim-i)])
 
