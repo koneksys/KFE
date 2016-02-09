@@ -9,6 +9,7 @@ from sympy import*
 from sympy.polys.monomials import itermonomials
 from scipy.special import comb
 from sympy.physics.quantum import TensorProduct
+from femaths.polytope import Polytopetype, Polytopedimension
 
 
 class Funspace:

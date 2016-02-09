@@ -6,6 +6,7 @@ Created on Mon Jan 18 19:29:48 2016
 """
 
 from scipy.special import comb, factorial
+from enum import Enum
 
 
 class Polytopedimension(Enum):
@@ -20,20 +21,6 @@ class Polytopetype(Enum):
     cube = 2
 
 
-class Cube(Enum):
-    point = 0
-    line = 1
-    square = 2
-    cube = 3
-
-
-class Simplex(Enum):
-    point = 0
-    line = 1
-    triangle = 2
-    tetrahedron = 3
-
-
 class Polytope:
     def __init__(self, polytopetype, polytopedimension):
 
@@ -44,7 +31,7 @@ class Polytope:
             self.name = None
             self.listnumface = []
 
-            if self.polytopetype == Polytopetype.simplex:
+            if self.polytopetype == Polytopetype.simplex.name:
 
                 simplexname = ['point', 'line', 'triangle', 'tetrahedron']
                 self.name = simplexname[self.polytopedim]
@@ -55,7 +42,7 @@ class Polytope:
 
                 self.listnumface = listnumface
 
-            elif self.polytopetype == Polytopetype.cube:
+            elif self.polytopetype == Polytopetype.cube.name:
 
                 cubename = ['point','line','square','cube']
                 self.name = cubename[self.polytopedim]
@@ -68,18 +55,15 @@ class Polytope:
                 self.listnumface = listnumface
 
 
-
 def main():
-    polytopetype1 = 'simplex'
-    polytopedim1 = 2
-    simplex2 = Polytope(polytopetype1, polytopedim1)
-
-
-    polytopetype2 = 'cube'
-    polytopedim2 = 2
+    polytopetype1 = Polytopetype.simplex
+    polytopedim1 = Polytopedimension.dim1
+    simplex1 = Polytope(polytopetype1, polytopedim1)
+    print(simplex1.__dict__)
+    polytopetype2 = Polytopetype.cube
+    polytopedim2 = Polytopedimension.dim2
     cube2 = Polytope(polytopetype2, polytopedim2)
-
-
+    print(cube2.__dict__)
 
 if __name__ == "__main__":
     main()
