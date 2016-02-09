@@ -11,10 +11,14 @@ from funspace import Funspace, funcube, funsimplex
 
 
 class Femaths:
- pass
+    def __init__(self,simplex, polytopedimension, listreq):
+        self.simplex = simplex
+        self.polytope = Polytope(self.simplex)
+    pass
 
 
-def numdofcal(polytope, *args):
+
+def numdofcal(polytope, listreq):
 
     listreq = []
     for elem in args:
@@ -57,9 +61,11 @@ def main():
     funreq2 = Funreq(doftype2, dofnumber2, facedim2)
     funreq3 = Funreq(doftype1, dofnumber3, facedim3)
     funreq4 = Funreq(doftype2, dofnumber4, facedim4)
+    listreq = [funreq1, funreq2, funreq3, funreq4]
     print(funcube(2,0,1,4))
     print(simplex1.__dict__)
     print(funreq1.__dict__)
+    listreq1 = [funreq1,funreq2,funreq3,funreq4]
     A1 = numdofcal(simplex1,funreq1,funreq2,funreq3,funreq4)
     print(A1)
 

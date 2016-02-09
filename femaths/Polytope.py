@@ -8,35 +8,64 @@ Created on Mon Jan 18 19:29:48 2016
 from scipy.special import comb, factorial
 
 
+class Polytopedimension(Enum):
+    dim0 = 0
+    dim1 = 1
+    dim2 = 2
+    dim3 = 3
+
+
+class Polytopetype(Enum):
+    simplex = 1
+    cube = 2
+
+
+class Cube(Enum):
+    point = 0
+    line = 1
+    square = 2
+    cube = 3
+
+
+class Simplex(Enum):
+    point = 0
+    line = 1
+    triangle = 2
+    tetrahedron = 3
+
+
 class Polytope:
-    def __init__(self, polytopetype, polytopedim):
-        self.polytopedim = polytopedim
-        self.polytopetype = polytopetype
-        self.name = None
-        self.listnumface = []
+    def __init__(self, polytopetype, polytopedimension):
 
-        if self.polytopetype == 'simplex':
+        if isinstance(polytopetype, Polytopetype) and isinstance(polytopedimension, Polytopedimension):
 
-            simplexname = ['point', 'line', 'triangle', 'tetrahedron']
-            self.name = simplexname[self.polytopedim]
-            listnumface = []
+            self.polytopedim = polytopedimension.value
+            self.polytopetype = polytopetype.name
+            self.name = None
+            self.listnumface = []
 
-            for i in range(0, self.polytopedim+1):
-                listnumface.extend([comb(self.polytopedim + 1, i + 1)])
+            if self.polytopetype == Polytopetype.simplex:
 
-            self.listnumface = listnumface
+                simplexname = ['point', 'line', 'triangle', 'tetrahedron']
+                self.name = simplexname[self.polytopedim]
+                listnumface = []
 
-        elif self.polytopetype == 'cube':
+                for i in range(0, self.polytopedim + 1):
+                    listnumface.extend([comb(self.polytopedim + 1, i + 1)])
 
-            cubename = ['point','line','square','cube']
-            self.name = cubename[self.polytopedim]
-            listnumface = []
+                self.listnumface = listnumface
 
-            for i in range(0, self.polytopedim+1):
-                listnumface.extend([pow(factorial(i)*factorial(self.polytopedim-i),-1)*
-                                         factorial(self.polytopedim)*pow(2,self.polytopedim-i)])
+            elif self.polytopetype == Polytopetype.cube:
 
-            self.listnumface = listnumface
+                cubename = ['point','line','square','cube']
+                self.name = cubename[self.polytopedim]
+                listnumface = []
+
+                for i in range(0, self.polytopedim+1):
+                    listnumface.extend([pow(factorial(i)*factorial(self.polytopedim-i),-1)*
+                                             factorial(self.polytopedim)*pow(2,self.polytopedim-i)])
+
+                self.listnumface = listnumface
 
 
 

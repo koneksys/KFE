@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca14c933-2cb7-4de7-a4c4-44be8d7a62c5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/femaths/femaths.py" afterPath="$PROJECT_DIR$/femaths/femaths.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/femaths/funreq.py" afterPath="$PROJECT_DIR$/femaths/funreq.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/femaths/funspace.py" afterPath="$PROJECT_DIR$/femaths/funspace.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/femaths/polytope.py" afterPath="$PROJECT_DIR$/femaths/polytope.py" />
     </list>
     <ignored path="GIT_KFE.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -18,7 +21,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/GIT_KFE$hello.coverage" NAME="Functionalrequirement Coverage Results" MODIFIED="1454767326964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GIT_KFE$Functionalrequirement__1_.coverage" NAME="femaths Coverage Results" MODIFIED="1455037723180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/femaths" />
+    <SUITE FILE_PATH="coverage/GIT_KFE$Functionalrequirement__1_.coverage" NAME="femaths Coverage Results" MODIFIED="1455060191307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/femaths" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -29,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="funspace.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="funspace.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/femaths/funspace.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42713568">
-              <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
               <folding>
                 <element signature="e#84#102#0" expanded="true" />
               </folding>
@@ -57,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/femaths/femaths.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="12" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="12" />
+              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
               <folding>
                 <element signature="e#83#113#0" expanded="true" />
               </folding>
@@ -87,12 +90,102 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="funreq.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="funreq.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/femaths/funreq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.38190955">
+              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Python/#C:/WorkingDirectory_Spyder/GIT_KFE/femaths/funreq.py" pinned="false" current-in-tab="false">
+        <entry file="uml://Python/#C:/WorkingDirectory_Spyder/GIT_KFE/femaths/funreq.py">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>Python</ID>
+              <OriginalElement>#C:/WorkingDirectory_Spyder/GIT_KFE/femaths/funreq.py</OriginalElement>
+              <nodes>
+                <node x="514.5" y="754.0">enum.Enum</node>
+                <node x="109.33333333333326" y="102.0">enum.EnumMeta</node>
+                <node x="0.0" y="933.0">femaths.funreq.Polytopedimension</node>
+                <node x="710.9583333333333" y="0.0">_collections_abc.Hashable</node>
+                <node x="916.0" y="933.0">femaths.funreq.Meshobjecttype</node>
+                <node x="770.2083333333333" y="710.0">femaths.funreq.Funreq</node>
+                <node x="448.99999999999994" y="900.0">femaths.funreq.Doftype</node>
+                <node x="240.99999999999994" y="955.0">femaths.funreq.Polytopetype</node>
+                <node x="730.0" y="955.0">femaths.funreq.Fieldtype</node>
+                <node x="746.9583333333333" y="322.0">object</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="enum.Enum" target="object">
+                  <point x="43.33333333333337" y="-26.0" />
+                  <point x="622.8333333333333" y="690.0" />
+                  <point x="787.7083333333333" y="690.0" />
+                  <point x="-40.75" y="59.0" />
+                </edge>
+                <edge source="object" target="_collections_abc.Hashable">
+                  <point x="0.0" y="-59.0" />
+                  <point x="828.4583333333333" y="77.0" />
+                  <point x="818.2083333333333" y="77.0" />
+                  <point x="35.75" y="26.0" />
+                </edge>
+                <edge source="enum.Enum" target="_collections_abc.Hashable">
+                  <point x="0.0" y="-26.0" />
+                  <point x="579.5" y="680.0" />
+                  <point x="710.8333333333333" y="680.0" />
+                  <point x="710.8333333333333" y="77.0" />
+                  <point x="746.7083333333333" y="77.0" />
+                  <point x="-35.75" y="26.0" />
+                </edge>
+                <edge source="femaths.funreq.Meshobjecttype" target="enum.Enum">
+                  <point x="0.0" y="-59.0" />
+                  <point x="1017.5" y="870.0" />
+                  <point x="631.5" y="870.0" />
+                  <point x="52.0" y="26.0" />
+                </edge>
+                <edge source="femaths.funreq.Fieldtype" target="enum.Enum">
+                  <point x="0.0" y="-37.0" />
+                  <point x="813.0" y="880.0" />
+                  <point x="605.5" y="880.0" />
+                  <point x="26.0" y="26.0" />
+                </edge>
+                <edge source="femaths.funreq.Funreq" target="object">
+                  <point x="0.0" y="-70.0" />
+                  <point x="40.75" y="59.0" />
+                </edge>
+                <edge source="femaths.funreq.Polytopedimension" target="enum.Enum">
+                  <point x="0.0" y="-59.0" />
+                  <point x="110.5" y="870.0" />
+                  <point x="527.5" y="870.0" />
+                  <point x="-52.0" y="26.0" />
+                </edge>
+                <edge source="enum.Enum" target="enum.EnumMeta">
+                  <point x="-43.33333333333337" y="-26.0" />
+                  <point x="536.1666666666665" y="690.0" />
+                  <point x="404.83333333333326" y="690.0" />
+                  <point x="0.0" y="279.0" />
+                </edge>
+                <edge source="femaths.funreq.Doftype" target="enum.Enum">
+                  <point x="0.0" y="-92.0" />
+                  <point x="0.0" y="26.0" />
+                </edge>
+                <edge source="femaths.funreq.Polytopetype" target="enum.Enum">
+                  <point x="0.0" y="-37.0" />
+                  <point x="334.99999999999994" y="880.0" />
+                  <point x="553.5" y="880.0" />
+                  <point x="-26.0" y="26.0" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="0.7360507246376811" x="107.8099926162933" y="995.0644843711543" />
+              <SelectedNodes>
+                <node>enum.EnumMeta</node>
+              </SelectedNodes>
+              <Categories>
+                <Category>Fields</Category>
+              </Categories>
             </state>
           </provider>
         </entry>
@@ -134,10 +227,10 @@
         <option value="$PROJECT_DIR$/Polytope.py" />
         <option value="$PROJECT_DIR$/femaths/Functionalrequirement.py" />
         <option value="$PROJECT_DIR$/femaths/test/polytopetest.py" />
-        <option value="$PROJECT_DIR$/femaths/polytope.py" />
         <option value="$PROJECT_DIR$/femaths/funspace.py" />
-        <option value="$PROJECT_DIR$/femaths/funreq.py" />
         <option value="$PROJECT_DIR$/femaths/femaths.py" />
+        <option value="$PROJECT_DIR$/femaths/funreq.py" />
+        <option value="$PROJECT_DIR$/femaths/polytope.py" />
       </list>
     </option>
   </component>
@@ -277,7 +370,7 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/femaths/femaths.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/femaths/funreq.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -506,7 +599,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GIT_KFE" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/femaths/femaths.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/femaths/funreq.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -538,17 +631,17 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13543192" sideWeight="0.49061033" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13543192" sideWeight="0.4920635" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913387" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913387" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32125986" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32913387" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3055118" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24887556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33228347" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298791" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13543192" sideWeight="0.5093897" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13543192" sideWeight="0.50793654" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36535433" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -600,12 +693,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/femaths/femaths.py</url>
-          <line>60</line>
+          <line>65</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/femaths/femaths.py</url>
-          <line>62</line>
+          <line>68</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
@@ -885,6 +978,114 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/femaths/funspace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+          <folding>
+            <element signature="e#84#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://Python/#C:/WorkingDirectory_Spyder/GIT_KFE/femaths/funreq.py">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>Python</ID>
+          <OriginalElement>#C:/WorkingDirectory_Spyder/GIT_KFE/femaths/funreq.py</OriginalElement>
+          <nodes>
+            <node x="514.5" y="754.0">enum.Enum</node>
+            <node x="109.33333333333326" y="102.0">enum.EnumMeta</node>
+            <node x="0.0" y="933.0">femaths.funreq.Polytopedimension</node>
+            <node x="710.9583333333333" y="0.0">_collections_abc.Hashable</node>
+            <node x="916.0" y="933.0">femaths.funreq.Meshobjecttype</node>
+            <node x="770.2083333333333" y="710.0">femaths.funreq.Funreq</node>
+            <node x="448.99999999999994" y="900.0">femaths.funreq.Doftype</node>
+            <node x="240.99999999999994" y="955.0">femaths.funreq.Polytopetype</node>
+            <node x="730.0" y="955.0">femaths.funreq.Fieldtype</node>
+            <node x="746.9583333333333" y="322.0">object</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="enum.Enum" target="object">
+              <point x="43.33333333333337" y="-26.0" />
+              <point x="622.8333333333333" y="690.0" />
+              <point x="787.7083333333333" y="690.0" />
+              <point x="-40.75" y="59.0" />
+            </edge>
+            <edge source="object" target="_collections_abc.Hashable">
+              <point x="0.0" y="-59.0" />
+              <point x="828.4583333333333" y="77.0" />
+              <point x="818.2083333333333" y="77.0" />
+              <point x="35.75" y="26.0" />
+            </edge>
+            <edge source="enum.Enum" target="_collections_abc.Hashable">
+              <point x="0.0" y="-26.0" />
+              <point x="579.5" y="680.0" />
+              <point x="710.8333333333333" y="680.0" />
+              <point x="710.8333333333333" y="77.0" />
+              <point x="746.7083333333333" y="77.0" />
+              <point x="-35.75" y="26.0" />
+            </edge>
+            <edge source="femaths.funreq.Meshobjecttype" target="enum.Enum">
+              <point x="0.0" y="-59.0" />
+              <point x="1017.5" y="870.0" />
+              <point x="631.5" y="870.0" />
+              <point x="52.0" y="26.0" />
+            </edge>
+            <edge source="femaths.funreq.Fieldtype" target="enum.Enum">
+              <point x="0.0" y="-37.0" />
+              <point x="813.0" y="880.0" />
+              <point x="605.5" y="880.0" />
+              <point x="26.0" y="26.0" />
+            </edge>
+            <edge source="femaths.funreq.Funreq" target="object">
+              <point x="0.0" y="-70.0" />
+              <point x="40.75" y="59.0" />
+            </edge>
+            <edge source="femaths.funreq.Polytopedimension" target="enum.Enum">
+              <point x="0.0" y="-59.0" />
+              <point x="110.5" y="870.0" />
+              <point x="527.5" y="870.0" />
+              <point x="-52.0" y="26.0" />
+            </edge>
+            <edge source="enum.Enum" target="enum.EnumMeta">
+              <point x="-43.33333333333337" y="-26.0" />
+              <point x="536.1666666666665" y="690.0" />
+              <point x="404.83333333333326" y="690.0" />
+              <point x="0.0" y="279.0" />
+            </edge>
+            <edge source="femaths.funreq.Doftype" target="enum.Enum">
+              <point x="0.0" y="-92.0" />
+              <point x="0.0" y="26.0" />
+            </edge>
+            <edge source="femaths.funreq.Polytopetype" target="enum.Enum">
+              <point x="0.0" y="-37.0" />
+              <point x="334.99999999999994" y="880.0" />
+              <point x="553.5" y="880.0" />
+              <point x="-26.0" y="26.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.7360507246376811" x="107.8099926162933" y="995.0644843711543" />
+          <SelectedNodes>
+            <node>enum.EnumMeta</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Fields</Category>
+          </Categories>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/femaths/femaths.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+          <folding>
+            <element signature="e#83#113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/femaths/test/polytopetest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -905,29 +1106,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/femaths/funreq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.38190955">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/femaths/femaths.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="12" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="12" />
-          <folding>
-            <element signature="e#83#113#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/femaths/funspace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42713568">
-          <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding>
-            <element signature="e#84#102#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

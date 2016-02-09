@@ -54,6 +54,8 @@ class Funspace:
             return funcube(self.dimension, self.kform, self.degree, self.dofnumber)
 
 
+
+
 def funsimplex(dimension, kform, degree, dofnumber):
     x,y,z = symbols('x y z')
     listallvar =[x,y,z]
@@ -116,7 +118,7 @@ def funcube(dimension, kform, degree, dofnumber):
 
 def main():
 
-    dimension1 = 2
+    dimension1 = 1
     polytopetype1 = 'simplex'
     dofnumber1 = 6
     kform1 = 0
@@ -124,9 +126,9 @@ def main():
     poly1 = funspace1.getfun()
     print(poly1)
 
-    dimension2 = 2
+    dimension2 = 1
     polytopetype2 = 'cube'
-    dofnumber2 = 9
+    dofnumber2 = 6
     kform2 = 0
     funspace2 = Funspace(dimension2, dofnumber2, polytopetype2, kform2)
     poly2 = funspace2.getfun()
