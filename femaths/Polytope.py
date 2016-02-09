@@ -44,12 +44,12 @@ def main():
     polytopetype1 = 'simplex'
     polytopedim1 = 2
     simplex2 = Polytope(polytopetype1, polytopedim1)
-    simplex2.get_topo()
+
 
     polytopetype2 = 'cube'
     polytopedim2 = 2
     cube2 = Polytope(polytopetype2, polytopedim2)
-    cube2.get_topo()
+
 
 
 if __name__ == "__main__":
