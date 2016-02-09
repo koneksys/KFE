@@ -14,7 +14,7 @@ if __name__ == '__main__':
         lagrangeFEM_Math = femaths(polytope)
     
 
-class femaths:
+class Femaths:
     def __init__(self,polytope):
         
         

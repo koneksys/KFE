@@ -160,8 +160,5 @@ sorted indices are required (e.g. when passing data to other libraries).
 
 """
 
-
-from .FiniteElement_Specification import *
-from .FunctionSpace import *
 from .test import *
 
