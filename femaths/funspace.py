@@ -10,130 +10,136 @@ from sympy.polys.monomials import itermonomials
 from scipy.special import comb
 from sympy.physics.quantum import TensorProduct
 from femaths.polytope import Polytopetype, Polytopedimension
+from femaths.funreq import Doftype
+from enum import Enum
+
+
+class Kform(Enum):
+    zeroform = 0
+    oneform = 1
+    twoform = 2
+    threeform = 3
 
 
 class Funspace:
-    def __init__(self, dimension, dofnumber, polytopetype, kform):
+    def __init__(self, polytopetype, polytopedimension, kform, dofnumber):
 
-        if dimension >= dofnumber:
-            raise NameError('Problem cant be represented')
+        test1 = isinstance(polytopetype, Polytopetype)
+        test2 = isinstance(polytopedimension, Polytopedimension)
+        test3 = isinstance(kform, Kform)
+
+        if test1 and test2 and test3:
+
+            if polytopedimension.value >= dofnumber:
+                raise NameError('Problem cant be represented')
+
+            else:
+                listdof = []
+                degreemax = 10
+                if polytopetype.name == Polytopetype.simplex.name:
+
+                    for i in range(0, degreemax):
+                        listdof.append(comb(polytopedimension.value + i, i))
+
+                elif polytopetype.name == Polytopetype.cube.name:
+
+                    for i in range(0, degreemax):
+                        listdof.append(pow(i+1, polytopedimension.value))
+
+                else:
+                    raise NameError('polytopetype is not supported')
+
+                if dofnumber in listdof:
+                    self.degree = listdof.index(dofnumber)
+                    self.dimension = polytopedimension.value
+                    self.polytopetype = polytopetype.name
+                    self.dofnumber = int(dofnumber)
+                    self.kform = kform.name
+                    self.basis = None
+                    self.fun = None
+
+                else:
+                    raise NameError('Problem cant be represented')
+
+                x,y,z = symbols('x y z')
+                listallvar =[x,y,z]
+                listvar = []
+                basisset = {}
+                basislist = []
+                coefvec = MatrixSymbol('c', 1, self.dofnumber)
+                funmat = []
+
+                if self.polytopetype == Polytopetype.simplex.name:
+
+                    if self.kform == Kform.zeroform.name:
+
+                        for i in range(0, self.dimension):
+                            listvar.append(listallvar[i])
+
+                        basisset = itermonomials(listvar, self.degree)
+
+                        for elem in basisset:
+                            basislist.append(elem)
+
+                        funmat = Matrix(coefvec)*Matrix(basislist)
+                        fun = funmat[0]
+                        self.fun = fun
+
+                elif self.polytopetype == Polytopetype.cube.name:
+
+                    if self.kform == Kform.zeroform.name:
+
+                        for i in range(0, self.dimension):
+                            listvar.append(listallvar[i])
+
+                        b = []
+                        for i in range(0, self.dimension):
+                            basisset = itermonomials([listvar[i]], self.degree)
+                            basislist = []
+                            for elem in basisset:
+                                basislist.append(elem)
+
+                            self.basis = basislist
+
+                            if i == 0:
+                                basis = Matrix(basislist)
+                            if i == 1:
+                                basis = TensorProduct(basis, Matrix(basislist))
+                            if i == 2:
+                                basis = TensorProduct(basis, Matrix(basislist))
+
+                        funmat = Matrix(coefvec)*Matrix(basis)
+                        fun = funmat[0]
+
+                        self.fun = fun
 
         else:
-            listdof = []
-            degreemax = 6
-            if polytopetype == 'simplex':
+            raise NameError('wrong type entry. arg1: Polytopetype, arg2: Polytopedimension, arg3: Kform')
 
-                for i in range(0,degreemax):
-                    listdof.append(comb(dimension + i, i))
 
-            elif polytopetype == 'cube':
-
-                for i in range(0,degreemax):
-                    listdof.append(pow(i+1,dimension))
-
-            else:
-                raise NameError('Problem cant be represented')
-
-            if dofnumber in listdof:
-                self.degree = listdof.index(dofnumber)
-                self.dimension = dimension
-                self.polytopetype = polytopetype
-                self.dofnumber = dofnumber
-                self.kform = kform
-                self.basis = None
-                self.fun = None
-
-            else:
-                raise NameError('Problem cant be represented')
-
-    def getfun(self):
-
-        if self.polytopetype == 'simplex':
-            return funsimplex(self.dimension, self.kform, self.degree, self.dofnumber)
-
-        elif self.polytopetype == 'cube':
-            return funcube(self.dimension, self.kform, self.degree, self.dofnumber)
+#    def getfun(self, doftype):
+#        if isinstance(doftype, Doftype):
+#            if doftype.name == Doftype.pointevaluation:
 
 
 
-
-def funsimplex(dimension, kform, degree, dofnumber):
-    x,y,z = symbols('x y z')
-    listallvar =[x,y,z]
-    listvar = []
-    basisset = {}
-    basislist = []
-    coefvec = MatrixSymbol('c', 1, dofnumber)
-    funmat = []
-
-    if kform == 0:
-
-        for i in range(0,dimension):
-            listvar.append(listallvar[i])
-
-        basisset = itermonomials(listvar, degree)
-
-        for elem in basisset:
-            basislist.append(elem)
-
-        funmat = Matrix(coefvec)*Matrix(basislist)
-        fun = funmat[0]
-
-        return fun
-
-
-def funcube(dimension, kform, degree, dofnumber):
-    x,y,z = symbols('x y z')
-    listallvar = [x, y, z]
-    listvar = []
-    basisset = {}
-    basislist = []
-    coefvec = MatrixSymbol('c', 1, dofnumber)
-    funmat = []
-
-    if kform == 0:
-
-        for i in range(0,dimension):
-            listvar.append(listallvar[i])
-
-        b = []
-        for i in range(0, dimension):
-            basisset = itermonomials([listvar[i]], degree)
-            basislist = []
-            for elem in basisset:
-                basislist.append(elem)
-
-            if i == 0:
-                basis = Matrix(basislist)
-            if i == 1:
-                basis = TensorProduct(basis, Matrix(basislist))
-            if i == 2:
-                basis = TensorProduct(basis, Matrix(basislist))
-
-        funmat = Matrix(coefvec)*Matrix(basis)
-        fun = funmat[0]
-
-        return fun
 
 
 
 def main():
-
-    dimension1 = 1
-    polytopetype1 = 'simplex'
-    dofnumber1 = 6
-    kform1 = 0
-    funspace1 = Funspace(dimension1, dofnumber1, polytopetype1, kform1)
-    poly1 = funspace1.getfun()
-    print(poly1)
-
-    dimension2 = 1
-    polytopetype2 = 'cube'
-    dofnumber2 = 6
-    kform2 = 0
-    funspace2 = Funspace(dimension2, dofnumber2, polytopetype2, kform2)
-    poly2 = funspace2.getfun()
-    print(poly2)
+    polytopetype1 = Polytopetype.simplex
+    dimension1 = Polytopedimension.dim2
+    kform1 = Kform.zeroform
+    dofnumber1 = 3
+    funspace1 = Funspace(polytopetype1, dimension1, kform1, dofnumber1)
+    print(funspace1.__dict__)
+#    dimension2 = 1
+#    polytopetype2 = 'cube'
+#    dofnumber2 = 6
+#    kform2 = 0
+#    funspace2 = Funspace(dimension2, dofnumber2, polytopetype2, kform2)
+#    poly2 = funspace2.getfun()
+#    print(poly2)
 
 
 if __name__ == "__main__":
