@@ -81,6 +81,7 @@ class Funspace:
                         for elem in basisset:
                             basislist.append(elem)
 
+                        self.basis = basislist
                         funmat = Matrix(coefvec)*Matrix(basislist)
                         fun = funmat[0]
                         self.fun = fun
@@ -162,16 +163,16 @@ class Funspace:
 
 def main():
     polytopetype1 = Polytopetype.simplex
-    dimension1 = Polytopedimension.dim3
+    dimension1 = Polytopedimension.dim2
     kform1 = Kform.zeroform
     dofnumber1 = 10
     doftype1 = Doftype.pointevaluation
     doftype2 = Doftype.firstderivative
     funspace1 = Funspace(polytopetype1, dimension1, kform1, dofnumber1)
     print(funspace1.__dict__)
-    polyeval1 = funspace1.funeval(doftype1,1,1,1)
+    polyeval1 = funspace1.funeval(doftype1,1,1)
     print(polyeval1)
-    polyeval2 = funspace1.funeval(doftype2,1,1,1)
+    polyeval2 = funspace1.funeval(doftype2,1,1)
     print(polyeval2)
 #
 #    dimension2 = 1
