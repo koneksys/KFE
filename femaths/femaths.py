@@ -11,26 +11,51 @@ from funspace import Funspace, Kform
 from enum import Enum
 
 
-class Paramrange(Enum):
-    parammin = -1
-    parammax = 1
+
 
 #the problem is that you require the nbofDof to instantiate the element funspace...
 #the function can be external and associated to main.
 
 class Femaths:
     def __init__(self, polytope, funspace, listreq):
-        self.polytope = polytope
-        self.funspace = funspace
-        self.listreq = listreq
+
+        test1 = isinstance(polytope, Polytope)
+        test2 = isinstance(funspace, Funspace)
+        #testing that the list is composed of element of type Funrec
+        test3 = True
+        iterlistreq = iter(listreq)
+        for i in iterlistreq:
+            test3 = test3 and isinstance(i, Funreq)
+
+        #final test = arguments are OK
+        if test1 == True and test2 == True and test3 == True:
+            self.polytope = polytope
+            self.funspace = funspace
+            self.listreq = listreq
+
+            equation = 0
+            for i in range(0, len(listreq)):
+
+                if listreq[i].doftype == Doftype.pointevaluation:
+                    if polytope.polytopedim >= listreq[i].facedim:
+                        ndof = ndof + listreq[i].dofnumber * \
+                                  polytope.listnumface[listreq[i].facedim]
+
+
+
+        else:
+            raise NameError('first argument is an object of type Polytope, second '
+                        'argument is of type Funspace '
+                            'and the third is a list composed of objects of type Funreq')
 
         #the goal is to calculate the shape functions
-
 
 
 def numberdof(polytope, listreq):
     #TO DO verify whether the problem can be represented or not.
     #verify that first argument is of type polytope
+    #it could return a validated list
+    #it could calculate the coordinate on the polytope based upon the requirement
     test1 = isinstance(polytope, Polytope)
 
     #testing that the list is composed of element of type Funrec
