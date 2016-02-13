@@ -9,6 +9,7 @@ from scipy.special import comb, factorial
 from enum import Enum
 
 
+
 class Polytopedimension(Enum):
     dim0 = 0
     dim1 = 1

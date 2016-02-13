@@ -51,6 +51,8 @@ class Femaths:
         #the goal is to calculate the shape functions
 
 
+
+
 def numberdof(polytope, listreq):
     #TO DO verify whether the problem can be represented or not.
     #verify that first argument is of type polytope
