@@ -1,28 +1,43 @@
 from enum import Enum
 from polytope import Polytope, Polytopedimension, Polytopetype
 from itertools import combinations
+from scipy.special import comb, factorial
+
 
 class Paramrange(Enum):
     parammin = 0
     parammax = 1
 
 
-
 class Femmeshtriangle:
     def __init__(self, polytope):
 
         if polytope.name == 'line':
-            self.nodeconnectivity = list(combinations(range(0, polytope.listnumface[1]),
-                                                      polytope.listnumface[0]))
+            self.edgeconnectivity = list(combinations(range(0, int(polytope.listnumface[0])), 2))
+            self.nodecoord = [0, 1]
 
+            verticelist = []
+            for i in range(0, int(polytope.listnumface[0])):
+                verticelist.append(Vertice([i], self.nodecoord[i]))
 
-        if polytope.name == 'triangle':
+            self.verticelist = verticelist
+
+            edgelist = []
+            for i in range(0, int(polytope.listnumface[1])):
+                edgelist.append(Edge(i,
+                                     verticelist[self.edgeconnectivity[i][0]],
+                                     verticelist[self.edgeconnectivity[i][1]]))
+
+            self.edgelist = edgelist
+
+        elif polytope.name == 'triangle':
                 #self.numberedge = 3
                 #self.numbervertice = 3
             self.volumelist = []
             self.facelistindex = [0]
             #self.edgelistindex = [0, 1, 2]
-            self.nodeconnectivity = list(combinations(range(0, int(polytope.listnumface[0])),2))
+            self.edgeconnectivity = list(combinations(range(0, int(polytope.listnumface[0])),
+                                                      int(comb(2, 1))))
             #[[0, 1], [1, 2], [2, 0]]
             #self.nodelistindex = [0, 1, 2]
             self.nodecoord = [[0, 0], [1, 0], [0, 1]]
@@ -36,12 +51,39 @@ class Femmeshtriangle:
             edgelist = []
             for i in range(0, int(polytope.listnumface[1])):
                 edgelist.append(Edge(i,
-                                     verticelist[self.nodeconnectivity[i][0]],
-                                     verticelist[self.nodeconnectivity[i][1]]))
+                                     verticelist[self.edgeconnectivity[i][0]],
+                                     verticelist[self.edgeconnectivity[i][1]]))
 
             self.edgelist = edgelist
 
-#        elif polytope.name == 'tetrahedron':
+        elif polytope.name == 'tetrahedron':
+                 #self.numberedge = 3
+                #self.numbervertice = 3
+            self.volumelist = []
+            self.facelistindex = [0]
+            #self.edgelistindex = [0, 1, 2]
+
+            self.edgeconnectivity = list(combinations(range(0, int(polytope.listnumface[0])),
+                                                      int(comb(2, 1))))
+            self.faceconnectivity = list(combinations(range(0, int(polytope.listnumface[1])),
+                                                      int(comb(3, 2))))
+            #[[0, 1], [1, 2], [2, 0]]
+            #self.nodelistindex = [0, 1, 2]
+            self.nodecoord = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]
+
+            verticelist = []
+            for i in range(0, int(polytope.listnumface[0])):
+                verticelist.append(Vertice([i], self.nodecoord[i]))
+
+            self.verticelist = verticelist
+
+            edgelist = []
+            for i in range(0, int(polytope.listnumface[1])):
+                edgelist.append(Edge(i,
+                                     verticelist[self.edgeconnectivity[i][0]],
+                                     verticelist[self.edgeconnectivity[i][1]]))
+
+            self.edgelist = edgelist
 
 
 
@@ -151,11 +193,14 @@ def main():
     print(edge1.__dict__)
     edge1.addvertice(.3)
     edge1.addvertice(.6)
+    polytopetype0 = Polytopetype.simplex
+    polytopedim0 = Polytopedimension.dim1
     polytopetype1 = Polytopetype.simplex
     polytopedim1 = Polytopedimension.dim2
+    simplex0 = Polytope(polytopetype0, polytopedim0)
     simplex1 = Polytope(polytopetype1, polytopedim1)
+    #fem0 = Femmeshtriangle(simplex0)
     fem1 = Femmeshtriangle(simplex1)
-
     print(edge1.__dict__)
     print(edge1.interiorvertice[0].__dict__)
     print(edge1.interiorvertice[1].__dict__)

@@ -21,7 +21,7 @@ class Polytopetype(Enum):
     simplex = 1
     cube = 2
 
-
+    
 class Polytope:
     def __init__(self, polytopetype, polytopedimension):
 
