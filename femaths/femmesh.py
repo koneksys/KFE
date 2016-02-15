@@ -9,97 +9,6 @@ class Paramrange(Enum):
     parammax = 1
 
 
-class Femmeshtriangle:
-    def __init__(self, polytope):
-
-        if polytope.name == 'line':
-            self.edgeconnectivity = list(combinations(range(0, int(polytope.listnumface[0])), 2))
-            self.nodecoord = [0, 1]
-
-            verticelist = []
-            for i in range(0, int(polytope.listnumface[0])):
-                verticelist.append(Vertice([i], self.nodecoord[i]))
-
-            self.verticelist = verticelist
-
-            edgelist = []
-            for i in range(0, int(polytope.listnumface[1])):
-                edgelist.append(Edge(i,
-                                     verticelist[self.edgeconnectivity[i][0]],
-                                     verticelist[self.edgeconnectivity[i][1]]))
-
-            self.edgelist = edgelist
-
-        elif polytope.name == 'triangle':
-                #self.numberedge = 3
-                #self.numbervertice = 3
-            self.volumelist = []
-            self.facelistindex = [0]
-            #self.edgelistindex = [0, 1, 2]
-            self.edgeconnectivity = list(combinations(range(0, int(polytope.listnumface[0])),
-                                                      int(comb(2, 1))))
-            #[[0, 1], [1, 2], [2, 0]]
-            #self.nodelistindex = [0, 1, 2]
-            self.nodecoord = [[0, 0], [1, 0], [0, 1]]
-
-            verticelist = []
-            for i in range(0, int(polytope.listnumface[0])):
-                verticelist.append(Vertice([i], self.nodecoord[i]))
-
-            self.verticelist = verticelist
-
-            edgelist = []
-            for i in range(0, int(polytope.listnumface[1])):
-                edgelist.append(Edge(i,
-                                     verticelist[self.edgeconnectivity[i][0]],
-                                     verticelist[self.edgeconnectivity[i][1]]))
-
-            self.edgelist = edgelist
-
-        elif polytope.name == 'tetrahedron':
-                 #self.numberedge = 3
-                #self.numbervertice = 3
-            self.volumelist = []
-            self.facelistindex = [0]
-            #self.edgelistindex = [0, 1, 2]
-
-            self.edgeconnectivity = list(combinations(range(0, int(polytope.listnumface[0])),
-                                                      int(comb(2, 1))))
-            self.faceconnectivity = list(combinations(range(0, int(polytope.listnumface[1])),
-                                                      int(comb(3, 2))))
-            #[[0, 1], [1, 2], [2, 0]]
-            #self.nodelistindex = [0, 1, 2]
-            self.nodecoord = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]
-
-            verticelist = []
-            for i in range(0, int(polytope.listnumface[0])):
-                verticelist.append(Vertice([i], self.nodecoord[i]))
-
-            self.verticelist = verticelist
-
-            edgelist = []
-            for i in range(0, int(polytope.listnumface[1])):
-                edgelist.append(Edge(i,
-                                     verticelist[self.edgeconnectivity[i][0]],
-                                     verticelist[self.edgeconnectivity[i][1]]))
-
-            self.edgelist = edgelist
-
-
-
-
-class Refelements(Enum):
-    line = [[1, 2],
-            [0, 1]]
-    triangle = [[1, 2, 3],
-                [[1, 2], [2, 3], [3, 1]],
-                [[0, 0], [0, 1], [1, 0]]]
-    tetrahedron = [[1, 2, 3, 4],
-                   [[3, 5, 1],[3, 4, 2],[2, 6, 1],[4, 6, 5]],
-                   [[1, 4], [4, 2], [2, 1], ]
-                   ]
-
-
 class Vertice:
     def __init__(self, index, coordlist):
         try:
@@ -113,6 +22,7 @@ class Vertice:
 
         self.coordinates = coordlist
         self.index = index
+
 
 class Edge:
     def __init__(self, index, vertice1, vertice2):
@@ -163,6 +73,7 @@ class Face:
         else:
             raise NameError('param should be comprised in range defined by Class Paramrange')
 
+
 class Femmesh:
     def __init__(self, polytope):
         if isinstance(polytope, Polytope):
@@ -173,10 +84,6 @@ class Femmesh:
                     newvertice = Vertice([k],[u,v,w])
                     meshelemlist.append(newvertice)
                 meshelemlist = [meshelemlist]
-
-
-
-
 
         else:
             raise NameError('argument should')
@@ -205,6 +112,7 @@ def main():
     print(edge1.interiorvertice[0].__dict__)
     print(edge1.interiorvertice[1].__dict__)
     print(fem1.edgelist.__dict__)
+
 
 
 if __name__ == "__main__":
