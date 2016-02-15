@@ -9,62 +9,85 @@ from scipy.special import comb, factorial
 from enum import Enum
 
 
+class Polygontype(Enum):
+    nopolygon = 2
+    triangle = 3
+    square = 4
+    pentagon = 5
+    hexagon = 6
+    octogon = 8
 
-class Polytopedimension(Enum):
-    dim0 = 0
-    dim1 = 1
-    dim2 = 2
-    dim3 = 3
+
+class Polytopecoordinate(Enum):
+    zstart = [0, 0, 1]
+    line = [0, 1]
+    triangle = [[0, 0], [0, 1], [1, 1]]
+    square = [[0, 0], [0, 1], [1, 1], [0, 1]]
 
 
 class Polytopetype(Enum):
-    simplex = 1
-    cube = 2
+    line = 1
+    polygon = 2
+    polyhedron = 3
 
-    
+
+class Polyhedrontype(Enum):
+    nopolyhedron = 0
+    pyramid = 1
+    prism = 2
+
+
 class Polytope:
-    def __init__(self, polytopetype, polytopedimension):
+    def __init__(self, polytopetype, polygontype, polyhedrontype):
+        try:
+            isinstance(polytopetype, Polytopetype)
+            isinstance(polygontype, Polygontype)
+            isinstance(polyhedrontype, Polyhedrontype)
+        except:
+            raise NameError('first argument is Polytopetype: line, polygon, polyhedron'
+                            'second argument is polygontype: nopolygon, triangle, square, pentagon..'
+                            'third argument is polyhedrontype: nopolyhedron, pyramid, prism ')
 
-        if isinstance(polytopetype, Polytopetype) and isinstance(polytopedimension, Polytopedimension):
+        self.polytopename = [polytopetype.name, polygontype.name, polyhedrontype.name]
+        self.listnumface = []
+        self.verticelist = []
+        self.edgelist = []
+        self.facelist = []
 
-            self.polytopedim = polytopedimension.value
-            self.polytopetype = polytopetype.name
-            self.name = None
-            self.listnumface = []
+        if polytopetype.value == 1:
+            self.listnumface = [1, 2]
 
-            if self.polytopetype == Polytopetype.simplex.name:
+        if polytopetype.value == 2:
+            self.listnumface = [1, polygontype.value, polygontype.value]
 
-                simplexname = ['point', 'line', 'triangle', 'tetrahedron']
-                self.name = simplexname[self.polytopedim]
-                listnumface = []
+        if polytopetype.value == 3 and polyhedrontype.value == 1:
+            self.listnumface = [1, polygontype.value + 1,
+                                2 * polygontype.value, polygontype.value + 1]
 
-                for i in range(0, self.polytopedim + 1):
-                    listnumface.extend([comb(self.polytopedim + 1, i + 1)])
-
-                self.listnumface = listnumface
-
-            elif self.polytopetype == Polytopetype.cube.name:
-
-                cubename = ['point','line','square','cube']
-                self.name = cubename[self.polytopedim]
-                listnumface = []
-
-                for i in range(0, self.polytopedim+1):
-                    listnumface.extend([pow(factorial(i)*factorial(self.polytopedim-i),-1)*
-                                             factorial(self.polytopedim)*pow(2,self.polytopedim-i)])
-
-                self.listnumface = listnumface
+        if polytopetype.value == 3 and polyhedrontype.value == 2:
+            self.listnumface = [1, 2 + polygontype.value,
+                                3 * polygontype.value, 2 * polygontype.value  ]
 
 
 def main():
-    polytopetype1 = Polytopetype.simplex
-    polytopedim1 = Polytopedimension.dim1
-    simplex1 = Polytope(polytopetype1, polytopedim1)
-    print(simplex1.__dict__)
-    polytopetype2 = Polytopetype.cube
-    polytopedim2 = Polytopedimension.dim2
-    cube2 = Polytope(polytopetype2, polytopedim2)
-    print(cube2.__dict__)
+    polytopetype1 = Polytopetype.line
+    polygontype1 = Polygontype.nopolygon
+    polyhedrontype1 = Polyhedrontype.nopolyhedron
+    LineElement = Polytope(polytopetype1, polygontype1, polyhedrontype1)
+    polytopetype2 = Polytopetype.polygon
+    polygontype2 = Polygontype.triangle
+    polyhedrontype2 = Polyhedrontype.nopolyhedron
+    triangleElement = Polytope(polytopetype2, polygontype2, polyhedrontype2)
+    polytopetype3 = Polytopetype.polyhedron
+    polygontype3 = Polygontype.square
+    polyhedrontype3 = Polyhedrontype.pyramid
+    triangularprism = Polytope(polytopetype3, polygontype3, polyhedrontype3)
+
+    print(LineElement.__dict__)
+    print(triangleElement.__dict__)
+    print(triangularprism.__dict__)
+
+
 
 if __name__ == "__main__":
     main()
