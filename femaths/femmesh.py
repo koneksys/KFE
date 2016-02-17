@@ -76,17 +76,18 @@ class Face:
 
 class Femmesh:
     def __init__(self, polytope):
-        if isinstance(polytope, Polytope):
+        try:
+            isinstance(polytope, Polytope)
+        except:
+            raise NameError('the entry is an object of class Polytope')
             #create vertice of the polytope
-            meshelemlist = []
-            for i in range(0, len(polytope.polytopedim)+1):
-                for k in range(0, len(polytope.listnumface[0])):
-                    newvertice = Vertice([k],[u,v,w])
-                    meshelemlist.append(newvertice)
-                meshelemlist = [meshelemlist]
 
-        else:
-            raise NameError('argument should')
+        if self.polytopeinfo[0] == Polytopetype.line:
+            polytope.verticelist
+            vertice0 = Vertice(0, )
+             self.verticelist = [[1, 2], polytopecoordinate.value]
+
+
 
 
 
