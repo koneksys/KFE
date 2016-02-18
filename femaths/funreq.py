@@ -32,12 +32,12 @@ class Funreq:
             if (doftype.value == 0 or doftype.value == 1) and (meshobjecttype.value < 1) and (dofnumber > 1):
                 raise NameError('only one degree of freedom is possible on vertice')
 
+            self.info = [doftype, meshobjecttype]
             self.doftype = doftype
             self.doftypename = doftype.name
             self.facedim = meshobjecttype.value
             self.facename = meshobjecttype.name
             self.dofnumber = dofnumber
-
 
         else:
             raise NameError('argument 1 is of enum type Doftype, argument 2 is of enum facedim, argument 3 is integer')

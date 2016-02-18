@@ -137,7 +137,7 @@ class Polytope:
 
             for i in range(0,2):
                 for k in range(0,2):
-                    copyedgelist[i][k]= copyedgelist[i][k]+ polygontype.value
+                    copyedgelist[i][k] = copyedgelist[i][k]+ polygontype.value
             self.edgelist[1].extend(copyedgelist)
 
 
@@ -148,8 +148,8 @@ def main():
     polyhedrontype1 = Polyhedrontype.nopolyhedron
     polytopecoord1 = Polytopecoordinate(polygontype1)
     line = Polytope(polytopetype1, polygontype1, polyhedrontype1,polytopecoord1)
-    polytopetype2 = Polytopetype.polygon
 
+    polytopetype2 = Polytopetype.polygon
     polygontype2 = Polygontype.triangle
     polyhedrontype2 = Polyhedrontype.nopolyhedron
     polytopecoord2 = Polytopecoordinate(polygontype2)
