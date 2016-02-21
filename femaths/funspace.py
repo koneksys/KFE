@@ -9,25 +9,93 @@ from sympy import*
 from sympy.polys.monomials import itermonomials
 from scipy.special import comb
 from sympy.physics.quantum import TensorProduct
-from polytope import Polytopetype, Polytopedimension
-from funreq import Doftype
+#from polytope import Polytopetype, Polytopedimension
+#from funreq import Doftype
 from enum import Enum
 
 
-class Kform(Enum):
-    zeroform = 0
-    oneform = 1
-    twoform = 2
-    threeform = 3
+
+class Monomial:
+    def __init__(self, dimension, degree):
+        x,y,z = symbols('x y z')
+        listallvar = [x, y, z]
+        listvar = []
+        basisset = {}
+        basislist = []
+        funmat = []
+
+        try:
+            isinstance(dimension, int)
+            isinstance(degree, int)
+            0 < dimension <= 3
+            0 < degree
+        except:
+            raise NameError('dimension and degree of type integer with 0<dimension<=3, 0<degree')
+
+        #calculate the number of degree of freedom
+        self.dofnumber = int(comb(dimension+degree, degree))
+
+        coefvec = MatrixSymbol('c', 1, self.dofnumber)
+
+        for i in range(0, dimension):
+                        listvar.append(listallvar[i])
+
+        monomiallist = [1]
+        if dimension == 1:
+            for i in range(1, degree+1):
+                for k in range(0, dimension):
+                    monomiallist.append(pow(x, i))
+
+        elif dimension == 2:
+            for i in range(1, degree+1):
+                monomiallist.append(pow(x, i))
+                for j in range(1, i):
+                    monomiallist.append(pow(x, i-j)*pow(y, j))
+                monomiallist.append(pow(y, i))
+
+        elif dimension == 3:
+            for i in range(1, degree+1):
+                monomiallist.append(pow(x, i))
+                for j in range(1, i):
+                    monomiallist.append(pow(x, i-j)*pow(y, j))
+                monomiallist.append(pow(y, i))
+
+                for j in range(1, i):
+                    monomiallist.append(pow(x, i-j)*pow(z, j))
+
+                for j in range(1, i):
+                    monomiallist.append(pow(y, i-j)*pow(z, j))
+                monomiallist.append(pow(z, i))
+
+        self.basis = monomiallist
+        funmat = Matrix(coefvec)*Matrix(monomiallist)
+        fun = funmat[0]
+        self.fun = fun
+
+
+class Tensorspace:
+    def __init__(self, *args):
+        monolist=[]
+        try:
+            for elem in args:
+                isinstance(elem, Monomial)
+                monolist.append(elem)
+        except:
+            raise NameError('arguments are of type Monomial')
+
+        if len(monolist) > 3:
+            raise NameError('not more than three dimension')
+        #actually test should be more elaborate. one could 2 dimension * 1 dimension thus only having 2 arguments
+
+        for i in range()
 
 
 class Funspace:
-    def __init__(self, polytopetype, polytopedimension, kform, dofnumber):
+    def __init__(self, polytopetype, polytopedimension, dofnumber):
 
         try:
             isinstance(polytopetype, Polytopetype)
             isinstance(polytopedimension, Polytopedimension)
-            isinstance(kform, Kform)
 
         except:
             raise NameError('wrong type entry. arg1: Polytopetype, arg2: Polytopedimension, arg3: Kform')
@@ -56,7 +124,6 @@ class Funspace:
                 self.dimension = polytopedimension.value
                 self.polytopetype = polytopetype.name
                 self.dofnumber = int(dofnumber)
-                self.kform = kform.name
                 self.basis = None
                 self.fun = None
 
@@ -162,18 +229,19 @@ class Funspace:
 
 
 def main():
-    polytopetype1 = Polytopetype.simplex
-    dimension1 = Polytopedimension.dim2
-    kform1 = Kform.zeroform
-    dofnumber1 = 10
-    doftype1 = Doftype.pointevaluation
-    doftype2 = Doftype.firstderivative
-    funspace1 = Funspace(polytopetype1, dimension1, kform1, dofnumber1)
-    print(funspace1.__dict__)
-    polyeval1 = funspace1.funeval(doftype1,1,1)
-    print(polyeval1)
-    polyeval2 = funspace1.funeval(doftype2,1,1)
-    print(polyeval2)
+#    polytopetype1 = Polytopetype.simplex
+#    dimension1 = Polytopedimension.dim2
+#    dofnumber1 = 10
+#    doftype1 = Doftype.pointevaluation
+#    doftype2 = Doftype.firstderivative
+#    funspace1 = Funspace(polytopetype1, dimension1, dofnumber1)
+#    print(funspace1.__dict__)
+#    polyeval1 = funspace1.funeval(doftype1,1,1)
+#    print(polyeval1)
+#    polyeval2 = funspace1.funeval(doftype2,1,1)
+#    print(polyeval2)
+    poly1Dlinear = Monomial(2,2)
+    print(poly1Dlinear.__dict__)
 #
 #    dimension2 = 1
 #    polytopetype2 = 'cube'

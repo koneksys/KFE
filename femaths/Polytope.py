@@ -32,13 +32,13 @@ class Polytopecoordinate:
         self.value = []
 
         if polygontype == Polygontype.nopolygon:
-            self.value = [0, 1]
+            self.value = [[0], [1]]
 
         elif polygontype == Polygontype.triangle:
-            self.value = [[0, 0], [0, 1], [1, 1]]
+            self.value = [[0, 0], [1, 0], [0, 1]]
 
         elif polygontype == Polygontype.square:
-            self.value = [[0, 0], [0, 1], [1, 1], [0, 1]]
+            self.value = [[0, 0], [1, 0], [1, 1], [0, 1]]
 
         elif polygontype == Polygontype.pentagon:
             self.value = [[0.5, 0], [1.5, 0], [2, 1], [1, 2], [0, 1]]
