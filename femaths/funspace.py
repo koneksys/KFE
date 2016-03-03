@@ -74,8 +74,6 @@ class Monomial:
         self.fun = fun
 
 
-
-
 class Tensorspace:
     def __init__(self, *args):
         monolist=[]
@@ -90,8 +88,16 @@ class Tensorspace:
             raise NameError('not more than three dimension')
         #actually test should be more elaborate. one could 2 dimension * 1 dimension thus only having 2 arguments
 
-
         self.monolist = monolist
+
+        if len(monolist) == 1:
+            self.basis = monolist[0].basis
+            self.fun = monolist[0].fun
+
+        elif len(monolist) == 2:
+            self.basis = TensorProduct(Matrix(monolist[0].basis),Matrix(monolist[1].basis))
+
+
 """        for i in range(0, self.dimension):
             listvar.append(listallvar[i])
 
@@ -267,8 +273,10 @@ def main():
 #    print(polyeval1)
 #    polyeval2 = funspace1.funeval(doftype2,1,1)
 #    print(polyeval2)
-    poly1Dlinear = Monomial(2,2)
+    poly1Dlinear = Monomial(1,1)
     print(poly1Dlinear.__dict__)
+    tensorpoly = Tensorspace(poly1Dlinear,poly1Dlinear)
+    print(tensorpoly.__dict__)
 #
 #    dimension2 = 1
 #    polytopetype2 = 'cube'

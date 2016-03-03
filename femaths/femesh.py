@@ -143,12 +143,13 @@ class Femesh:
             if reqlist[i].info[1] == Meshobjecttype.edge:
                 ndofedgelist.append(reqlist[i].dofnumber)
 
-        iterator = iter(ndofedgelist)
-        first = next(iterator)
-        try:
-            all(first == rest for rest in iterator)
-        except:
-            raise NameError('All requirement types applied to an edge should have DOFnumber.')
+        if len(ndofedgelist)>=1:
+            iterator = iter(ndofedgelist)
+            first = next(iterator)
+            try:
+                all(first == rest for rest in iterator)
+            except:
+                raise NameError('All requirement types applied to an edge should have DOFnumber.')
 
         #We need to separate the adding of the nodes from the adding of the requirements-
         #first we add the node if there are at least on requirement on the edges.
@@ -210,9 +211,9 @@ def main():
 
     doftype4 = Doftype.firstderivative
     facedim4 = Meshobjecttype.edge
-    dofnumber4 = 2
+    dofnumber4 = 3
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
-    funreqlist1 = [funcreq3]
+    funreqlist1 = [funcreq1,funcreq2,funcreq3,funcreq4]
     linemesh.applyfunreq(funreqlist1)
     trianglemesh.applyfunreq(funreqlist1)
     squaremesh.applyfunreq(funreqlist1)
