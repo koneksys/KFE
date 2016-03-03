@@ -68,9 +68,12 @@ class Monomial:
                 monomiallist.append(pow(z, i))
 
         self.basis = monomiallist
+        self.var = listvar
         funmat = Matrix(coefvec)*Matrix(monomiallist)
         fun = funmat[0]
         self.fun = fun
+
+
 
 
 class Tensorspace:
@@ -87,7 +90,31 @@ class Tensorspace:
             raise NameError('not more than three dimension')
         #actually test should be more elaborate. one could 2 dimension * 1 dimension thus only having 2 arguments
 
-        for i in range()
+
+        self.monolist = monolist
+"""        for i in range(0, self.dimension):
+            listvar.append(listallvar[i])
+
+        for i in range(0, self.dimension):
+            basisset = itermonomials([listvar[i]], self.degree)
+            basislist = []
+            for elem in basisset:
+                basislist.append(elem)
+
+            self.basis = basislist
+
+            if i == 0:
+                basis = Matrix(basislist)
+            if i == 1:
+                basis = TensorProduct(basis, Matrix(basislist))
+            if i == 2:
+                basis = TensorProduct(basis, Matrix(basislist))
+
+        funmat = Matrix(coefvec)*Matrix(basis)
+        fun = funmat[0]
+
+        self.fun = fun"""
+
 
 
 class Funspace:

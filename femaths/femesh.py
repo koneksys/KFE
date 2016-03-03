@@ -1,5 +1,5 @@
 from enum import Enum
-from polytope import Polygontype, Polytopecoordinate, Polytopetype, Polyhedrontype, Polytope
+from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from itertools import combinations
 from scipy.special import comb, factorial
 from funreq import Funreq, Doftype, Meshobjecttype
@@ -62,23 +62,29 @@ class Edge:
 
 class Face:
     def __init__(self, index, edgelist):
-        test = True
-        iteredgelist = iter(edgelist)
-        for i in iteredgelist:
-            test = test and isinstance(i, Edge)
 
-        if test is True:
+        try:
+            iteredgelist = iter(edgelist)
+            for i in iteredgelist:
+                isinstance(i, Edge)
+            isinstance(index,list)
+
             self.edgelist = edgelist
             self.index = [index]
 
-        else:
-            raise NameError('element in list are not of type class Edge')
+        except:
+            raise NameError('first element is a list of indexes, second argument is a list of element of type'
+                            'edge')
 
     def addvertice(self, paramlist):
-        test = True
-        iterparamlist = iter(paramlist)
-        for i in paramlist:
-            test = test and (i >= Paramrange.parammin.value) and (i <= Paramrange.parammax.value)
+
+        try:
+            isinstance(paramlist, list)
+            len(paramlist) == 2
+
+        except:
+            raise NameError('argument is of type list with len(list) == 2')
+
 
         if test is True:
             verticecoord = []
@@ -169,21 +175,21 @@ def main():
     polytopetype1 = Polytopetype.line
     polygontype1 = Polygontype.nopolygon
     polyhedrontype1 = Polyhedrontype.nopolyhedron
-    polytopecoord1 = Polytopecoordinate(polygontype1)
+    polytopecoord1 = Polygoncoordinate(polygontype1)
     line = Polytope(polytopetype1, polygontype1, polyhedrontype1,polytopecoord1)
     linemesh = Femesh(line)
 
     polytopetype2 = Polytopetype.polygon
     polygontype2 = Polygontype.triangle
     polyhedrontype2 = Polyhedrontype.nopolyhedron
-    polytopecoord2 = Polytopecoordinate(polygontype2)
+    polytopecoord2 = Polygoncoordinate(polygontype2)
     triangle = Polytope(polytopetype2, polygontype2, polyhedrontype2, polytopecoord2)
     trianglemesh = Femesh(triangle)
 
     polytopetype3 = Polytopetype.polygon
     polygontype3 = Polygontype.square
     polyhedrontype3 = Polyhedrontype.nopolyhedron
-    polytopecoord3 = Polytopecoordinate(polygontype3)
+    polytopecoord3 = Polygoncoordinate(polygontype3)
     square = Polytope(polytopetype3, polygontype3, polyhedrontype3, polytopecoord3)
     squaremesh = Femesh(square)
 
@@ -199,14 +205,14 @@ def main():
 
     doftype3 = Doftype.pointevaluation
     facedim3 = Meshobjecttype.edge
-    dofnumber3 = 2
+    dofnumber3 = 3
     funcreq3 = Funreq(doftype3, facedim3, dofnumber3)
 
     doftype4 = Doftype.firstderivative
     facedim4 = Meshobjecttype.edge
     dofnumber4 = 2
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
-    funreqlist1 = [funcreq1, funcreq2, funcreq3, funcreq4]
+    funreqlist1 = [funcreq3]
     linemesh.applyfunreq(funreqlist1)
     trianglemesh.applyfunreq(funreqlist1)
     squaremesh.applyfunreq(funreqlist1)
@@ -224,7 +230,7 @@ def main():
     print(edge1.__dict__)
     print(edge1.interiorvertices[0].__dict__)
     print(edge1.interiorvertices[1].__dict__)
- #   print(linemesh.__dict__)
+    print(trianglemesh.__dict__)
 
 
 
