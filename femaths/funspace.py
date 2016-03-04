@@ -6,23 +6,48 @@ Created on Mon Jan 18 20:00:59 2016
 """
 
 from sympy import*
-from sympy.polys.monomials import itermonomials
+from funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
 from scipy.special import comb
 from sympy.physics.quantum import TensorProduct
+
 #from polytope import Polytopetype, Polytopedimension
 #from funreq import Doftype
 from enum import Enum
 
 
 
+def funeval(funspace, doftype, coord):
+    try:
+        isinstance(doftype, Doftype)
+        isinstance(coord, list)
+        len(coord) == len(funspace.basis)
+    except:
+        raise NameError('first argument is of type DOF and second of type coord')
+
+    if doftype == Doftype.pointevaluation:
+        funeval = funspace.fun
+        for i in range(0, len(coord)):
+            funeval = funeval.subs(funspace.var[i], coord[i])
+
+        return funeval
+
+    elif doftype == Doftype.firstderivative:
+        #evaluation can be multidimensional
+        funeval = []
+        #for each variable calculate the first derivative
+        for i in range(0, len(coord)):
+            funevalitem = funspace.fun
+            funevalitem = diff(funevalitem, funspace.var[i], 1)
+            #for each first derivative calculate the derivative value
+            for k in range(0, len(coord)):
+                funevalitem = funevalitem.subs(funspace.var[k], coord[k])
+            funeval.append(funevalitem)
+
+        return funeval
+
+
 class Monomial:
     def __init__(self, dimension, degree, varnamelist):
-        x,y,z = symbols('x y z')
-        listallvar = [x, y, z]
-        listvar = []
-        basisset = {}
-        basislist = []
-        funmat = []
 
         try:
             isinstance(varnamelist, list)
@@ -79,6 +104,9 @@ class Monomial:
         fun = funmat[0]
         self.fun = fun
 
+    def funeval(self, doftype, *args):
+        funeval(self, doftype, *args)
+
 
 class Tensorspace:
     def __init__(self, *args):
@@ -127,166 +155,8 @@ class Tensorspace:
             basis.append(i)
         self.basis = basis
 
-"""        for i in range(0, self.dimension):
-            listvar.append(listallvar[i])
-
-        for i in range(0, self.dimension):
-            basisset = itermonomials([listvar[i]], self.degree)
-            basislist = []
-            for elem in basisset:
-                basislist.append(elem)
-
-            self.basis = basislist
-
-            if i == 0:
-                basis = Matrix(basislist)
-            if i == 1:
-                basis = TensorProduct(basis, Matrix(basislist))
-            if i == 2:
-                basis = TensorProduct(basis, Matrix(basislist))
-
-        funmat = Matrix(coefvec)*Matrix(basis)
-        fun = funmat[0]
-
-        self.fun = fun"""
-
-
-
-class Funspace:
-    def __init__(self, polytopetype, polytopedimension, dofnumber):
-
-        try:
-            isinstance(polytopetype, Polytopetype)
-            isinstance(polytopedimension, Polytopedimension)
-
-        except:
-            raise NameError('wrong type entry. arg1: Polytopetype, arg2: Polytopedimension, arg3: Kform')
-
-        if polytopedimension.value >= dofnumber:
-            raise NameError('Problem cant be represented')
-
-        else:
-            listdof = []
-            degreemax = 10
-            if polytopetype == Polytopetype.simplex:
-
-                for i in range(0, degreemax):
-                    listdof.append(comb(polytopedimension.value + i, i))
-
-            elif polytopetype == Polytopetype.cube:
-
-                for i in range(0, degreemax):
-                    listdof.append(pow(i+1, polytopedimension.value))
-
-            else:
-                raise NameError('polytopetype is not supported')
-
-            if dofnumber in listdof:
-                self.degree = listdof.index(dofnumber)
-                self.dimension = polytopedimension.value
-                self.polytopetype = polytopetype.name
-                self.dofnumber = int(dofnumber)
-                self.basis = None
-                self.fun = None
-
-            else:
-                raise NameError('Problem cant be represented')
-
-            x,y,z = symbols('x y z')
-            listallvar =[x,y,z]
-            listvar = []
-            basisset = {}
-            basislist = []
-            coefvec = MatrixSymbol('c', 1, self.dofnumber)
-            funmat = []
-
-            if self.polytopetype == Polytopetype.simplex.name:
-
-                if self.kform == Kform.zeroform.name:
-
-                    for i in range(0, self.dimension):
-                        listvar.append(listallvar[i])
-
-                    basisset = itermonomials(listvar, self.degree)
-
-                    for elem in basisset:
-                        basislist.append(elem)
-
-                    self.basis = basislist
-                    funmat = Matrix(coefvec)*Matrix(basislist)
-                    fun = funmat[0]
-                    self.fun = fun
-
-            elif self.polytopetype == Polytopetype.cube.name:
-
-                if self.kform == Kform.zeroform.name:
-
-                    for i in range(0, self.dimension):
-                        listvar.append(listallvar[i])
-
-                    for i in range(0, self.dimension):
-                        basisset = itermonomials([listvar[i]], self.degree)
-                        basislist = []
-                        for elem in basisset:
-                            basislist.append(elem)
-
-                        self.basis = basislist
-
-                        if i == 0:
-                            basis = Matrix(basislist)
-                        if i == 1:
-                            basis = TensorProduct(basis, Matrix(basislist))
-                        if i == 2:
-                            basis = TensorProduct(basis, Matrix(basislist))
-
-                    funmat = Matrix(coefvec)*Matrix(basis)
-                    fun = funmat[0]
-
-                    self.fun = fun
-
-
     def funeval(self, doftype, *args):
-
-        x, y, z = symbols('x y z')
-        listallvar =[x, y, z]
-        listvar = []
-
-        if isinstance(doftype, Doftype):
-            values = []
-            for elem in args:
-                values.append(elem)
-
-            if len(values) == self.dimension:
-                for i in range(0, self.dimension):
-                    listvar.append(listallvar[i])
-
-                if doftype == Doftype.pointevaluation:
-                    funeval = self.fun
-                    for i in range(0, len(values)):
-                        funeval = funeval.subs(listvar[i], values[i])
-
-                    return funeval
-
-                if doftype == Doftype.firstderivative:
-                    #evaluation can be multidimensional
-                    funeval = []
-                    #for each variable calculate the first derivative
-                    for i in range(0, len(values)):
-                        funevalitem = self.fun
-                        funevalitem = diff(funevalitem, listvar[i], 1)
-                        #for each first derivative calculate the derivative value
-                        for k in range(0, len(values)):
-                            funevalitem = funevalitem.subs(listvar[k], values[k])
-                        funeval.append(funevalitem)
-
-                    return funeval
-
-            else:
-                raise NameError('number of arguments is of same dimension as polytope')
-
-        else:
-            raise NameError('entry doftype has to be of type doftype')
-
+        funeval(self, doftype, *args)
 
 
 
@@ -302,9 +172,12 @@ def main():
 #    print(polyeval1)
 #    polyeval2 = funspace1.funeval(doftype2,1,1)
 #    print(polyeval2)
-    poly1Dlinear_x = Monomial(1, 1, ['x'])
+    poly1Dlinear_x = Monomial(2, 2, ['x','y'])
     poly1Dlinear_y = Monomial(1, 1, ['y'])
     poly1Dlinear_z = Monomial(1, 1, ['z'])
+    PE = Doftype.pointevaluation
+    FD = Doftype.firstderivative
+    poly1Dlinear_x.funeval(FD, [1,1])
     print(poly1Dlinear_x.__dict__)
     tensorpoly = Tensorspace(poly1Dlinear_x,poly1Dlinear_y,poly1Dlinear_z)
     print(tensorpoly.__dict__)
