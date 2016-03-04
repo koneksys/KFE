@@ -105,7 +105,7 @@ class Monomial:
         self.fun = fun
 
     def funeval(self, doftype, *args):
-        funeval(self, doftype, *args)
+        return funeval(self, doftype, *args)
 
 
 class Tensorspace:
@@ -156,7 +156,7 @@ class Tensorspace:
         self.basis = basis
 
     def funeval(self, doftype, *args):
-        funeval(self, doftype, *args)
+        return funeval(self, doftype, *args)
 
 
 
@@ -177,7 +177,8 @@ def main():
     poly1Dlinear_z = Monomial(1, 1, ['z'])
     PE = Doftype.pointevaluation
     FD = Doftype.firstderivative
-    poly1Dlinear_x.funeval(FD, [1,1])
+    a=poly1Dlinear_x.funeval(FD, [1,1])
+    print(a)
     print(poly1Dlinear_x.__dict__)
     tensorpoly = Tensorspace(poly1Dlinear_x,poly1Dlinear_y,poly1Dlinear_z)
     print(tensorpoly.__dict__)

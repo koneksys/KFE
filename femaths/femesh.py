@@ -137,6 +137,7 @@ class Femesh:
         except:
             raise NameError('Argument is of type list with elements of type Funreq')
 
+        self.reqlist = reqlist
         #All requirements applied to an edge should have the same number of DOF.
         ndofedgelist = []
         for i in range(0, len(reqlist)):
