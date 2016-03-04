@@ -16,7 +16,7 @@ from enum import Enum
 
 
 class Monomial:
-    def __init__(self, dimension, degree):
+    def __init__(self, dimension, degree, varnamelist):
         x,y,z = symbols('x y z')
         listallvar = [x, y, z]
         listvar = []
@@ -25,50 +25,56 @@ class Monomial:
         funmat = []
 
         try:
+            isinstance(varnamelist, list)
             isinstance(dimension, int)
             isinstance(degree, int)
+            len(varnamelist) == degree
+            for var in varnamelist:
+                isinstance(var, str)
             0 < dimension <= 3
             0 < degree
         except:
-            raise NameError('dimension and degree of type integer with 0<dimension<=3, 0<degree')
+            raise NameError('dimension and degree of type integer with 0<dimension<=3, 0<degree, '
+                            'list with element of type string and length varname == degree')
+        varsymbollist=[]
+        for var in varnamelist:
+            varsymbollist.append(symbols(var))
+
 
         #calculate the number of degree of freedom
         self.dofnumber = int(comb(dimension+degree, degree))
 
         coefvec = MatrixSymbol('c', 1, self.dofnumber)
 
-        for i in range(0, dimension):
-                        listvar.append(listallvar[i])
-
         monomiallist = [1]
         if dimension == 1:
             for i in range(1, degree+1):
                 for k in range(0, dimension):
-                    monomiallist.append(pow(x, i))
+                    monomiallist.append(pow(varsymbollist[0], i))
 
         elif dimension == 2:
             for i in range(1, degree+1):
-                monomiallist.append(pow(x, i))
+                monomiallist.append(pow(varsymbollist[0], i))
                 for j in range(1, i):
-                    monomiallist.append(pow(x, i-j)*pow(y, j))
-                monomiallist.append(pow(y, i))
+                    monomiallist.append(pow(varsymbollist[0], i-j)*pow(varsymbollist[1], j))
+                monomiallist.append(pow(varsymbollist[1], i))
 
         elif dimension == 3:
             for i in range(1, degree+1):
-                monomiallist.append(pow(x, i))
+                monomiallist.append(pow(varsymbollist[0], i))
                 for j in range(1, i):
-                    monomiallist.append(pow(x, i-j)*pow(y, j))
-                monomiallist.append(pow(y, i))
+                    monomiallist.append(pow(varsymbollist[0], i-j)*pow(varsymbollist[1], j))
+                monomiallist.append(pow(varsymbollist[1], i))
 
                 for j in range(1, i):
-                    monomiallist.append(pow(x, i-j)*pow(z, j))
+                    monomiallist.append(pow(varsymbollist[0], i-j)*pow(varsymbollist[2], j))
 
                 for j in range(1, i):
-                    monomiallist.append(pow(y, i-j)*pow(z, j))
-                monomiallist.append(pow(z, i))
+                    monomiallist.append(pow(varsymbollist[1], i-j)*pow(varsymbollist[2], j))
+                monomiallist.append(pow(varsymbollist[2], i))
 
         self.basis = monomiallist
-        self.var = listvar
+        self.var = varsymbollist
         funmat = Matrix(coefvec)*Matrix(monomiallist)
         fun = funmat[0]
         self.fun = fun
@@ -76,7 +82,7 @@ class Monomial:
 
 class Tensorspace:
     def __init__(self, *args):
-        monolist=[]
+        monolist = []
         try:
             for elem in args:
                 isinstance(elem, Monomial)
@@ -88,15 +94,38 @@ class Tensorspace:
             raise NameError('not more than three dimension')
         #actually test should be more elaborate. one could 2 dimension * 1 dimension thus only having 2 arguments
 
+
         self.monolist = monolist
+
+        dofnumber = 1
+        for i in range(0,len(monolist)):
+            dofnumber = dofnumber * len(monolist[i].basis)
+
+        self.dofnumber = dofnumber
+
+        coefvec = MatrixSymbol('c', 1, dofnumber)
 
         if len(monolist) == 1:
             self.basis = monolist[0].basis
             self.fun = monolist[0].fun
 
         elif len(monolist) == 2:
-            self.basis = TensorProduct(Matrix(monolist[0].basis),Matrix(monolist[1].basis))
+            basismat = TensorProduct(Matrix(monolist[0].basis), Matrix(monolist[1].basis))
+            funmat = Matrix(coefvec)*Matrix(basismat)
+            fun = funmat[0]
+            self.fun = fun
 
+        elif len(monolist) == 3:
+            basismat = TensorProduct(Matrix(monolist[0].basis), Matrix(monolist[1].basis))
+            basismat = TensorProduct(basismat, Matrix(monolist[2].basis))
+            funmat = Matrix(coefvec)*Matrix(basismat)
+            fun = funmat[0]
+            self.fun = fun
+
+        basis=[]
+        for i in basismat:
+            basis.append(i)
+        self.basis = basis
 
 """        for i in range(0, self.dimension):
             listvar.append(listallvar[i])
@@ -273,9 +302,11 @@ def main():
 #    print(polyeval1)
 #    polyeval2 = funspace1.funeval(doftype2,1,1)
 #    print(polyeval2)
-    poly1Dlinear = Monomial(1,1)
-    print(poly1Dlinear.__dict__)
-    tensorpoly = Tensorspace(poly1Dlinear,poly1Dlinear)
+    poly1Dlinear_x = Monomial(1, 1, ['x'])
+    poly1Dlinear_y = Monomial(1, 1, ['y'])
+    poly1Dlinear_z = Monomial(1, 1, ['z'])
+    print(poly1Dlinear_x.__dict__)
+    tensorpoly = Tensorspace(poly1Dlinear_x,poly1Dlinear_y,poly1Dlinear_z)
     print(tensorpoly.__dict__)
 #
 #    dimension2 = 1
