@@ -29,14 +29,18 @@ class Femaths:
             raise NameError('number of polynonmial == number of dof applied to femesh.')
 
         equationlist=[]
-        for i in range(0, len(femesh.edgelist[0].interiorvertices)):
-            localeq=[]
-            localeq.append(femesh.edgelist[0].interiorvertices[i].index)
-            for k in range(0,len(femesh.edgelist[0].interiorvertices[i].funreq)):
-                localeq.extend([funspace.funeval(femesh.edgelist[0].interiorvertices[i].funreq[k] ,
-                                                femesh.edgelist[0].interiorvertices[i].coordinates)])
+        infoshape = []
+        for j in range(0,femesh.listnumface[1]):
+            for i in range(0, len(femesh.edgelist[j].interiorvertices)):
+                localeq=[]
+                localeq.append(femesh.edgelist[j].interiorvertices[i].index)
+                for k in range(0,len(femesh.edgelist[j].interiorvertices[i].funreq)):
+                    localeq.extend([funspace.funeval(femesh.edgelist[j].interiorvertices[i].funreq[k] ,
+                                                    femesh.edgelist[j].interiorvertices[i].coordinates)])
+                    infoshape.append((femesh.edgelist[j].interiorvertices[i].index,
+                                      femesh.edgelist[j].interiorvertices[i].funreq[k]))
 
-            equationlist.append(localeq)
+                equationlist.append(localeq)
 
         for i in range(0,len(femesh.verticelist)):
             localeq=[]
@@ -44,11 +48,12 @@ class Femaths:
             for k in range(0,len(femesh.verticelist[i].funreq)):
                 localeq.extend([funspace.funeval(femesh.verticelist[i].funreq[k],
                                                 femesh.verticelist[i].coordinates)])
+                infoshape.append((femesh.verticelist[i].index,
+                                  femesh.verticelist[i].funreq[k]))
 
             equationlist.append(localeq)
 
         self.equationlist=equationlist
-
         dofnumber = femesh.dofnumber
 
         c = Matrix(MatrixSymbol('c', 1, dofnumber))
@@ -56,7 +61,7 @@ class Femaths:
         vdmmatrix = zeros(dofnumber,dofnumber)
 
         index = 0
-        infoshape=[]
+
         for i in range(0,len(equationlist)):
             for k in range(1,len(equationlist[i])):
                 seteq = equationlist[i][k][0].as_coefficients_dict()
@@ -66,10 +71,17 @@ class Femaths:
                     else:
                         vdmmatrix[index,l] = 0
                 index = index + 1
-                infoshape.append((equationlist[i][0],))
+
         self.vdmmatrix = vdmmatrix
 
-        #calculate all the shape function and add the corresponding information about the DOF and the element index.
+        shapefunlist=[]
+        for i in range(0, dofnumber):
+            shapefun=vdmmatrix.inv()[:,i].transpose()*Matrix(funspace.basis)
+            shapefunlist.append((infoshape[i],shapefun[0]))
+
+        self.shapefunlist = shapefunlist
+        #calculate all the shape function
+
 
 """
 from sympy import*
@@ -160,12 +172,13 @@ def main():
     facedim5 = Meshobjecttype.vertice
     dofnumber5 = 1
     funcreq5 = Funreq(doftype5, facedim5, dofnumber5)
-    funreqlist1 = [funcreq5]
-    trianglemesh.applyfunreq(funreqlist1)
-    poly2Dlinear_xy = Monomials(2, 1, ['x','y'])
+    funreqlist2 = [funcreq5,funcreq3]
+    trianglemesh.applyfunreq(funreqlist2)
+    poly2Dlinear_xy = Monomials(2, 2, ['x','y'])
     femathtriangle = Femaths(poly2Dlinear_xy,trianglemesh)
 
     print(femathline.__dict__)
+    print(femathtriangle.__dict__)
     a=2
 
 
