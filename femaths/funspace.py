@@ -29,7 +29,7 @@ def funeval(funspace, doftype, coord):
         for i in range(0, len(coord)):
             funeval = funeval.subs(funspace.var[i], coord[i])
 
-        return funeval
+        return [funeval]
 
     elif doftype == Doftype.firstderivative:
         #evaluation can be multidimensional

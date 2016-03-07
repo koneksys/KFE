@@ -3,6 +3,7 @@ from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontyp
 from itertools import combinations
 from scipy.special import comb, factorial
 from funreq import Funreq, Doftype, Meshobjecttype
+from sympy import Rational
 
 class Paramrange(Enum):
     parammin = 0
@@ -52,8 +53,8 @@ class Edge:
             dimension = len(self.vertice1.coordinates)
         newcoord = []
         for i in range(0, dimension):
-            newcoord.append((1-param)*float(self.vertice1.coordinates[i]) +
-                            param * float(self.vertice2.coordinates[i]))
+            newcoord.append(Rational((1-param)*float(self.vertice1.coordinates[i]) +
+                            param * float(self.vertice2.coordinates[i])))
         newindex = [self.index[0], len(self.interiorvertices) + 1]
         addedvertice = Vertice(newindex, newcoord)
         self.interiorvertices.append(addedvertice)
@@ -104,6 +105,7 @@ class Femesh:
 
         verticelist = []
         edgelist = []
+        self.listnumface = polytope.listnumface
 
         if polytope.polytopeinfo[0] == Polytopetype.line:
             nbvertice = len(polytope.verticelist[0])
@@ -136,6 +138,7 @@ class Femesh:
                 isinstance(i, Funreq)
         except:
             raise NameError('Argument is of type list with elements of type Funreq')
+
 
         self.reqlist = reqlist
         #All requirements applied to an edge should have the same number of DOF.
@@ -171,6 +174,28 @@ class Femesh:
                 for k in range(0, len(self.edgelist)):
                     for j in range(0, nbdofonedge):
                         self.edgelist[k].interiorvertices[j].funreq.append(reqlist[i].info[0])
+
+        #calculate the number of DOF:
+        nbdof = 0
+        for i in range(0, len(reqlist)):
+            if reqlist[i].info[0] == Doftype.pointevaluation:
+                if reqlist[i].info[1]== Meshobjecttype.vertice:
+                    nbdof = nbdof + self.listnumface[0]
+                elif reqlist[i].info[1]== Meshobjecttype.edge:
+                    nbdof = nbdof + self.listnumface[1]*reqlist[i].dofnumber
+                elif reqlist[i].info[1] == Meshobjecttype.face:
+                    nbdof = nbdof + self.listnumface[2]*reqlist[i].dofnumber
+            if reqlist[i].info[0] == Doftype.firstderivative:
+                if reqlist[i].info[1]== Meshobjecttype.vertice:
+                    nbdof= nbdof + self.listnumface[0]*(len(self.listnumface)-1)
+                elif reqlist[i].info[1]== Meshobjecttype.edge:
+                    nbdof = nbdof + self.listnumface[1]*reqlist[i].dofnumber*(len(self.listnumface)-1)
+                elif reqlist[i].info[1] == Meshobjecttype.face:
+                    nbdof = nbdof + self.listnumface[2]*reqlist[i].dofnumber*(len(self.listnumface)-1)
+
+        self.dofnumber = nbdof
+
+
 
 
 def main():

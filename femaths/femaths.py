@@ -11,7 +11,7 @@ from enum import Enum
 from femesh import Femesh, Vertice, Edge, Face, Paramrange
 from funspace import Monomial, Tensorspace,funeval
 from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
-
+from sympy import*
 
 #the problem is that you require the nbofDof to instantiate the element funspace...
 #the function can be external and associated to main.
@@ -24,6 +24,9 @@ class Femaths:
             isinstance(funspace, Monomial) or isinstance(funspace,Tensorspace)
         except:
             raise NameError('1st argument of type Monomial or Tensorspace, 2nd arg of type Femesh')
+
+        if not funspace.dofnumber == femesh.dofnumber:
+            raise NameError('number of polynonmial == number of dof applied to femesh.')
 
         equationlist=[]
         for i in range(0, len(femesh.edgelist[0].interiorvertices)):
@@ -46,6 +49,70 @@ class Femaths:
 
         self.equationlist=equationlist
 
+        dofnumber = femesh.dofnumber
+
+        c = Matrix(MatrixSymbol('c', 1, dofnumber))
+        from sympy.matrices import zeros
+        vdmmatrix = zeros(dofnumber,dofnumber)
+
+        index = 0
+        for i in range(0,len(equationlist)):
+            for k in range(1,len(equationlist[i])):
+                index = index + 1
+                seteq = equationlist[i][k].as_coefficients_dict()
+                for l in range(0, dofnumber):
+                    if c[0,l] in seteq:
+                        vdmmatrix[index,l] = seteq(c[0,l])
+                    else:
+                        vdmmatrix[index,l] = 0
+
+        self.vdmmatrix = vdmmatrix
+"""
+from sympy import*
+coefvec = MatrixSymbol('c', 1, 6)
+c=Matrix(coefvec)
+
+A= c[0, 0] + c[0, 1]/2 + c[0, 2]/4 + c[0, 3]/8 + c[0, 4]/16 + c[0, 5]/32
+
+A.as_coefficients_dict()
+coefA=[]
+SetA=A.as_coefficients_dict()
+        dofnumber = femesh.dofnumber
+        from sympy.matrices import zeros
+        coefMatrix = zeros(dofnumber,dofnumber)
+       #read coefficient of the equation and create a numerical matrix.
+        for i in range(0, dofnumber):
+            for k in range(0, dofnumber):
+                if c[0,i] in
+               for i in range(0,6):
+    if c[0,i] in SetA:
+        coefA.append(SetA[c[0,i]])
+    else:
+        coefA.append(0)
+
+
+
+"""
+
+
+"""coefA=[]
+SetA=A.as_coefficients_dict()
+for i in range(0,6):
+    k=0
+    for elem in SetA:
+          if elem == c[0,i]:
+              coefA.append(SetA.items()[k][1])
+          k=k+1
+        for i in range(0,6):
+            for elem in B.as_coefficients_dict():
+                if elem == c[0,i]
+                    A[i]=
+
+        listnew.items()[3][0]
+
+        from sympy.matrices import zeros
+        CoefMatrix=zeros(NbDOF,NbDOF)
+"""
 
 def main():
 

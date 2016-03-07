@@ -77,11 +77,11 @@ class Polytope:
         self.facelist = [[], []]
 
         if polytopetype == Polytopetype.line:
-            self.listnumface = [1, 2]
+            self.listnumface = [2, 1]
             self.verticelist = [[1, 2], polygoncoordinate.value]
 
         if polytopetype == Polytopetype.polygon:
-            self.listnumface = [1, polygontype.value, polygontype.value]
+            self.listnumface = [polygontype.value, polygontype.value, 1]
             self.verticelist = [range(0, polygontype.value), polygoncoordinate.value]
 
             for i in range(0, polygontype.value):
@@ -90,8 +90,7 @@ class Polytope:
 
 
         if polytopetype == Polytopetype.polyhedron and polyhedrontype == Polyhedrontype.pyramid:
-            self.listnumface = [1, polygontype.value + 1,
-                                2 * polygontype.value, polygontype.value + 1]
+            self.listnumface = [polygontype.value + 1, 2 * polygontype.value, polygontype.value + 1, 1]
 
             #Generate the verticelist - make a copy in the zcoord plane
             for i in range(0, polygontype.value):
@@ -99,21 +98,23 @@ class Polytope:
             polygoncoordinate.value.append(polygoncoordinate.ztop)
             self.verticelist = [range(0, polygontype.value + 1), polygoncoordinate.value]
 
+            #list listnumface[2] should be changed to listnumface[1]
+            #listnumface[1] should be changed to listnumface[2]
             #Generate the Edgelist:
             baseindex = range(0, polygontype.value)
             for i in range(0, polygontype.value):
                 self.edgelist[1].append([(i)%len(baseindex), (i+1)%len(baseindex)])
                 self.edgelist[1].append([i, polygontype.value])
-            self.edgelist[0].append(range(0, self.listnumface[2]))
+            self.edgelist[0].append(range(0, self.listnumface[1]))
 
             #Generate the Facelist:
-            cycleindex = range(0, self.listnumface[2])
-            for i in range(0, self.listnumface[1]-1):
+            cycleindex = range(0, self.listnumface[1])
+            for i in range(0, self.listnumface[2]-1):
                 self.facelist[1].append([(2*i)%len(cycleindex), (2*i+3)%len(cycleindex), -1*((2*i+1)%len(cycleindex))])
                 self.facelist[0].append(i)
             #adding the face of the basis:
-            self.facelist[0].append(self.listnumface[1])
-            self.facelist[1].append(range(0,self.listnumface[2], 2))
+            self.facelist[0].append(self.listnumface[2])
+            self.facelist[1].append(range(0,self.listnumface[1], 2))
 
 
         if polytopetype == Polytopetype.polyhedron and polyhedrontype == Polyhedrontype.prism:
@@ -169,6 +170,7 @@ def main():
 
 #    print(line.__dict__)
     print(triangle.__dict__)
+    print(triangularpyramid.__dict__)
 #    print(pentagonalpyramid.__dict__)
 #    print(triangularprism.__dict__)
 
