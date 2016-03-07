@@ -9,7 +9,7 @@ from funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
 from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from enum import Enum
 from femesh import Femesh, Vertice, Edge, Face, Paramrange
-from funspace import Monomial, Tensorspace,funeval
+from funspace import Monomials, Tensorspace,funeval
 from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from sympy import*
 
@@ -21,9 +21,9 @@ class Femaths:
 
         try:
             isinstance(femesh, Femesh)
-            isinstance(funspace, Monomial) or isinstance(funspace,Tensorspace)
+            isinstance(funspace, Monomials) or isinstance(funspace, Tensorspace)
         except:
-            raise NameError('1st argument of type Monomial or Tensorspace, 2nd arg of type Femesh')
+            raise NameError('1st argument of type Monomials or Tensorspace, 2nd arg of type Femesh')
 
         if not funspace.dofnumber == femesh.dofnumber:
             raise NameError('number of polynonmial == number of dof applied to femesh.')
@@ -56,17 +56,21 @@ class Femaths:
         vdmmatrix = zeros(dofnumber,dofnumber)
 
         index = 0
+        infoshape=[]
         for i in range(0,len(equationlist)):
             for k in range(1,len(equationlist[i])):
-                index = index + 1
-                seteq = equationlist[i][k].as_coefficients_dict()
+                seteq = equationlist[i][k][0].as_coefficients_dict()
                 for l in range(0, dofnumber):
                     if c[0,l] in seteq:
-                        vdmmatrix[index,l] = seteq(c[0,l])
+                        vdmmatrix[index,l] = seteq[c[0,l]]
                     else:
                         vdmmatrix[index,l] = 0
-
+                index = index + 1
+                infoshape.append((equationlist[i][0],))
         self.vdmmatrix = vdmmatrix
+
+        #calculate all the shape function and add the corresponding information about the DOF and the element index.
+
 """
 from sympy import*
 coefvec = MatrixSymbol('c', 1, 6)
@@ -143,8 +147,25 @@ def main():
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
     funreqlist1 = [funcreq1,funcreq2,funcreq3,funcreq4]
     linemesh.applyfunreq(funreqlist1)
-    poly1Dlinear_x = Monomial(1, 5, ['x'])
+    poly1Dlinear_x = Monomials(1, 5, ['x'])
     femathline = Femaths(poly1Dlinear_x,linemesh)
+
+    polytopetype2 = Polytopetype.polygon
+    polygontype2 = Polygontype.triangle
+    polyhedrontype2 = Polyhedrontype.nopolyhedron
+    polytopecoord2 = Polygoncoordinate(polygontype2)
+    triangle = Polytope(polytopetype2, polygontype2, polyhedrontype2, polytopecoord2)
+    trianglemesh = Femesh(triangle)
+    doftype5 = Doftype.pointevaluation
+    facedim5 = Meshobjecttype.vertice
+    dofnumber5 = 1
+    funcreq5 = Funreq(doftype5, facedim5, dofnumber5)
+    funreqlist1 = [funcreq5]
+    trianglemesh.applyfunreq(funreqlist1)
+    poly2Dlinear_xy = Monomials(2, 1, ['x','y'])
+    femathtriangle = Femaths(poly2Dlinear_xy,trianglemesh)
+
+    print(femathline.__dict__)
     a=2
 
 

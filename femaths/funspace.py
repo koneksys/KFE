@@ -46,7 +46,7 @@ def funeval(funspace, doftype, coord):
         return funeval
 
 
-class Monomial:
+class Monomials:
     def __init__(self, dimension, degree, varnamelist):
 
         try:
