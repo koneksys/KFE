@@ -6,7 +6,7 @@ Created on Mon Jan 18 20:00:59 2016
 """
 
 from sympy import*
-from funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
+from femaths.funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
 from scipy.special import comb
 from sympy.physics.quantum import TensorProduct
 

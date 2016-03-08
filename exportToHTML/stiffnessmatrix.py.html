@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>stiffnessmatrix.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,0,128); font-weight: bold; }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(0,128,128); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+stiffnessmatrix.py</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">&quot;&quot;&quot;from scipy.special import comb 
+from femaths.funreq import Funreq, Fieldtype, Doftype, Meshobjecttype 
+from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope 
+from enum import Enum 
+from femaths.femesh import Femesh, Vertice, Edge, Face, Paramrange 
+from femaths.funspace import Monomials, Tensorspace,funeval 
+from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope 
+from sympy import* 
+from femaths.femaths import Femaths 
+&quot;&quot;&quot;</span><span class="s1"> 
+ 
+</span><span class="s2">class </span><span class="s1">Fegeometry: 
+    </span><span class="s2">def </span><span class="s1">__init__(self, femaths): 
+        self.shapefunlist = femaths.shapefunlist 
+ 
+</span><span class="s2">class </span><span class="s1">Fephysics: 
+    </span><span class="s2">def </span><span class="s1">__init__(self, femaths): 
+        self.shapefunlist = femaths.shapefunlist 
+ 
+ 
+ 
+</span><span class="s2">def </span><span class="s1">main(): 
+ 
+    polytopetype1 = Polytopetype.line 
+    polygontype1 = Polygontype.nopolygon 
+    polyhedrontype1 = Polyhedrontype.nopolyhedron 
+    polytopecoord1 = Polygoncoordinate(polygontype1) 
+    line = Polytope(polytopetype1, polygontype1, polyhedrontype1, polytopecoord1) 
+    linemesh = Femesh(line) 
+    doftype1 = Doftype.pointevaluation 
+    facedim1 = Meshobjecttype.vertice 
+    dofnumber1 = </span><span class="s3">1</span><span class="s1"> 
+    funcreq1 = Funreq(doftype1, facedim1, dofnumber1) 
+    funreqlist1 = [funcreq1] 
+    linemesh.applyfunreq(funreqlist1) 
+    poly1Dlinear_x = Monomials(</span><span class="s3">1</span><span class="s1">, </span><span class="s3">1</span><span class="s1">, [</span><span class="s4">'x'</span><span class="s1">]) 
+    femathline = Femaths(poly1Dlinear_x,linemesh) 
+    fegeoline = Fegeometry(femathline) 
+    fephysics = Fephysics(femathline) 
+ 
+ 
+</span><span class="s2">if </span><span class="s1">__name__ == </span><span class="s4">&quot;__main__&quot;</span><span class="s1">: 
+    main()</span></pre>
+</body>
+</html>

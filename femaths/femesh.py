@@ -1,8 +1,8 @@
 from enum import Enum
-from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
+from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from itertools import combinations
 from scipy.special import comb, factorial
-from funreq import Funreq, Doftype, Meshobjecttype
+from femaths.funreq import Funreq, Doftype, Meshobjecttype
 from sympy import Rational
 
 class Paramrange(Enum):

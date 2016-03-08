@@ -5,12 +5,12 @@ Created on Thu Feb 04 09:41:13 2016
 @author: User
 """
 from scipy.special import comb
-from funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
-from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
+from femaths.funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
+from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from enum import Enum
-from femesh import Femesh, Vertice, Edge, Face, Paramrange
-from funspace import Monomials, Tensorspace,funeval
-from polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
+from femaths.femesh import Femesh, Vertice, Edge, Face, Paramrange
+from femaths.funspace import Monomials, Tensorspace,funeval
+from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from sympy import*
 
 #the problem is that you require the nbofDof to instantiate the element funspace...
@@ -161,6 +161,8 @@ def main():
     linemesh.applyfunreq(funreqlist1)
     poly1Dlinear_x = Monomials(1, 5, ['x'])
     femathline = Femaths(poly1Dlinear_x,linemesh)
+
+
 
     polytopetype2 = Polytopetype.polygon
     polygontype2 = Polygontype.triangle
