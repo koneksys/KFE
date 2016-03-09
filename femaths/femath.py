@@ -76,19 +76,20 @@ class Femath:
             shapefunlist.append((infoshape[i],shapefun[0]))
 
         self.shapefunlist = shapefunlist
-        #calculate all the shape function
+
+        #Store information of the shapefunction into the mesh.
         if len(femesh.listnumface) == 2:
             self.mesh = femesh.edgelist
-        for i in range(0,shapefunlist):
-            if len(shapefunlist[0][0])== 2:
-
-
-        for i in range(0, dofnumber):
-            if not len(femesh.edgelist[0].interiorvertices) == 0:
-                for elem in femesh.edgelist[0].interiorvertices:
-
-
-
+            for i in range(0, len(shapefunlist)):
+                if len(shapefunlist[i][0][0]) == 2:
+                    for j in range(0, len(self.mesh[0].interiorvertices)):
+                        if self.mesh[0].interiorvertices[j].index == shapefunlist[i][0][0]:
+                            self.mesh[0].interiorvertices[j].shapefunction.append(shapefunlist[i][1])
+                elif len(shapefunlist[i][0][0]) == 1:
+                    if shapefunlist[i][0][0] == self.mesh[0].vertice1.index:
+                        self.mesh[0].vertice1.shapefunction.append(shapefunlist[i][1])
+                    elif shapefunlist[i][0][0] == self.mesh[0].vertice2.index:
+                        self.mesh[0].vertice2.shapefunction.append(shapefunlist[i][1])
 
 
 
@@ -119,9 +120,9 @@ def main():
     facedim4 = Meshobjecttype.edge
     dofnumber4 = 1
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
-    funreqlist1 = [funcreq1,funcreq2,funcreq3,funcreq4]
+    funreqlist1 = [funcreq1]
     linemesh.applyfunreq(funreqlist1)
-    poly1Dlinear_x = Monomials(1, 5, ['x'])
+    poly1Dlinear_x = Monomials(1, 1, ['x'])
     femathline = Femath(poly1Dlinear_x, linemesh)
 
 

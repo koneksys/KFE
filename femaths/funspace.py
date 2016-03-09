@@ -172,12 +172,12 @@ def main():
 #    print(polyeval1)
 #    polyeval2 = funspace1.funeval(doftype2,1,1)
 #    print(polyeval2)
-    poly1Dlinear_x = Monomial(2, 2, ['x','y'])
-    poly1Dlinear_y = Monomial(1, 1, ['y'])
-    poly1Dlinear_z = Monomial(1, 1, ['z'])
+    poly1Dlinear_x = Monomials(1, 3, ['x'])
+    poly1Dlinear_y = Monomials(1, 1, ['y'])
+    poly1Dlinear_z = Monomials(1, 1, ['z'])
     PE = Doftype.pointevaluation
     FD = Doftype.firstderivative
-    a=poly1Dlinear_x.funeval(FD, [1,1])
+    a=poly1Dlinear_x.funeval(FD, [1])
     print(a)
     print(poly1Dlinear_x.__dict__)
     tensorpoly = Tensorspace(poly1Dlinear_x,poly1Dlinear_y,poly1Dlinear_z)
