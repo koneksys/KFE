@@ -1,15 +1,19 @@
-from femaths.femaths import Femaths
+from femaths.femath import Femath
 from femaths.femesh import Femesh
 from femaths.funreq import Doftype, Meshobjecttype, Funreq
 from femaths.funspace import Monomials
 from femaths.polytope import Polytopetype, Polygontype, Polyhedrontype, Polygoncoordinate, Polytope
 from enum import Enum
-
+from sympy import*
 
 class Coordinatesystem(Enum):
     cartesian = 1
     spherical = 2
     cylindric = 3
+
+class Units(Enum):
+    meter = 1
+
 
 class Mathvartype(Enum):
     scalar = 1
@@ -27,10 +31,23 @@ class Spaceassociation(Enum):
     surface = 2
     volume = 3
 
-class Fephyvar:
-    def __init__(self, femaths, physicsvartype, modellingdim):
+class Physicsvar:
+    def __init__(self, mathvartype, units, varsymbol):
+        self.symbol = varsymbol
+        self.mathvartype = mathvartype
+        self.units = units
+
+
+class Fevar:
+    def __init__(self, femaths, physicsvar, modellingdim):
         self.shapefunlist = femaths.shapefunlist
-class Fegeometry:
+        if physicsvar.mathvartype == Mathvartype.vector:
+            vect = MatrixSymbol(physicsvar.symbol, 1, modellingdim)
+        elif physicsvar.mathvartype == Mathvartype.scalar:
+
+
+
+class Fegeom:
     def __init__(self, femaths):
         self.shapefunlist = femaths.shapefunlist
 
@@ -50,21 +67,24 @@ def main():
     funreqlist1 = [funcreq1]
     linemesh.applyfunreq(funreqlist1)
     poly1Dlinear_x = Monomials(1, 1, ['x'])
-    femathline = Femaths(poly1Dlinear_x,linemesh)
+    femathline = Femath(poly1Dlinear_x, linemesh)
+    print(femathline.__dict__)
     vector = Mathvartype.vector
     scalar = Mathvartype.scalar
     modellingdim = Modellspacedim.dim2
     coordsystemtype = Coordinatesystem.cartesian
     point = Spaceassociation.point
     line = Spaceassociation.line
-    force = (vector, point)
-    stress = (scalar, point)
-    strain = (scalar, line)
-    displacement = (vector, point)
-    displacementint = Fephyvar(femathline, displacement, modellingdim)
-    linemodelspace = Fegeometry(femathline, coordsystemtype, modellingdim)
-    inputmodel = [force, displacement]
-    barelem = femodel(Fephyvar,Fegeometry,inputmodel,outputmodel)
+    meter = Units.meter
+    forcetype = (vector, point)
+    stresstype = (scalar, point)
+    straintype = (scalar, line)
+    displacementtype = (vector, point)
+    displacement = Physicsvar(vector,meter,'u')
+    #displacementint = Fevar(femathline, displacement, modellingdim)
+    #linemodelspace = Fegeom(femathline, coordsystemtype, modellingdim)
+    #inputmodel = [force, displacement]
+    #barelem = femodel(Fephyvar,Fegeometry,inputmodel,outputmodel)
 
 
 

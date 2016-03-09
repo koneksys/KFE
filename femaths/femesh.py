@@ -23,6 +23,8 @@ class Vertice:
         self.coordinates = coordlist
         self.index = index
         self.funreq = []
+        self.shapefunction = []
+        self.var = []
 
 class Edge:
     def __init__(self, index, vertice1, vertice2):

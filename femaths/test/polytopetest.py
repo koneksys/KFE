@@ -1,5 +1,5 @@
 import unittest
-from femaths.polytope import Polytopedimension, Polytopetype, Polytope
+from femath.polytope import Polytopedimension, Polytopetype, Polytope
 
 
 class PolytopeTest(unittest.TestCase):

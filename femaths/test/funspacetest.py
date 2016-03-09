@@ -2,8 +2,8 @@ import unittest
 
 from scipy.special import comb
 
-from femaths.polytope import Polytope, Polytopedimension, Polytopetype
-from femaths.funspace import Funspace, Kform
+from femath.polytope import Polytope, Polytopedimension, Polytopetype
+from femath.funspace import Funspace, Kform
 
 
 class FunspaceTest(unittest.TestCase):

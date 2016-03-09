@@ -6,7 +6,6 @@ Created on Thu Feb 04 09:41:13 2016
 """
 from scipy.special import comb
 from femaths.funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
-from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from enum import Enum
 from femaths.femesh import Femesh, Vertice, Edge, Face, Paramrange
 from femaths.funspace import Monomials, Tensorspace,funeval
@@ -16,7 +15,7 @@ from sympy import*
 #the problem is that you require the nbofDof to instantiate the element funspace...
 #the function can be external and associated to main.
 
-class Femaths:
+class Femath:
     def __init__(self, funspace, femesh):
 
         try:
@@ -53,7 +52,6 @@ class Femaths:
 
             equationlist.append(localeq)
 
-        self.equationlist=equationlist
         dofnumber = femesh.dofnumber
 
         c = Matrix(MatrixSymbol('c', 1, dofnumber))
@@ -72,63 +70,27 @@ class Femaths:
                         vdmmatrix[index,l] = 0
                 index = index + 1
 
-        self.vdmmatrix = vdmmatrix
-
         shapefunlist=[]
         for i in range(0, dofnumber):
-            shapefun=vdmmatrix.inv()[:,i].transpose()*Matrix(funspace.basis)
+            shapefun = vdmmatrix.inv()[:,i].transpose()*Matrix(funspace.basis)
             shapefunlist.append((infoshape[i],shapefun[0]))
 
         self.shapefunlist = shapefunlist
         #calculate all the shape function
+        if len(femesh.listnumface) == 2:
+            self.mesh = femesh.edgelist
+        for i in range(0,shapefunlist):
+            if len(shapefunlist[0][0])== 2:
 
 
-"""
-from sympy import*
-coefvec = MatrixSymbol('c', 1, 6)
-c=Matrix(coefvec)
-
-A= c[0, 0] + c[0, 1]/2 + c[0, 2]/4 + c[0, 3]/8 + c[0, 4]/16 + c[0, 5]/32
-
-A.as_coefficients_dict()
-coefA=[]
-SetA=A.as_coefficients_dict()
-        dofnumber = femesh.dofnumber
-        from sympy.matrices import zeros
-        coefMatrix = zeros(dofnumber,dofnumber)
-       #read coefficient of the equation and create a numerical matrix.
         for i in range(0, dofnumber):
-            for k in range(0, dofnumber):
-                if c[0,i] in
-               for i in range(0,6):
-    if c[0,i] in SetA:
-        coefA.append(SetA[c[0,i]])
-    else:
-        coefA.append(0)
+            if not len(femesh.edgelist[0].interiorvertices) == 0:
+                for elem in femesh.edgelist[0].interiorvertices:
 
 
 
-"""
 
 
-"""coefA=[]
-SetA=A.as_coefficients_dict()
-for i in range(0,6):
-    k=0
-    for elem in SetA:
-          if elem == c[0,i]:
-              coefA.append(SetA.items()[k][1])
-          k=k+1
-        for i in range(0,6):
-            for elem in B.as_coefficients_dict():
-                if elem == c[0,i]
-                    A[i]=
-
-        listnew.items()[3][0]
-
-        from sympy.matrices import zeros
-        CoefMatrix=zeros(NbDOF,NbDOF)
-"""
 
 def main():
 
@@ -160,7 +122,7 @@ def main():
     funreqlist1 = [funcreq1,funcreq2,funcreq3,funcreq4]
     linemesh.applyfunreq(funreqlist1)
     poly1Dlinear_x = Monomials(1, 5, ['x'])
-    femathline = Femaths(poly1Dlinear_x,linemesh)
+    femathline = Femath(poly1Dlinear_x, linemesh)
 
 
 
@@ -177,10 +139,11 @@ def main():
     funreqlist2 = [funcreq5,funcreq3]
     trianglemesh.applyfunreq(funreqlist2)
     poly2Dlinear_xy = Monomials(2, 2, ['x','y'])
-    femathtriangle = Femaths(poly2Dlinear_xy,trianglemesh)
+    femathtriangle = Femath(poly2Dlinear_xy, trianglemesh)
 
-    print(femathline.__dict__)
-    print(femathtriangle.__dict__)
+ #   print(femathline.__dict__)
+    print(femathline.mesh[0].vertice1)
+#    print(femathtriangle.__dict__)
     a=2
 
 

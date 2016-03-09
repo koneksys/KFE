@@ -1,2 +1,2 @@
-import femaths.polytope
-import femaths.funspace
+import femath.polytope
+import femath.funspace

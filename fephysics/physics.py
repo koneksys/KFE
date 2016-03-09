@@ -94,7 +94,6 @@ class Physicsequation:
         except:
             raise NameError('entry should be of type Physicsvariable')
 
-        if physicsequationtype ==
 
 
 
