@@ -75,8 +75,6 @@ class Femath:
             shapefun = vdmmatrix.inv()[:,i].transpose()*Matrix(funspace.basis)
             shapefunlist.append((infoshape[i],shapefun[0]))
 
-        self.shapefunlist = shapefunlist
-
         #Store information of the shapefunction into the mesh.
         if len(femesh.listnumface) == 2:
             self.mesh = femesh.edgelist
@@ -120,9 +118,9 @@ def main():
     facedim4 = Meshobjecttype.edge
     dofnumber4 = 1
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
-    funreqlist1 = [funcreq1]
+    funreqlist1 = [funcreq1,funcreq2]
     linemesh.applyfunreq(funreqlist1)
-    poly1Dlinear_x = Monomials(1, 1, ['x'])
+    poly1Dlinear_x = Monomials(1, 3, ['x'])
     femathline = Femath(poly1Dlinear_x, linemesh)
 
 

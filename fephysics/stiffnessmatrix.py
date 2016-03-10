@@ -13,29 +13,53 @@ class Coordinatesystem(Enum):
 
 class Units(Enum):
     meter = 1
-
+    newton = 2
+    sqmeter = 3
+    newtonsqmeter = 4
+    density = 5
+    dimensionless = 6
 
 class Mathvartype(Enum):
     scalar = 1
     vector = 2
-    axialtensor = 3
+    tensor = 3
+
+class Physicstheory(Enum):
+    mechanics = 1
+    electrical = 2
+    thermal = 3
+    magnetic = 4
+    fluid = 5
+    none = 6
+
+class Physicsvartype(Enum):
+    configuration = 1
+    source = 2
+    energy = 3
+    power = 4
+    geometry = 5
+    material = 6
 
 class Modellspacedim(Enum):
     dim1 = 1
     dim2 = 2
     dim3 = 3
 
-class Spaceassociation(Enum):
+class Geometryvar(Enum):
     point = 0
     line = 1
     surface = 2
     volume = 3
 
 class Physicsvar:
-    def __init__(self, mathvartype, units, varsymbol):
+    def __init__(self, mathvartype, units, varsymbol, physicstheory, physicsvartype, Physicsvarlist):
         self.symbol = varsymbol
         self.mathvartype = mathvartype
         self.units = units
+        self.physicstheory = physicstheory
+        self.Physicsvarlist = Physicsvarlist
+
+
 
 
 class Fevar:
@@ -71,11 +95,41 @@ def main():
     print(femathline.__dict__)
     vector = Mathvartype.vector
     scalar = Mathvartype.scalar
-    modellingdim = Modellspacedim.dim2
+    mechanics = Physicstheory.mechanics
+    none = Physicstheory.none
     coordsystemtype = Coordinatesystem.cartesian
-    point = Spaceassociation.point
-    line = Spaceassociation.line
+    configvar = Physicsvartype.configuration
+    sourcevar = Physicsvartype.source
+    geometryvar = Physicsvartype.geometry
+    materialvar = Physicsvar.material
     meter = Units.meter
+    sqmeter = Units.sqmeter
+    newton = Units.newton
+    nounit = Units.dimensionless
+    forcedensity = Units.density
+    nwtsqmeter = Units.newtonsqmeter
+    surface = Geometryvar.surface
+    force = Physicsvar(vector,newton,'F',mechanics,sourcevar,[])
+    surface = Physicsvar(vector,sqmeter,'A', none,geometryvar,[])
+    stress = Physicsvar(tensor,nwtsqmeter,'s',mechanics,sourcevar,[force,surface])
+    directionofchange = Physicsvar(vector,meter,'doc',configvar,mechanics,[])
+    referenceline = Physicsvar(vector,meter,'rf',configvar,mechanics,[])
+    strain = Physicsvar(tensor,nounit,'ep',[directionofchange,referenceline])
+    bodyload = Physicsvar(scalar,forcedensity,'f',sourcevar,[])
+    Elasticity = Physicsvar(tensor,nounit,'E',)
+    elasticityvar = [force, surface, stress, directionofchange, referenceline, strain, bodyload]
+    forcebar = force.setdim(1)
+    surfacebar = surface.setdim(1)
+    stressbar = stress.setdim(1)
+    dirofchangebar = directionofchange.setdim(1)
+    referenceline = referenceofline.setdim('nochange')
+    strainbar =
+
+    force1D = force.setdim(1) = point
+    surface1D = surface.setdim(1) = point
+    stress = stress.setdim(1) = point
+
+
     forcetype = (vector, point)
     stresstype = (scalar, point)
     straintype = (scalar, line)

@@ -32,7 +32,7 @@ class Polygoncoordinate:
         self.value = []
 
         if polygontype == Polygontype.nopolygon:
-            self.value = [[0], [1]]
+            self.value = [[-1], [1]]
 
         elif polygontype == Polygontype.triangle:
             self.value = [[0, 0], [1, 0], [0, 1]]
