@@ -6,6 +6,7 @@ from femaths.polytope import Polytopetype, Polygontype, Polyhedrontype, Polygonc
 from enum import Enum
 from sympy import*
 
+
 class Coordinatesystem(Enum):
     cartesian = 1
     spherical = 2
@@ -60,20 +61,73 @@ class Physicsvar:
         self.Physicsvarlist = Physicsvarlist
 
 
+class Fegeo:
+    def __init__(self, femaths, dimension, coordinatesystem):
+        self.mesh = femaths.mesh
+        self.dimension = dimension
+        self.shapefunlist = femaths.shapefunlist
+        self.coordinatesystem = coordinatesystem
+        self.coord = Matrix(MatrixSymbol('x', dimension, dimension))
+
 
 
 class Fevar:
-    def __init__(self, femaths, physicsvar, modellingdim):
-        self.shapefunlist = femaths.shapefunlist
-        if physicsvar.mathvartype == Mathvartype.vector:
-            vect = MatrixSymbol(physicsvar.symbol, 1, modellingdim)
-        elif physicsvar.mathvartype == Mathvartype.scalar:
-
-
-
-class Fegeom:
     def __init__(self, femaths):
-        self.shapefunlist = femaths.shapefunlist
+        if len(femaths.listnumface) == 2:
+            self.mesh = femaths.mesh
+            self.dofnumber = femaths.dofnumber
+            self.listnumface = femaths.listnumface
+            self.shapefunlist = femaths.shapefunlist
+            self.paramvar = femaths.var[0]
+            u = Matrix(MatrixSymbol('u', 1, self.dofnumber))
+            self.mesh[0].vertice1.var = u[self.mesh[0].vertice1.index[0]]
+            self.mesh[0].vertice2.var = u[self.mesh[0].vertice2.index[0]]
+
+            stiffnessmatrix = zeros(self.dofnumber, self.dofnumber)
+            gradientshapefunlist = []
+
+            for i in range(0, self.dofnumber):
+                gradientshapefunlist.insert(i, diff(femaths.shapefunlist[i][1], femaths.var[0], 1))
+                gradientshapevector = Matrix(gradientshapefunlist)
+                gradientshapematrix = gradientshapevector*gradientshapevector.transpose()
+            for i in range(0, self.dofnumber):
+                for j in range(0, self.dofnumber):
+                    p = Poly(gradientshapematrix[i, j], femaths.var[0])
+                    pi = p.integrate(femaths.var[0])
+                    stiffnessmatrix[i,j] = pi(femaths.mesh[0].vertice2.coordinates[0])\
+                              - pi(femaths.mesh[0].vertice1.coordinates[0])
+
+            self.stiffnessmatrix = stiffnessmatrix
+
+    def settomodelspace(self, dimension, fegeo):
+            #we have already the coordinate as vectors - now we have to adjust the number of DOF in phyvar.
+            u = Matrix(MatrixSymbol('u', dimension, self.dofnumber)).transpose()
+            self.u = u
+            tangentspace = []
+            for i in range(0,len(fegeo.shapefunlist)):
+                tangentspace.append(diff(fegeo.shapefunlist[i][1], self.paramvar, 1))
+
+            shapefunvector=[]
+            for i in range(0,len(self.shapefunlist)):
+                shapefunvector.append(self.shapefunlist[i][1])
+
+            tangentspace = (Matrix(tangentspace)).transpose()*(fegeo.coord)
+            displacement = Matrix(shapefunvector).transpose()*u
+            self.tangentspace = tangentspace
+            self.tangentdisplacement = tangentspace*displacement.transpose()
+            #implement tangentdisplacement
+            self.parametricstrain = diff(self.tangentdisplacement[0], self.paramvar, 1)
+            strainmodelspace = []
+
+            for i in range(0,dimension):
+                strainmodelspace.append((1/
+                                         (self.tangentspace[i])
+                                         * self.parametricstrain))
+
+            self.strainmodelspace = strainmodelspace
+
+            #self.mesh[0].vertice1.var = u[self.mesh[0].vertice1.index[0]]
+            #self.mesh[0].vertice2.var = u[self.mesh[0].vertice2.index[0]]
 
 
 def main():
@@ -92,9 +146,14 @@ def main():
     linemesh.applyfunreq(funreqlist1)
     poly1Dlinear_x = Monomials(1, 1, ['x'])
     femathline = Femath(poly1Dlinear_x, linemesh)
-    print(femathline.__dict__)
+    fevar = Fevar(femathline)
+    fegeo = Fegeo(femathline, 2,'cartesian')
+    fevar.settomodelspace(2, fegeo)
+    a = 2
+"""    print(femathline.__dict__)
     vector = Mathvartype.vector
     scalar = Mathvartype.scalar
+
     mechanics = Physicstheory.mechanics
     none = Physicstheory.none
     coordsystemtype = Coordinatesystem.cartesian
@@ -102,6 +161,7 @@ def main():
     sourcevar = Physicsvartype.source
     geometryvar = Physicsvartype.geometry
     materialvar = Physicsvar.material
+
     meter = Units.meter
     sqmeter = Units.sqmeter
     newton = Units.newton
@@ -109,25 +169,27 @@ def main():
     forcedensity = Units.density
     nwtsqmeter = Units.newtonsqmeter
     surface = Geometryvar.surface
+
     force = Physicsvar(vector,newton,'F',mechanics,sourcevar,[])
     surface = Physicsvar(vector,sqmeter,'A', none,geometryvar,[])
     stress = Physicsvar(tensor,nwtsqmeter,'s',mechanics,sourcevar,[force,surface])
-    directionofchange = Physicsvar(vector,meter,'doc',configvar,mechanics,[])
-    referenceline = Physicsvar(vector,meter,'rf',configvar,mechanics,[])
-    strain = Physicsvar(tensor,nounit,'ep',[directionofchange,referenceline])
-    bodyload = Physicsvar(scalar,forcedensity,'f',sourcevar,[])
-    Elasticity = Physicsvar(tensor,nounit,'E',)
-    elasticityvar = [force, surface, stress, directionofchange, referenceline, strain, bodyload]
+    directionofchange = Physicsvar(vector,meter,'doc',mechanics, configvar,mechanics,[])
+    referenceline = Physicsvar(vector,meter,'rf',mechanics, configvar,[])
+    strain = Physicsvar(tensor,nounit,'ep',mechanics, configvar, [directionofchange,referenceline])
+    bodyload = Physicsvar(scalar,forcedensity,'f',mechanics, sourcevar,[])
+    Elasticityconstant = Physicsvar(tensor,nounit,'E',mechanics, configvar, [stress, surface])
+
+    elasticityvar = [force, surface, stress, directionofchange, referenceline, strain, bodyload, Elasticityconstant]
     forcebar = force.setdim(1)
     surfacebar = surface.setdim(1)
     stressbar = stress.setdim(1)
-    dirofchangebar = directionofchange.setdim(1)
-    referenceline = referenceofline.setdim('nochange')
-    strainbar =
+    directionofchangebar = directionofchange.setdim(1)
+    referenceline = referenceline.setdim('nochange')
+    strainbar = strain.setdim(1)
+    bodyload = bodyload.setdim(1)
+    Elasticityconstantbar = Elasticityconstant.setdim(1)
 
-    force1D = force.setdim(1) = point
-    surface1D = surface.setdim(1) = point
-    stress = stress.setdim(1) = point
+
 
 
     forcetype = (vector, point)
@@ -141,7 +203,7 @@ def main():
     #barelem = femodel(Fephyvar,Fegeometry,inputmodel,outputmodel)
 
 
-
+"""
 
 
 

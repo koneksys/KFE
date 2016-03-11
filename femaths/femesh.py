@@ -108,6 +108,7 @@ class Femesh:
         verticelist = []
         edgelist = []
         self.listnumface = polytope.listnumface
+        self.geometry = polytope.polytopename
 
         if polytope.polytopeinfo[0] == Polytopetype.line:
             nbvertice = len(polytope.verticelist[0])

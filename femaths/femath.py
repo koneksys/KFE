@@ -52,6 +52,10 @@ class Femath:
 
             equationlist.append(localeq)
 
+        self.dofnumber = femesh.dofnumber
+        self.listnumface = femesh.listnumface
+        self.geometry = femesh.geometry
+        self.var = funspace.var
         dofnumber = femesh.dofnumber
 
         c = Matrix(MatrixSymbol('c', 1, dofnumber))
@@ -89,7 +93,7 @@ class Femath:
                     elif shapefunlist[i][0][0] == self.mesh[0].vertice2.index:
                         self.mesh[0].vertice2.shapefunction.append(shapefunlist[i][1])
 
-
+        self.shapefunlist = shapefunlist
 
 def main():
 
@@ -118,9 +122,9 @@ def main():
     facedim4 = Meshobjecttype.edge
     dofnumber4 = 1
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
-    funreqlist1 = [funcreq1,funcreq2]
+    funreqlist1 = [funcreq1]
     linemesh.applyfunreq(funreqlist1)
-    poly1Dlinear_x = Monomials(1, 3, ['x'])
+    poly1Dlinear_x = Monomials(1, 1, ['x'])
     femathline = Femath(poly1Dlinear_x, linemesh)
 
 
