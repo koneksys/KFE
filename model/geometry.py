@@ -4,6 +4,7 @@
 FREECADPATH = 'C:\Program Files\FreeCAD 0.14\lib'
 import sys
 sys.path.append(FREECADPATH)
+from femaths.femesh import Vertice,Edge
 
 import FreeCAD
 
@@ -30,7 +31,13 @@ def main():
     doc = FreeCAD.open("C:/Users/User/Desktop/CAD_Data/bridge.FCStd")
     verticelist = doc.Sketch.Shape.Vertexes
     edgelist = doc.Sketch.Shape.Edges
-    E1 = edgelist[0]
+
+    for i in range(0, len(edgelist)):
+
+
+    print(edgelist[3].Vertexes[1].Point[0])
+    E1 = len(edgelist)
+    print(E1)
     V1 = verticelist[0]
     coord = V1.Point
     coordx = V1.Point[0]

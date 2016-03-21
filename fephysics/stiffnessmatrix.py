@@ -12,6 +12,7 @@ class Coordinatesystem(Enum):
     spherical = 2
     cylindric = 3
 
+
 class Units(Enum):
     meter = 1
     newton = 2
@@ -20,10 +21,12 @@ class Units(Enum):
     density = 5
     dimensionless = 6
 
+
 class Mathvartype(Enum):
     scalar = 1
     vector = 2
     tensor = 3
+
 
 class Physicstheory(Enum):
     mechanics = 1
@@ -33,6 +36,7 @@ class Physicstheory(Enum):
     fluid = 5
     none = 6
 
+
 class Physicsvartype(Enum):
     configuration = 1
     source = 2
@@ -41,16 +45,19 @@ class Physicsvartype(Enum):
     geometry = 5
     material = 6
 
+
 class Modellspacedim(Enum):
     dim1 = 1
     dim2 = 2
     dim3 = 3
+
 
 class Geometryvar(Enum):
     point = 0
     line = 1
     surface = 2
     volume = 3
+
 
 class Physicsvar:
     def __init__(self, mathvartype, units, varsymbol, physicstheory, physicsvartype, Physicsvarlist):
@@ -65,31 +72,36 @@ class Fegeo:
     def __init__(self, femaths, dimension, coordinatesystem):
         self.mesh = femaths.mesh
         self.dimension = dimension
+        self.dofnumber = femaths.dofnumber
         self.shapefunlist = femaths.shapefunlist
         self.coordinatesystem = coordinatesystem
-        self.coord = Matrix(MatrixSymbol('x', dimension, dimension))
-
+        self.coordvar = ['x','y','z']
+        coordvarmatrix = zeros(dimension,self.dofnumber)
+        for i in range(0,dimension):
+            for j in range(0, self.dofnumber):
+                coordvarmatrix[i,j] = symbols(self.coordvar[i]+str(j))
+        self.coord = coordvarmatrix
 
 
 class Fevar:
-    def __init__(self, femaths):
+    def __init__(self, femaths, physicsvar):
         if len(femaths.listnumface) == 2:
             self.mesh = femaths.mesh
             self.dofnumber = femaths.dofnumber
             self.listnumface = femaths.listnumface
             self.shapefunlist = femaths.shapefunlist
+            self.phyvarsymbol = physicsvar.symbol
+            self.mathvartype = physicsvar.mathvartype
             self.paramvar = femaths.var[0]
-            u = Matrix(MatrixSymbol('u', 1, self.dofnumber))
-            self.mesh[0].vertice1.var = u[self.mesh[0].vertice1.index[0]]
-            self.mesh[0].vertice2.var = u[self.mesh[0].vertice2.index[0]]
 
             stiffnessmatrix = zeros(self.dofnumber, self.dofnumber)
             gradientshapefunlist = []
 
             for i in range(0, self.dofnumber):
                 gradientshapefunlist.insert(i, diff(femaths.shapefunlist[i][1], femaths.var[0], 1))
-                gradientshapevector = Matrix(gradientshapefunlist)
-                gradientshapematrix = gradientshapevector*gradientshapevector.transpose()
+
+            gradientshapevector = Matrix(gradientshapefunlist)
+            gradientshapematrix = gradientshapevector*gradientshapevector.transpose()
             for i in range(0, self.dofnumber):
                 for j in range(0, self.dofnumber):
                     p = Poly(gradientshapematrix[i, j], femaths.var[0])
@@ -99,36 +111,80 @@ class Fevar:
 
             self.stiffnessmatrix = stiffnessmatrix
 
-    def settomodelspace(self, dimension, fegeo):
-            #we have already the coordinate as vectors - now we have to adjust the number of DOF in phyvar.
-            u = Matrix(MatrixSymbol('u', dimension, self.dofnumber)).transpose()
-            self.u = u
-            tangentspace = []
-            for i in range(0,len(fegeo.shapefunlist)):
-                tangentspace.append(diff(fegeo.shapefunlist[i][1], self.paramvar, 1))
+    def settomodelspace(self, fegeo):
 
-            shapefunvector=[]
-            for i in range(0,len(self.shapefunlist)):
-                shapefunvector.append(self.shapefunlist[i][1])
+        dimension = fegeo.dimension
+        #define the freevariable representing the degrees of freedom of the physical system in the modelling space
+        phyvarmatrix = zeros(dimension,self.dofnumber)
+        for i in range(0,dimension):
+            for j in range(0, self.dofnumber):
+                phyvarmatrix[i,j] = symbols(self.phyvarsymbol+str(j)+fegeo.coordvar[i])
+        self.phyvarmatrix = phyvarmatrix
 
-            tangentspace = (Matrix(tangentspace)).transpose()*(fegeo.coord)
-            displacement = Matrix(shapefunvector).transpose()*u
-            self.tangentspace = tangentspace
-            self.tangentdisplacement = tangentspace*displacement.transpose()
-            #implement tangentdisplacement
-            self.parametricstrain = diff(self.tangentdisplacement[0], self.paramvar, 1)
-            strainmodelspace = []
+        #define the vector of shapefunctions to represent the physical value - the scalar product
+        shapefunvec = []
+        for i in range(0,self.dofnumber):
+                shapefunvec.append(self.shapefunlist[i][1])
 
-            for i in range(0,dimension):
-                strainmodelspace.append((1/
-                                         (self.tangentspace[i])
-                                         * self.parametricstrain))
+        # of phyvarmatrix and this vector gives the expression of the physical variable
+        self.phymodfun = phyvarmatrix * Matrix(shapefunvec)
 
-            self.strainmodelspace = strainmodelspace
 
-            #self.mesh[0].vertice1.var = u[self.mesh[0].vertice1.index[0]]
-            #self.mesh[0].vertice2.var = u[self.mesh[0].vertice2.index[0]]
+        if self.mathvartype == Mathvartype.vector:
+            #we have to calculate the tangent vector...
+            tangentvector = zeros(dimension, 1)
+            Norm = 0
+            for i in range(0, dimension):
+                    tangentvector[i] = 0
+                    for j in range(0, self.dofnumber):
+                        tangentvector[i] = tangentvector[i] + \
+                                               diff(fegeo.shapefunlist[j][1], self.paramvar, 1) * fegeo.coord[i,j]
 
+                    Norm = Norm + tangentvector[i] * tangentvector[i]
+            Norm = factor(pow(Norm, -0.5))
+            self.Norm = Norm
+
+            self.unittangentvector = Norm*eye(dimension) * tangentvector
+
+            self.tangentphyvarunit = self.phymodfun.transpose() * self.unittangentvector
+            self.tangentphyvar = self.phymodfun.transpose() * self.unittangentvector
+            #self.phymodfun.transpose() * tangentvector
+
+        elif self.mathvartype == Mathvartype.scalar:
+            self.tangentphyvar = self.phymodfun
+
+        self.gradientvar = diff(self.tangentphyvar[0], self.paramvar, 1)
+        self.gradientvar = expand(self.gradientvar)
+
+        tuplephyvar = []
+        for i in range(0, dimension):
+            for j in range(0,self.dofnumber):
+                tuplephyvar.append(phyvarmatrix[i,j])
+        tuplephyvar = tuple(tuplephyvar)
+
+        self.collectexp = collect(self.gradientvar, tuplephyvar,evaluate=false)
+        gradientvector = zeros(1, self.dofnumber*dimension)
+        index = 0
+
+
+        for i in range(0, self.dofnumber):
+            for j in range(0, dimension):
+                gradientvector[index] = self.collectexp[phyvarmatrix[j,i]]
+                index = index + 1
+
+        self.gradientvector = Matrix(gradientvector)*Norm
+
+        modelstiffnessmatrix=zeros(self.dofnumber*dimension,self.dofnumber*dimension)
+        gradientshapematrix = self.gradientvector.transpose()*self.gradientvector
+        for i in range(0, self.dofnumber*dimension):
+            for j in range(0, self.dofnumber*dimension):
+                p = Poly(gradientshapematrix[i, j]*Norm, self.paramvar)
+                pi = p.integrate(self.paramvar)
+                I = (pi(self.mesh[0].vertice2.coordinates[0])\
+                          - pi(self.mesh[0].vertice1.coordinates[0]))
+                modelstiffnessmatrix[i,j] = simplify(I)
+
+        self.modelstiffnessmatrix = modelstiffnessmatrix
 
 def main():
 
@@ -142,25 +198,25 @@ def main():
     facedim1 = Meshobjecttype.vertice
     dofnumber1 = 1
     funcreq1 = Funreq(doftype1, facedim1, dofnumber1)
-    funreqlist1 = [funcreq1]
-    linemesh.applyfunreq(funreqlist1)
-    poly1Dlinear_x = Monomials(1, 1, ['x'])
-    femathline = Femath(poly1Dlinear_x, linemesh)
-    fevar = Fevar(femathline)
-    fegeo = Fegeo(femathline, 2,'cartesian')
-    fevar.settomodelspace(2, fegeo)
-    a = 2
-"""    print(femathline.__dict__)
+    doftype2 = Doftype.pointevaluation
+    facedim2 = Meshobjecttype.edge
+    dofnumber2 = 1
+    funcreq2 = Funreq(doftype2, facedim2, dofnumber2)
+
+    funreqlist2 = [funcreq1]
+    linemesh.applyfunreq(funreqlist2)
+    poly1Dlinear_x = Monomials(1, 1, ['s'])
+
     vector = Mathvartype.vector
     scalar = Mathvartype.scalar
 
     mechanics = Physicstheory.mechanics
     none = Physicstheory.none
-    coordsystemtype = Coordinatesystem.cartesian
+    coordsystem = Coordinatesystem.cartesian
     configvar = Physicsvartype.configuration
     sourcevar = Physicsvartype.source
     geometryvar = Physicsvartype.geometry
-    materialvar = Physicsvar.material
+    materialvar = Physicsvartype.material
 
     meter = Units.meter
     sqmeter = Units.sqmeter
@@ -170,43 +226,25 @@ def main():
     nwtsqmeter = Units.newtonsqmeter
     surface = Geometryvar.surface
 
-    force = Physicsvar(vector,newton,'F',mechanics,sourcevar,[])
-    surface = Physicsvar(vector,sqmeter,'A', none,geometryvar,[])
-    stress = Physicsvar(tensor,nwtsqmeter,'s',mechanics,sourcevar,[force,surface])
-    directionofchange = Physicsvar(vector,meter,'doc',mechanics, configvar,mechanics,[])
-    referenceline = Physicsvar(vector,meter,'rf',mechanics, configvar,[])
-    strain = Physicsvar(tensor,nounit,'ep',mechanics, configvar, [directionofchange,referenceline])
-    bodyload = Physicsvar(scalar,forcedensity,'f',mechanics, sourcevar,[])
-    Elasticityconstant = Physicsvar(tensor,nounit,'E',mechanics, configvar, [stress, surface])
+    displacement = Physicsvar(vector, meter, 'u', mechanics, configvar, [])
+    force = Physicsvar(vector, newton, 'F', mechanics, sourcevar, [])
+    surface = Physicsvar(vector, sqmeter, 'A', none, geometryvar, [])
+    stress = Physicsvar(tensor, nwtsqmeter, 's', mechanics, sourcevar, [force,surface])
+    directionofchange = Physicsvar(vector, meter, 'doc', mechanics, configvar, [])
+    referenceline = Physicsvar(vector, meter, 'rf', mechanics, configvar, [])
+    strain = Physicsvar(tensor, nounit, 'ep', mechanics, configvar, [directionofchange,referenceline])
+    bodyload = Physicsvar(scalar, forcedensity, 'f', mechanics, sourcevar, [])
+    Elasticityconstant = Physicsvar(tensor, nounit, 'E', mechanics, configvar, [stress, surface])
+
+    femathline = Femath(poly1Dlinear_x, linemesh)
+    fevar = Fevar(femathline, displacement)
+    fegeo3D = Fegeo(femathline, 3, coordsystem)
+    fegeo2D = Fegeo(femathline, 2, coordsystem)
+    fegeo1D = Fegeo(femathline, 1, coordsystem)
+    fevar.settomodelspace(fegeo1D)
 
     elasticityvar = [force, surface, stress, directionofchange, referenceline, strain, bodyload, Elasticityconstant]
-    forcebar = force.setdim(1)
-    surfacebar = surface.setdim(1)
-    stressbar = stress.setdim(1)
-    directionofchangebar = directionofchange.setdim(1)
-    referenceline = referenceline.setdim('nochange')
-    strainbar = strain.setdim(1)
-    bodyload = bodyload.setdim(1)
-    Elasticityconstantbar = Elasticityconstant.setdim(1)
-
-
-
-
-    forcetype = (vector, point)
-    stresstype = (scalar, point)
-    straintype = (scalar, line)
-    displacementtype = (vector, point)
-    displacement = Physicsvar(vector,meter,'u')
-    #displacementint = Fevar(femathline, displacement, modellingdim)
-    #linemodelspace = Fegeom(femathline, coordsystemtype, modellingdim)
-    #inputmodel = [force, displacement]
-    #barelem = femodel(Fephyvar,Fegeometry,inputmodel,outputmodel)
-
-
-"""
-
-
-
+    a=2
 
 if __name__ == "__main__":
     main()

@@ -122,10 +122,10 @@ def main():
     facedim4 = Meshobjecttype.edge
     dofnumber4 = 1
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
-    funreqlist1 = [funcreq1]
+    funreqlist1 = [funcreq1,funcreq2,funcreq3,funcreq4]
     linemesh.applyfunreq(funreqlist1)
-    poly1Dlinear_x = Monomials(1, 1, ['x'])
-    femathline = Femath(poly1Dlinear_x, linemesh)
+    polyhermitte_x = Monomials(1, 5, ['x'])
+    femathline = Femath(polyhermitte_x, linemesh)
 
 
 
@@ -143,11 +143,7 @@ def main():
     trianglemesh.applyfunreq(funreqlist2)
     poly2Dlinear_xy = Monomials(2, 2, ['x','y'])
     femathtriangle = Femath(poly2Dlinear_xy, trianglemesh)
-
- #   print(femathline.__dict__)
-    print(femathline.mesh[0].vertice1)
-#    print(femathtriangle.__dict__)
-    a=2
+    breakpoint=2
 
 
 
