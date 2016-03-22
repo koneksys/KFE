@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca14c933-2cb7-4de7-a4c4-44be8d7a62c5" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/model/readfreecad" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/model/readfreecadtopy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/GIT_KFE.iml" afterPath="$PROJECT_DIR$/.idea/GIT_KFE.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/femaths/femath.py" afterPath="$PROJECT_DIR$/femaths/femath.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/femaths/femesh.py" afterPath="$PROJECT_DIR$/femaths/femesh.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fephysics/stiffnessmatrix.py" afterPath="$PROJECT_DIR$/fephysics/stiffnessmatrix.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/geometry.py" afterPath="$PROJECT_DIR$/model/geometry.py" />
     </list>
@@ -22,7 +25,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/GIT_KFE$polytopetest.coverage" NAME="funspace Coverage Results" MODIFIED="1456009229655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/femaths" />
-    <SUITE FILE_PATH="coverage/GIT_KFE$funspace.coverage" NAME="funspace Coverage Results" MODIFIED="1458570701023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/GIT_KFE$funspace.coverage" NAME="funspace Coverage Results" MODIFIED="1458667889352" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fephysics" />
     <SUITE FILE_PATH="coverage/GIT_KFE$hello.coverage" NAME="Functionalrequirement Coverage Results" MODIFIED="1454767326964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GIT_KFE$Functionalrequirement__1_.coverage" NAME="polytopetest Coverage Results" MODIFIED="1455136341244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/femaths" />
   </component>
@@ -39,44 +42,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="decorators.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Anaconda/envs/scientificenv/Lib/site-packages/sympy/core/decorators.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="numbers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Anaconda/envs/scientificenv/Lib/site-packages/sympy/core/numbers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2072" column="0" selection-start-line="2072" selection-start-column="0" selection-end-line="2072" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="libmpf.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Anaconda/envs/scientificenv/Lib/site-packages/sympy/mpmath/libmp/libmpf.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="205" column="0" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stiffnessmatrix.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="stiffnessmatrix.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fephysics/stiffnessmatrix.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="178" column="52" selection-start-line="178" selection-start-column="52" selection-end-line="178" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.44160584">
+              <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
-                <marker date="1458557304882" expanded="true" signature="3200:6431" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="femath.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/femaths/femath.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.034483">
+              <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+              <folding>
+                <element signature="e#83#113#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,30 +80,74 @@
         <entry file="file://$PROJECT_DIR$/model/geometry.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+              <caret line="61" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="femesh.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/femaths/femesh.py">
+      <file leaf-file-name="readfreecad" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/readfreecad">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4113475">
-              <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readfreecadtopy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/readfreecadtopy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
-                <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="polytools.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Anaconda/envs/scientificenv/Lib/site-packages/sympy/polys/polytools.py">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="667" column="0" selection-start-line="667" selection-start-column="0" selection-end-line="667" selection-end-column="0" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="save.p" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/save.p">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="femesh.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/femaths/femesh.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="59" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <folding>
+                <marker date="1458652870682" expanded="true" signature="0:262" placeholder="import ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="funspace.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/femaths/funspace.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#84#102#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,9 +199,12 @@
         <option value="$PROJECT_DIR$/femaths/funspace.py" />
         <option value="$PROJECT_DIR$/femaths/polytope.py" />
         <option value="$PROJECT_DIR$/femaths/femesh.py" />
+        <option value="$PROJECT_DIR$/model/geometry.py" />
+        <option value="$PROJECT_DIR$/model/save.p" />
+        <option value="$PROJECT_DIR$/model/readfreecad" />
+        <option value="$PROJECT_DIR$/model/readfreecadtopy.py" />
         <option value="$PROJECT_DIR$/femaths/femath.py" />
         <option value="$PROJECT_DIR$/fephysics/stiffnessmatrix.py" />
-        <option value="$PROJECT_DIR$/model/geometry.py" />
       </list>
     </option>
   </component>
@@ -235,6 +266,79 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Problems">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="fephysics">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="femaths">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="model">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="fephysics">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -469,65 +573,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope">
-        <subPane subId="Problems">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="fephysics">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="femaths">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="GIT_KFE">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="femaths">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -535,7 +580,7 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Anaconda/envs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/fephysics/stiffnessmatrix.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -763,13 +808,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/fephysics" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GIT_KFE" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/geometry.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fephysics/stiffnessmatrix.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -798,7 +843,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19180088" sideWeight="0.4920635" order="0" side_tool="false" content_ui="combo" />
@@ -807,11 +852,11 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32125986" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06771654" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43779528" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24887556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33169934" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13543192" sideWeight="0.50793654" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18897638" sideWeight="0.49707174" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47874016" sideWeight="0.49707174" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -884,13 +929,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/femaths/femesh.py</url>
-          <line>246</line>
+          <line>242</line>
           <option name="timeStamp" value="240" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/model/geometry.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="244" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/femaths/femath.py</url>
@@ -901,6 +941,16 @@
           <url>file://$PROJECT_DIR$/fephysics/stiffnessmatrix.py</url>
           <line>245</line>
           <option name="timeStamp" value="281" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/model/geometry.py</url>
+          <line>97</line>
+          <option name="timeStamp" value="282" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/model/readfreecadtopy.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="286" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -913,103 +963,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="282" />
+      <option name="time" value="288" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/femaths/test/FiniteElement_Specification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="40" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="uml://Python/#C:/WorkingDirectory_Spyder/GIT_KFE/femaths/femesh.py">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>Python</ID>
-          <OriginalElement>#C:/WorkingDirectory_Spyder/GIT_KFE/femaths/femesh.py</OriginalElement>
-          <nodes>
-            <node x="43.5" y="160.0">enum.Enum</node>
-            <node x="44.17999999999995" y="80.0">enum.EnumMeta</node>
-            <node x="168.25" y="0.0">_collections_abc.Hashable</node>
-            <node x="162.5" y="160.0">femaths.femesh.Femesh</node>
-            <node x="345.5" y="160.0">femaths.femesh.Edge</node>
-            <node x="386.0" y="80.0">object</node>
-            <node x="0.0" y="240.0">femaths.femesh.Paramrange</node>
-            <node x="513.5" y="160.0">femaths.femesh.Vertice</node>
-            <node x="691.5" y="160.0">femaths.femesh.Face</node>
-          </nodes>
-          <notes />
-          <edges>
-            <edge source="object" target="_collections_abc.Hashable">
-              <point x="0.0" y="-15.0" />
-              <point x="419.5" y="55.0" />
-              <point x="275.5" y="55.0" />
-              <point x="35.75" y="15.0" />
-            </edge>
-            <edge source="enum.Enum" target="object">
-              <point x="33.0" y="-15.0" />
-              <point x="126.0" y="130.0" />
-              <point x="392.7" y="130.0" />
-              <point x="-26.80000000000001" y="15.0" />
-            </edge>
-            <edge source="femaths.femesh.Vertice" target="object">
-              <point x="0.0" y="-15.0" />
-              <point x="592.5" y="140.0" />
-              <point x="432.9" y="140.0" />
-              <point x="13.399999999999977" y="15.0" />
-            </edge>
-            <edge source="enum.Enum" target="_collections_abc.Hashable">
-              <point x="-33.0" y="-15.0" />
-              <point x="60.0" y="140.0" />
-              <point x="33.67999999999995" y="140.0" />
-              <point x="33.67999999999995" y="55.0" />
-              <point x="204.0" y="55.0" />
-              <point x="-35.75" y="15.0" />
-            </edge>
-            <edge source="femaths.femesh.Femesh" target="object">
-              <point x="0.0" y="-15.0" />
-              <point x="244.0" y="140.0" />
-              <point x="406.1" y="140.0" />
-              <point x="-13.399999999999977" y="15.0" />
-            </edge>
-            <edge source="femaths.femesh.Face" target="object">
-              <point x="0.0" y="-15.0" />
-              <point x="764.5" y="130.0" />
-              <point x="446.3" y="130.0" />
-              <point x="26.80000000000001" y="15.0" />
-            </edge>
-            <edge source="femaths.femesh.Edge" target="object">
-              <point x="0.0" y="-15.0" />
-              <point x="0.0" y="15.0" />
-            </edge>
-            <edge source="femaths.femesh.Paramrange" target="enum.Enum">
-              <point x="0.0" y="-15.0" />
-              <point x="0.0" y="15.0" />
-            </edge>
-            <edge source="enum.Enum" target="enum.EnumMeta">
-              <point x="0.0" y="-15.0" />
-              <point x="93.0" y="140.0" />
-              <point x="107.17999999999995" y="140.0" />
-              <point x="0.0" y="15.0" />
-            </edge>
-          </edges>
-          <settings layout="Hierarchic Group" zoom="1.0" x="125.0" y="96.0" />
-          <SelectedNodes />
-          <Categories />
-          <SCOPE>All</SCOPE>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fephysics/qudv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fephysics/tonti.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1159,13 +1117,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ShapeFunction_FEM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1177,31 +1128,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="218" column="0" selection-start-line="200" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/femaths/polytope.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/femaths/funspace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/femaths/femath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding>
-            <element signature="e#83#113#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1326,19 +1252,18 @@
     </entry>
     <entry file="file://$USER_HOME$/Anaconda/envs/scientificenv/Lib/site-packages/sympy/polys/polytools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.04857143">
           <caret line="667" column="0" selection-start-line="667" selection-start-column="0" selection-end-line="667" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fephysics/stiffnessmatrix.py">
+    <entry file="file://$PROJECT_DIR$/femaths/polytope.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="178" column="52" selection-start-line="178" selection-start-column="52" selection-end-line="178" selection-end-column="52" />
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
-            <marker date="1458557304882" expanded="true" signature="3200:6431" placeholder="..." />
+            <element signature="e#84#125#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1351,20 +1276,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/geometry.py">
+    <entry file="file://$PROJECT_DIR$/femaths/femesh.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+          <caret line="59" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding>
+            <marker date="1458652870682" expanded="true" signature="0:262" placeholder="import ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/femaths/funspace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#84#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/femaths/femesh.py">
+    <entry file="file://$PROJECT_DIR$/model/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4113475">
-          <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/save.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/readfreecad">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/readfreecadtopy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/femaths/femath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.034483">
+          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding>
+            <element signature="e#83#113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fephysics/stiffnessmatrix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44160584">
+          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>

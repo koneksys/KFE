@@ -141,10 +141,10 @@ class Fevar:
                                                diff(fegeo.shapefunlist[j][1], self.paramvar, 1) * fegeo.coord[i,j]
 
                     Norm = Norm + tangentvector[i] * tangentvector[i]
-            Norm = factor(pow(Norm, -0.5))
-            self.Norm = Norm
+            self.Norm = sqrt(Norm)
 
-            self.unittangentvector = Norm*eye(dimension) * tangentvector
+
+            self.unittangentvector = (1/self.Norm)*eye(dimension) * tangentvector
 
             self.tangentphyvarunit = self.phymodfun.transpose() * self.unittangentvector
             self.tangentphyvar = self.phymodfun.transpose() * self.unittangentvector
@@ -153,7 +153,7 @@ class Fevar:
         elif self.mathvartype == Mathvartype.scalar:
             self.tangentphyvar = self.phymodfun
 
-        self.gradientvar = diff(self.tangentphyvar[0], self.paramvar, 1)
+        self.gradientvar = diff(self.tangentphyvar[0], self.paramvar, 1)*(1/Norm)
         self.gradientvar = expand(self.gradientvar)
 
         tuplephyvar = []
@@ -172,13 +172,13 @@ class Fevar:
                 gradientvector[index] = self.collectexp[phyvarmatrix[j,i]]
                 index = index + 1
 
-        self.gradientvector = Matrix(gradientvector)*Norm
+        self.gradientvector = Matrix(gradientvector)
 
-        modelstiffnessmatrix=zeros(self.dofnumber*dimension,self.dofnumber*dimension)
-        gradientshapematrix = self.gradientvector.transpose()*self.gradientvector
+        modelstiffnessmatrix = zeros(self.dofnumber*dimension, self.dofnumber*dimension)
+        self.gradientshapematrix = self.gradientvector.transpose()*self.gradientvector
         for i in range(0, self.dofnumber*dimension):
             for j in range(0, self.dofnumber*dimension):
-                p = Poly(gradientshapematrix[i, j]*Norm, self.paramvar)
+                p = Poly(self.gradientshapematrix[i, j], self.paramvar)*self.Norm
                 pi = p.integrate(self.paramvar)
                 I = (pi(self.mesh[0].vertice2.coordinates[0])\
                           - pi(self.mesh[0].vertice1.coordinates[0]))

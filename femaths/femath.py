@@ -7,7 +7,7 @@ Created on Thu Feb 04 09:41:13 2016
 from scipy.special import comb
 from femaths.funreq import Funreq, Fieldtype, Doftype, Meshobjecttype
 from enum import Enum
-from femaths.femesh import Femesh, Vertice, Edge, Face, Paramrange
+from femaths.femesh import Femesh, Vertice, Edge, Face
 from femaths.funspace import Monomials, Tensorspace,funeval
 from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from sympy import*

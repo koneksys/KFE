@@ -1,13 +1,9 @@
-from enum import Enum
 from femaths.polytope import Polygontype, Polygoncoordinate, Polytopetype, Polyhedrontype, Polytope
 from itertools import combinations
 from scipy.special import comb, factorial
 from femaths.funreq import Funreq, Doftype, Meshobjecttype
 from sympy import Rational
 
-class Paramrange(Enum):
-    parammin = 0
-    parammax = 1
 
 
 class Vertice:

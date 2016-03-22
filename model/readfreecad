@@ -1,12 +1,10 @@
-#from FreeCAD.src.Mod.Arch.importWebGL import FreeCADGui
-# path to your FreeCAD.so or FreeCAD.dll file
-# FREECADPATH = 'C:\Program Files\FreeCAD 0.14\lib'
 FREECADPATH = 'C:\Program Files\FreeCAD 0.14\lib'
 import sys
 sys.path.append(FREECADPATH)
 
 import pickle
 import FreeCAD
+
 
 
 class Vertice:
@@ -21,9 +19,6 @@ class Vertice:
 
         self.coordinates = coordlist
         self.index = index
-        self.funreq = []
-        self.shapefunction = []
-        self.var = []
 
 class Edge:
     def __init__(self, index, vertice1, vertice2):
@@ -60,82 +55,36 @@ class Edge:
         addedvertice = Vertice(newindex, newcoord)
         self.interiorvertices.append(addedvertice)
 
-
-
-"""
-class PartTestCases(unittest.TestCase):
-    def setUp(self):
-        self.Doc = FreeCAD.newDocument("PartTest")
-
-    def testBoxCase(self):
-        self.Box = App.ActiveDocument.addObject("Part::Box", "Box")
-        self.Doc.recompute()
-        self.failUnless(len(self.Box.Shape.Faces) == 6)
-
-    def tearDown(self):
-        # closing doc
-        FreeCAD.closeDocument("PartTest")
-
-    # print ("omit clos document for debuging")
-"""
-
 def main():
 
     doc = FreeCAD.open("C:/Users/User/Desktop/CAD_Data/bridge.FCStd")
     fcverticelist = doc.Sketch.Shape.Vertexes
     fcedgelist = doc.Sketch.Shape.Edges
 
-    edgelist=[]
+
     numnodes = len(fcverticelist)
     verticelist = []
     for i in range(0, numnodes):
-        index = [i,str(id(fcverticelist[i]))]
+        index = [i, id(fcverticelist[i])]
         coordlist = []
         for j in range(0, 3):
             coordlist.append(fcverticelist[i].Point[j])
         verticelist.append(Vertice(index,coordlist))
-    print(verticelist[4].coordinates)
 
-    pickle.dump(verticelist, open("save.p", "wb"))
-"""
-    for i in range(0, len(edgelist)):
+    print(verticelist[2])
+
+    edgelist = []
+    for i in range(0, len(fcedgelist)):
+        edgevertice = []
         for j in range(0, 2):
-            coordlist=[]
-            if
-            for k in range(0, 3):
-                coordlist.append(edgelist[i].Vertexes[j].Point[k])
+            coordlist = []
+            for k in range(0,3):
+                coordlist.append(fcedgelist[i].Vertexes[j].Point[k])
+            edgevertice.append(Vertice(id(fcedgelist[i].Vertexes[j]), coordlist))
+        edgelist.append(Edge(i,edgevertice[0], edgevertice[1]))
 
-            v=Vertice(j,)
-        edgelist.append(fcedgelist[])
 
-    pickle.dump(verticelist, open("save.p", "wb" ))
-
-    print(edgelist[3].Vertexes[1].Point[0])
-    E1 = len(edgelist)
-    print(E1)
-    V1 = verticelist[0]
-    coord = V1.Point
-    coordx = V1.Point[0]
-    print(coord)
-    print(coordx)
-    #can create a geometry in FreeCAD, and read the geometric objects properties.
-"""
-
-"""
-import Part
-b = Part.makeBox(100,100,100)
-b.Wires
-w = b.Wires[0]
-w
-w.Wires
-w.Vertexes
-Part.show(w)
-w.Edges
-e = w.Edges[0]
-e.Vertexes
-v = e.Vertexes[0]
-v.Point
-"""
+    pickle.dump([verticelist,edgelist], open("save.p", "wb" ))
 
 if __name__ == "__main__":
     main()
