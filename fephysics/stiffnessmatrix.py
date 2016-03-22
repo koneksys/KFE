@@ -153,7 +153,7 @@ class Fevar:
         elif self.mathvartype == Mathvartype.scalar:
             self.tangentphyvar = self.phymodfun
 
-        self.gradientvar = diff(self.tangentphyvar[0], self.paramvar, 1)*(1/Norm)
+        self.gradientvar = diff(self.tangentphyvar[0], self.paramvar, 1)*(1/self.Norm)
         self.gradientvar = expand(self.gradientvar)
 
         tuplephyvar = []
@@ -241,7 +241,7 @@ def main():
     fegeo3D = Fegeo(femathline, 3, coordsystem)
     fegeo2D = Fegeo(femathline, 2, coordsystem)
     fegeo1D = Fegeo(femathline, 1, coordsystem)
-    fevar.settomodelspace(fegeo1D)
+    fevar.settomodelspace(fegeo2D)
 
     elasticityvar = [force, surface, stress, directionofchange, referenceline, strain, bodyload, Elasticityconstant]
     a=2
