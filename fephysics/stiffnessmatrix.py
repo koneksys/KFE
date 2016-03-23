@@ -5,7 +5,8 @@ from femaths.funspace import Monomials
 from femaths.polytope import Polytopetype, Polygontype, Polyhedrontype, Polygoncoordinate, Polytope
 from enum import Enum
 from sympy import*
-
+import pickle
+import random
 
 class Coordinatesystem(Enum):
     cartesian = 1
@@ -93,6 +94,8 @@ class Fevar:
             self.phyvarsymbol = physicsvar.symbol
             self.mathvartype = physicsvar.mathvartype
             self.paramvar = femaths.var[0]
+            self.mappingfun= 0
+
 
             stiffnessmatrix = zeros(self.dofnumber, self.dofnumber)
             gradientshapefunlist = []
@@ -114,6 +117,7 @@ class Fevar:
     def settomodelspace(self, fegeo):
 
         dimension = fegeo.dimension
+        self.coordinates=fegeo.coord
         #define the freevariable representing the degrees of freedom of the physical system in the modelling space
         phyvarmatrix = zeros(dimension,self.dofnumber)
         for i in range(0,dimension):
@@ -136,15 +140,15 @@ class Fevar:
             Norm = 0
             for i in range(0, dimension):
                     tangentvector[i] = 0
-                    for j in range(0, self.dofnumber):
+                    for j in range(0, fegeo.dofnumber):
                         tangentvector[i] = tangentvector[i] + \
                                                diff(fegeo.shapefunlist[j][1], self.paramvar, 1) * fegeo.coord[i,j]
 
-                    Norm = Norm + tangentvector[i] * tangentvector[i]
+                    Norm = Norm + factor(tangentvector[i] * tangentvector[i])
             self.Norm = sqrt(Norm)
 
 
-            self.unittangentvector = (1/self.Norm)*eye(dimension) * tangentvector
+            self.unittangentvector = eye(dimension) * tangentvector*(1/self.Norm)
 
             self.tangentphyvarunit = self.phymodfun.transpose() * self.unittangentvector
             self.tangentphyvar = self.phymodfun.transpose() * self.unittangentvector
@@ -154,7 +158,7 @@ class Fevar:
             self.tangentphyvar = self.phymodfun
 
         self.gradientvar = diff(self.tangentphyvar[0], self.paramvar, 1)*(1/self.Norm)
-        self.gradientvar = expand(self.gradientvar)
+
 
         tuplephyvar = []
         for i in range(0, dimension):
@@ -162,14 +166,14 @@ class Fevar:
                 tuplephyvar.append(phyvarmatrix[i,j])
         tuplephyvar = tuple(tuplephyvar)
 
-        self.collectexp = collect(self.gradientvar, tuplephyvar,evaluate=false)
+        collectexp = collect(expand(self.gradientvar), tuplephyvar,evaluate=false)
         gradientvector = zeros(1, self.dofnumber*dimension)
         index = 0
 
 
         for i in range(0, self.dofnumber):
             for j in range(0, dimension):
-                gradientvector[index] = self.collectexp[phyvarmatrix[j,i]]
+                gradientvector[index] = factor(collectexp[phyvarmatrix[j,i]])
                 index = index + 1
 
         self.gradientvector = Matrix(gradientvector)
@@ -182,9 +186,20 @@ class Fevar:
                 pi = p.integrate(self.paramvar)
                 I = (pi(self.mesh[0].vertice2.coordinates[0])\
                           - pi(self.mesh[0].vertice1.coordinates[0]))
-                modelstiffnessmatrix[i,j] = simplify(I)
+                modelstiffnessmatrix[i,j] = I
 
-        self.modelstiffnessmatrix = modelstiffnessmatrix
+
+        pickle.dump([modelstiffnessmatrix, fegeo], open("libraryElement"+
+                                              str(random.choice('abcdefghij'))
+                                              + str(random.randint(1, 10))+".p", "wb" ))
+        #f3 = lambdify([x0,x1,y0,y1], b2l, "numpy")
+        #self.mappingfun = lambdify([x0,x1,y0,y1],self.modelstiffnessmatrix, "numpy")
+
+def mappingfun(modelstiffnessmatrix):
+    [x0,x1,y0,y1]= symbols(['x0','x1','y0','y1'])
+    return lambdify([x0,x1,y0,y1],modelstiffnessmatrix, "numpy")
+
+
 
 def main():
 
@@ -193,7 +208,8 @@ def main():
     polyhedrontype1 = Polyhedrontype.nopolyhedron
     polytopecoord1 = Polygoncoordinate(polygontype1)
     line = Polytope(polytopetype1, polygontype1, polyhedrontype1, polytopecoord1)
-    linemesh = Femesh(line)
+    linearlinemesh = Femesh(line)
+    quadraticmesh=Femesh(line)
     doftype1 = Doftype.pointevaluation
     facedim1 = Meshobjecttype.vertice
     dofnumber1 = 1
@@ -202,10 +218,12 @@ def main():
     facedim2 = Meshobjecttype.edge
     dofnumber2 = 1
     funcreq2 = Funreq(doftype2, facedim2, dofnumber2)
-
-    funreqlist2 = [funcreq1]
-    linemesh.applyfunreq(funreqlist2)
+    funreqlist1 = [funcreq1]
+    funreqlist2 = [funcreq1,funcreq2]
+    linearlinemesh.applyfunreq(funreqlist1)
+    quadraticmesh.applyfunreq(funreqlist2)
     poly1Dlinear_x = Monomials(1, 1, ['s'])
+    poly1Dquadratic_x = Monomials(1, 2, ['s'])
 
     vector = Mathvartype.vector
     scalar = Mathvartype.scalar
@@ -236,12 +254,15 @@ def main():
     bodyload = Physicsvar(scalar, forcedensity, 'f', mechanics, sourcevar, [])
     Elasticityconstant = Physicsvar(tensor, nounit, 'E', mechanics, configvar, [stress, surface])
 
-    femathline = Femath(poly1Dlinear_x, linemesh)
-    fevar = Fevar(femathline, displacement)
-    fegeo3D = Fegeo(femathline, 3, coordsystem)
-    fegeo2D = Fegeo(femathline, 2, coordsystem)
-    fegeo1D = Fegeo(femathline, 1, coordsystem)
-    fevar.settomodelspace(fegeo2D)
+    femathlinelinear = Femath(poly1Dlinear_x, linearlinemesh)
+    femathlinequadratic = Femath(poly1Dquadratic_x,quadraticmesh)
+    fevar = Fevar(femathlinequadratic, displacement)
+    fegeo3D = Fegeo(femathlinelinear, 3, coordsystem)
+    fegeo2D = Fegeo(femathlinelinear, 2, coordsystem)
+    fegeo1D = Fegeo(femathlinelinear, 1, coordsystem)
+    model2Dstiffness = fevar.settomodelspace(fegeo1D)
+    mappingfun2 = mappingfun(model2Dstiffness)
+    A=mappingfun2(1,2,4,5)
 
     elasticityvar = [force, surface, stress, directionofchange, referenceline, strain, bodyload, Elasticityconstant]
     a=2
