@@ -2,9 +2,8 @@ import pickle
 from femaths.femesh import Vertice, Edge
 
 
-def main():
-
-    nodeedgelist = pickle.load(open("save.p", "rb" ))
+def readfctopy(filename):
+    nodeedgelist = pickle.load(open(filename, "rb" ))
     nodelist = nodeedgelist[0]
     edgelist = nodeedgelist[1]
     a =2
@@ -23,7 +22,12 @@ def main():
             if test2x and test2y and test2z:
                 edgelist[i].vertice2.index = nodelist[j].index[0]
 
-    a =2
+    return [nodelist,edgelist]
+
+
+def main():
+    NElist = readfctopy("save.p")
+    a = 2
 
 if __name__ == "__main__":
     main()

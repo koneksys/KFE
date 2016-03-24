@@ -255,12 +255,12 @@ def main():
     Elasticityconstant = Physicsvar(tensor, nounit, 'E', mechanics, configvar, [stress, surface])
 
     femathlinelinear = Femath(poly1Dlinear_x, linearlinemesh)
-    femathlinequadratic = Femath(poly1Dquadratic_x,quadraticmesh)
-    fevar = Fevar(femathlinequadratic, displacement)
+    femathlinequadratic = Femath(poly1Dquadratic_x, quadraticmesh)
+    fevar = Fevar(femathlinelinear, displacement)
     fegeo3D = Fegeo(femathlinelinear, 3, coordsystem)
     fegeo2D = Fegeo(femathlinelinear, 2, coordsystem)
     fegeo1D = Fegeo(femathlinelinear, 1, coordsystem)
-    model2Dstiffness = fevar.settomodelspace(fegeo1D)
+    model2Dstiffness = fevar.settomodelspace(fegeo2D)
     mappingfun2 = mappingfun(model2Dstiffness)
     A=mappingfun2(1,2,4,5)
 
