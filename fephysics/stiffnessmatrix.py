@@ -227,6 +227,7 @@ def main():
 
     vector = Mathvartype.vector
     scalar = Mathvartype.scalar
+    tensor = Mathvartype.tensor
 
     mechanics = Physicstheory.mechanics
     none = Physicstheory.none
