@@ -13,7 +13,7 @@ from sympy.physics.quantum import TensorProduct
 #from polytope import Polytopetype, Polytopedimension
 #from funreq import Doftype
 from enum import Enum
-
+import itertools
 
 
 def funeval(funspace, doftype, coord):

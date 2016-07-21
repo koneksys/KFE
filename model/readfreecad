@@ -1,4 +1,5 @@
 FREECADPATH = 'C:\Program Files\FreeCAD 0.14\lib'
+
 import sys
 sys.path.append(FREECADPATH)
 
@@ -57,7 +58,7 @@ class Edge:
 
 def main():
 
-    doc = FreeCAD.open("C:/Users/User/Desktop/CAD_Data/bridge.FCStd")
+    doc = FreeCAD.open("C:/Users/User/Desktop/NIST/Subject_NIST/CAD_Data/bridge.FCStd")
     fcverticelist = doc.Sketch.Shape.Vertexes
     fcedgelist = doc.Sketch.Shape.Edges
 

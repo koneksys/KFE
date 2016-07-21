@@ -191,7 +191,7 @@ class Fevar:
 
         pickle.dump([modelstiffnessmatrix, fegeo], open("libraryElement"+
                                               str(random.choice('abcdefghij'))
-                                              + str(random.randint(1, 10))+".p", "wb" ))
+                                              + str(random.randint(1, 10))+".p", "wb" ),protocol=2)
         #f3 = lambdify([x0,x1,y0,y1], b2l, "numpy")
         #self.mappingfun = lambdify([x0,x1,y0,y1],self.modelstiffnessmatrix, "numpy")
 
