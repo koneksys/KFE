@@ -19,14 +19,9 @@ Or automatically numbered:
  #. Item 2
 
 
-<p align="center">
-  <img src="example_femaths_1.png" width="350"/>
-</p>
 
 
-.. |Image| image:: example_femaths_1.png
-
-.. image:: example_femaths_2.png
+.. image:: https://github.com/JeromeSzarazi/test/example_femaths_1.png
 
 
 
