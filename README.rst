@@ -23,9 +23,7 @@ and represented by the following SysML diagram.
 SysML diagram
 ----------------
 
-
-.. image:: example_femaths_2.PNG
-
+.. image:: img/sysml_diagram.PNG
 
 FEmaths example
 ----------------
