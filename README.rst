@@ -1,6 +1,6 @@
 KFE
 ===============
-KFE is a library generating symbolic finite elements following a simple specification.
+KFE is a library generating symbolic finite elements following a specification.
 
 Examples of finite elements described by the specification are presented in the table below.
 
@@ -9,11 +9,10 @@ The program currently only supports only 2D finite elements for point-based eval
 and generate symbolic stiffness matrices for 1D elements in 1D, 2D and 3D.
 
 
-FEmaths
+FEmaths (finite element mathematics)
 ----------------
-The finite element mathematics is the
 
-A finite element is described by a triplet:
+Finite element mathematics can be described by a triplet as follows:
 
  * Geometry
  * Functional requirements
