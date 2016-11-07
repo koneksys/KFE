@@ -21,7 +21,7 @@ Or automatically numbered:
 
 
 
-.. image:: https://github.com/JeromeSzarazi/test/example_femaths_1.png
+.. image:: example_femaths_1.PNG
 
 
 
