@@ -1,28 +1,35 @@
-Cell Module
+KFE
 ===============
-The cell class creates topological elements for finite elements.
-These elements are
+KFE is a library generating symbolic finite elements following a simple specification.
 
-Subject Subtitle
+Examples of finite elements described by the specification are presented in the table below.
+
+The program currently only supports only 2D finite elements for point-based evaluation
+
+and generate symbolic stiffness matrices for 1D elements in 1D, 2D and 3D.
+
+
+FEmaths
 ----------------
-Subtitles are set with '-' and are required to have the same length
-of the subtitle itself, just like titles.
+The finite element mathematics is the
 
-Lists can be unnumbered like:
+A finite element is described by a triplet:
 
- * Item Foo
- * Item Bar
+ * Geometry
+ * Functional requirements
+ * Function (polynomial or vector polynomials)
 
-Or automatically numbered:
+and represented by the following SysML diagram.
 
- #. Item 1
- #. Item 2
-
+.. image:: img/syml_diagram.PNG
 
 
+FEmaths example
+----------------
 
 .. image:: img/example_femaths_1.PNG
 
+.. image:: img/example_femaths_2.PNG
 
 
 
