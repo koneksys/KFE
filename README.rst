@@ -19,8 +19,9 @@ Or automatically numbered:
  #. Item 2
 
 
-.. image:: example_femaths_1.png
 
+
+.. |Image| image:: example_femaths_1.png
 
 .. image:: example_femaths_2.png
 
