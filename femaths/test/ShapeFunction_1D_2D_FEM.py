@@ -1,9 +1,12 @@
-"""Created on Thu Aug 13 12:26:26 2015
-//Generating Shape_Functions
-@author: Jerome Szarazi, Koneksys
-if the package required are not available look up with the command 
-import sys and sys.path the directory where the libraries are installed.
-download the missing file and copy it to the directory
+"""
+ KFE
+ * http://www.koneksys.com/
+ *
+ * Copyright 2016 Koneksys
+ * Released under the MIT license
+ *
+ * @author Jerome Szarazi (jerome.szarazi@koneksys.com)
+ */
 """
 from sympy import*
 from sympy.abc import alpha

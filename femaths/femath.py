@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 04 09:41:13 2016
-
-@author: User
+ KFE
+ * http://www.koneksys.com/
+ *
+ * Copyright 2016 Koneksys
+ * Released under the MIT license
+ *
+ * @author Jerome Szarazi (jerome.szarazi@koneksys.com)
+ */
 """
 from scipy.special import comb
 from femaths.funreq import Funreq, Fieldtype, Doftype, Meshobjecttype

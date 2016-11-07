@@ -1,5 +1,4 @@
-KFE
-===============
+
 KFE is a library generating symbolic finite elements following a specification.
 
 Examples of finite elements described by the specification are presented in the table below.
@@ -16,7 +15,7 @@ Finite element mathematics can be described by a triplet as follows:
 
  * Geometry
  * Functional requirements
- * Function (polynomial or vector polynomials)
+ * Function (scalar polynomials or vector polynomials)
 
 and represented by the following SysML diagram.
 

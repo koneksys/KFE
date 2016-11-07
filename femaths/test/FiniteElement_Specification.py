@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 20 00:22:35 2016
 
-@author: User
+
+"""
+ KFE
+ * http://www.koneksys.com/
+ *
+ * Copyright 2016 Koneksys
+ * Released under the MIT license
+ *
+ * @author Jerome Szarazi (jerome.szarazi@koneksys.com)
+ */
 """
 #https://jszarazi@bitbucket.org/jszarazi/kfe.git
 #
