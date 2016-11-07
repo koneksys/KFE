@@ -1,0 +1,27 @@
+problem description
+nodes=5 elements=7
+nodes
+1 x=0 y=0 z=0 constraint=pin
+2 x=1 y=0 z=0 constraint=planar force=P
+3 x=2 y=0 z=0 constraint=roller
+4 x=0.5 y=0.866 z=0 constraint=planar
+5 x=1.5 y=0.866 z=0 constraint=planar
+truss elements
+1 nodes=[1,2] material=steel
+2 nodes=[2,3] 
+3 nodes=[1,4] 
+4 nodes=[4,5] 
+5 nodes=[4,2] 
+6 nodes=[5,3] 
+7 nodes=[2,5] 
+material properties
+steel E=3e+07 A=0.05
+distributed loads
+constraints
+free Tx=u Ty=u Tz=u Rz=u
+roller Tx=u Ty=c Tz=c Rz=u
+pin Tx=c Ty=c Tz=c Rz=u
+planar Tx=u Ty=u Tz=c Rz=u
+forces
+P Fx=-1
+end
