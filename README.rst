@@ -20,7 +20,11 @@ Finite element mathematics can be described by a triplet as follows:
 
 and represented by the following SysML diagram.
 
-.. image:: img/syml_diagram.PNG
+SysML diagram
+----------------
+
+
+.. image:: example_femaths_2.PNG
 
 
 FEmaths example
