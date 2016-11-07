@@ -15,7 +15,7 @@ in the table below.
 The program currently only supports only 2D finite elements for point-based evaluation.
 
 
-https://nbsphinx.readthedocs.io/en/0.2.9/index.html
+
 
 
 .. image:: example_femaths_1.png

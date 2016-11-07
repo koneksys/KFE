@@ -27,9 +27,9 @@ SysML diagram
 FEmaths example
 ----------------
 
-.. image:: img/example_femaths_1.PNG
+.. image:: img/examples_femaths_1.PNG
 
-.. image:: img/example_femaths_2.PNG
+.. image:: img/examples_femaths_2.PNG
 
 
 
