@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca14c933-2cb7-4de7-a4c4-44be8d7a62c5" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/img/example_femaths_1.PNG" afterPath="$PROJECT_DIR$/example_femaths_1.PNG" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/img/example_femaths_2.PNG" afterPath="$PROJECT_DIR$/example_femaths_2.PNG" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.rst" afterPath="$PROJECT_DIR$/README.rst" />
     </list>
     <ignored path="GIT_KFE.iws" />
@@ -67,8 +69,8 @@
       <file leaf-file-name="README.rst" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.rst">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -360,8 +362,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\WorkingDirectory_Spyder\GIT_KFE\img" />
       <recent name="C:\WorkingDirectory_Spyder\GIT_KFE" />
+      <recent name="C:\WorkingDirectory_Spyder\GIT_KFE\img" />
       <recent name="C:\WorkingDirectory_Spyder\GIT_KFE\fephysics\libraryElements" />
       <recent name="C:\WorkingDirectory_Spyder\GIT_KFE\fephysics" />
       <recent name="C:\WorkingDirectory_Spyder\GIT_KFE\femaths" />
@@ -1225,8 +1227,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.rst">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
