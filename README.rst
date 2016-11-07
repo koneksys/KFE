@@ -21,7 +21,7 @@ Or automatically numbered:
 
 
 
-.. image:: example_femaths_1.PNG
+.. image:: img/example_femaths_1.PNG
 
 
 
