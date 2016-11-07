@@ -122,9 +122,9 @@ def main():
     facedim4 = Meshobjecttype.edge
     dofnumber4 = 1
     funcreq4 = Funreq(doftype4, facedim4, dofnumber4)
-    funreqlist1 = [funcreq1, funcreq3]
+    funreqlist1 = [funcreq1, funcreq2, funcreq3, funcreq4]
     linemesh.applyfunreq(funreqlist1)
-    polyhermitte_x = Monomials(1, 2, ['x'])
+    polyhermitte_x = Monomials(1, 5, ['x'])
     femathline = Femath(polyhermitte_x, linemesh)
 
 

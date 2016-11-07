@@ -3,8 +3,11 @@
 The tensor rank N has a very simple meaning. It is simply
 the number of directions involved in measuring the property."""
 
+from enum import Enum
+
 
 class Tensor(Enum):
+    pass
 
 
 
@@ -21,40 +24,6 @@ class Physics(Enum):
 
 class Configurationvar(Enum):
     displacement = 1
-
-
-
-
-
-class
-    energy
-    work
-    power
-    impulse
-    velocity
-    force
-    force
-    flux (magnetic, electric, vortex)
-
-    associated with intervals (flow,current, current density)
-    associated with instants (flux, flux density)
-    irrotational soleniodal vector field
-
-
-
-    Material and spatial description
-
-    Physical quantities
-    constants
-    parameters
-    variables
-    
-
-    Physical parameters
-
-
-
-
 
 
 

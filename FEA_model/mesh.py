@@ -32,31 +32,28 @@ class Topodimension(Enum):
 class BCNeumann:
     def __init__(self, dimension, Topodim, mathtype):
         if mathtype == Mathvartype.scalar:
-            self.ListNeumann = [['NIST_NBC_1','NIST_NBC_2'],[1,0]]
+            self.ListNeumann = [['NIST_NBC_1'],[1]]
 
         elif mathtype == Mathvartype.vector:
             if dimension == Geodimension.Geodim1:
-                self.ListNeumann = [['NIST_NBC_1', 'NIST_NBC_2'], [1, 0]]
+                self.ListNeumann = [['NIST_NBC_1'], [1]]
             elif (dimension == Geodimension.Geodim2) & (Topodimension.Topodim1 == Topodim):
-                self.ListNeumann = [['NIST_NBC_1','NIST_NBC_2','NIST_NBC_3','NIST_NBC_4'], [1,0]]
-                A = list(product((0, 1), repeat=Geodimension.Geodim2.value))
-                B=[]
-                C= ['Fx','Fy','Fx-Fy','planar']
-
-                for i in range(0,len(A),1):
-                    B.append('NIST_NBC_'+str(i))
-                    self.ListNeumann = [C,B,A]
+                self.ListNeumann = [['NIST_NBC_1','NIST_NBC_2'],['Fx','Fy'], [[1,0],[0,1]]]
 
     def createBC(self,label,value,BCnodeindexlist):
-        nblanguages=len(self.ListBCDirichlet)-1
-        for i in self.ListBCDirichlet:
+        nblanguages=len(self.ListNeumann)-1
+        for i in self.ListNeumann:
             for j in i:
                 if j ==label:
-                    return Boundary(label,self.ListBCDirichlet[nblanguages][i.index(j)],BCnodeindexlist)
+                    k = self.ListNeumann[nblanguages][i.index(j)]
+                    l=range(len(k))
+                    for m in k:
+                        l[m]=value*m
+                    return Boundary(label,BCnodeindexlist,l)
 
 
 class Boundary:
-    def __init__(self,label,values,nodeindexes):
+    def __init__(self,label,nodeindexes,values):
         self.label=label
         self.nodeindexes=nodeindexes
         self.values=values
@@ -91,26 +88,10 @@ class BCDirichlet:
         for i in self.ListBCDirichlet:
             for j in i:
                 if j ==label:
-                    return Boundary(label,self.ListBCDirichlet[nblanguages][i.index(j)],BCnodeindexlist)
+                    return Boundary(label,BCnodeindexlist,self.ListBCDirichlet[nblanguages][i.index(j)])
 
 
 
-
-class NeumannBC:
-    def __init__(self,dimension,mathtype,label,BCnodeindexlist):
-
-
-        #search for the index of the label to assign the right condition to the node
-        sizelist=len(self.ListBCDirichlet)
-        k=0
-        for i in range(0,sizelist,1):
-            for element in self.ListBCDirichlet[i]:
-                if element==label:
-                    matchindex=self.ListBCDirichlet[i].index(label)
-        #find the size of the list and then use the last "internal list" and use index to find the right condition
-
-        self.DBCvalue=self.ListBCDirichlet[sizelist-1][matchindex]
-        self.DBC=[label,self.DBCvalue,BCnodeindexlist]
 
 
 #an input is characterized by its variable/mathtype/functional
@@ -195,6 +176,8 @@ def main():
     dimension=Geodimension.Geodim2
     #the mathtype of the physics variable is set
     displacement=Mathvartype.vector
+    force=Mathvartype.vector
+    linedimension=Topodimension.Topodim1
 
     nl_1=Nodelist(coordinatelist)
     el_2=Edgelist(edge2nodelist)
@@ -202,11 +185,10 @@ def main():
     propel2=ElementProperty(12,40)
     BCD=BCDirichlet(dimension,displacement)
     a=BCD.createBC('roller',[2,4])
-    BCD2=BCDirichlet(dimension,displacement)
     b=BCD.createBC('pin',0)
-    bmodel=model(1,2,3)
-    c=bmodel.funmodel
-    a=2
+    NBC=BCNeumann(dimension,linedimension,force)
+    d=NBC.createBC('Fy',-10000,1)
+    breakvalue=4
 
 
 if __name__ == "__main__":

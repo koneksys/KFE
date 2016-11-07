@@ -115,7 +115,7 @@ class Fevar:
             self.stiffnessmatrix = stiffnessmatrix
 
     def settomodelspace(self, fegeo):
-
+        # lsddkls
         dimension = fegeo.dimension
         self.coordinates=fegeo.coord
         #define the freevariable representing the degrees of freedom of the physical system in the modelling space
@@ -192,6 +192,8 @@ class Fevar:
         pickle.dump([modelstiffnessmatrix, fegeo], open("libraryElement"+
                                               str(random.choice('abcdefghij'))
                                               + str(random.randint(1, 10))+".p", "wb" ),protocol=2)
+
+        return modelstiffnessmatrix
         #f3 = lambdify([x0,x1,y0,y1], b2l, "numpy")
         #self.mappingfun = lambdify([x0,x1,y0,y1],self.modelstiffnessmatrix, "numpy")
 
@@ -263,8 +265,13 @@ def main():
     fegeo1D = Fegeo(femathlinelinear, 1, coordsystem)
     model2Dstiffness = fevar.settomodelspace(fegeo2D)
     mappingfun2 = mappingfun(model2Dstiffness)
-    A=mappingfun2(1,2,4,5)
 
+    from sympy import init_printing
+    init_printing()
+    print simplify(model2Dstiffness)
+
+    A=mappingfun2(1,2,4,5)
+    print A
     elasticityvar = [force, surface, stress, directionofchange, referenceline, strain, bodyload, Elasticityconstant]
     a=2
 

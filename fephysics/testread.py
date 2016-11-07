@@ -11,7 +11,7 @@ from fephysics.stiffnessmatrix import*
 
 def main():
 
-    test = pickle.load(open("libraryElemente8.p", "rb" ))
+    test = pickle.load(open("libraryElementc1.p", "rb" ))
     a=2
 
 if __name__ == "__main__":

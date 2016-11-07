@@ -186,9 +186,9 @@ class Femesh:
                     nbdof = nbdof + self.listnumface[2]*reqlist[i].dofnumber
             if reqlist[i].info[0] == Doftype.firstderivative:
                 if reqlist[i].info[1]== Meshobjecttype.vertice:
-                    nbdof= nbdof + self.listnumface[0]*(len(self.listnumface)-1)
+                    nbdof= nbdof + self.listnumface[0]*reqlist[i].dofnumber
                 elif reqlist[i].info[1]== Meshobjecttype.edge:
-                    nbdof = nbdof + self.listnumface[1]*reqlist[i].dofnumber*(len(self.listnumface)-1)
+                    nbdof = nbdof + self.listnumface[1]*reqlist[i].dofnumber
                 elif reqlist[i].info[1] == Meshobjecttype.face:
                     nbdof = nbdof + self.listnumface[2]*reqlist[i].dofnumber*(len(self.listnumface)-1)
 

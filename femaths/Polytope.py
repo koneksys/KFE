@@ -116,7 +116,6 @@ class Polytope:
             self.facelist[0].append(self.listnumface[2])
             self.facelist[1].append(range(0,self.listnumface[1], 2))
 
-
         if polytopetype == Polytopetype.polyhedron and polyhedrontype == Polyhedrontype.prism:
             self.listnumface = [1, 2 + polygontype.value,
                                 3 * polygontype.value, 2 * polygontype.value]
