@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca14c933-2cb7-4de7-a4c4-44be8d7a62c5" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/img/example_femaths_1.PNG" afterPath="$PROJECT_DIR$/img/examples_femaths_1.PNG" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/img/example_femaths_2.PNG" afterPath="$PROJECT_DIR$/img/examples_femaths_2.PNG" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/build/.doctrees/environment.pickle" afterPath="$PROJECT_DIR$/documentation/build/.doctrees/environment.pickle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/build/.doctrees/index.doctree" afterPath="$PROJECT_DIR$/documentation/build/.doctrees/index.doctree" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.rst" afterPath="$PROJECT_DIR$/README.rst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/build/_sources/index.txt" afterPath="$PROJECT_DIR$/documentation/build/_sources/index.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/build/index.html" afterPath="$PROJECT_DIR$/documentation/build/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/build/searchindex.js" afterPath="$PROJECT_DIR$/documentation/build/searchindex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/source/index.rst" afterPath="$PROJECT_DIR$/documentation/source/index.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE.rst" afterPath="$PROJECT_DIR$/LICENSE.rst" />
     </list>
     <ignored path="GIT_KFE.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,17 +90,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LICENSE.rst" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LICENSE.rst" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LICENSE.rst">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+            <state relative-caret-position="272">
+              <caret line="16" column="304" selection-start-line="16" selection-start-column="304" selection-end-line="16" selection-end-column="304" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.rst" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.rst" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.rst">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="286">
@@ -200,7 +191,6 @@
         <option value="$PROJECT_DIR$/fephysics/tonti.py" />
         <option value="$PROJECT_DIR$/documentation/source/conf.py" />
         <option value="$PROJECT_DIR$/README" />
-        <option value="$PROJECT_DIR$/LICENSE.rst" />
         <option value="$PROJECT_DIR$/femaths/femath.py" />
         <option value="$PROJECT_DIR$/femaths/__init__.py" />
         <option value="$PROJECT_DIR$/femaths/femesh.py" />
@@ -220,6 +210,7 @@
         <option value="$PROJECT_DIR$/femaths/test/ShapeFunction_1D_2D_FEM.py" />
         <option value="$PROJECT_DIR$/documentation/source/index.rst" />
         <option value="$PROJECT_DIR$/README.rst" />
+        <option value="$PROJECT_DIR$/LICENSE.rst" />
       </list>
     </option>
   </component>
@@ -1274,14 +1265,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LICENSE.rst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/documentation/source/index.rst">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1294,6 +1277,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="304" selection-start-line="16" selection-start-column="304" selection-end-line="16" selection-end-column="304" />
           <folding />
         </state>
       </provider>
