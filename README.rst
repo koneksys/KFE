@@ -3,7 +3,7 @@ KFE is a library generating symbolic finite elements following a specification p
 
 NAFEMS americas conference in June 2016 (https://www.nafems.org/2016/americas/agenda/) .
 
-.. doc:: NAFEMS_presentation.pdf
+NAFEMS presentation <NAFEMS_presentation.pdf>
 
 Examples of finite elements described by the specification are presented in the table below.
 
